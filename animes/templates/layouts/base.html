@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Página de Anime{% endblock %}</title>
+    <!-- Agrega tus estilos CSS y enlaces a hojas de estilo aquí -->
+</head>
+<body>
+    {% include 'components/header.html' %}
+    
+    <div class="content">
+        {% block content %}
+        <!-- Contenido específico de cada página irá aquí -->
+        {% endblock %}
+    </div>
+    
+    <footer class="footer">
+        <!-- Pie de página aquí -->
+    </footer>
+</body>
+</html>

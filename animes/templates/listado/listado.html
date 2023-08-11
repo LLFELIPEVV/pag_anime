@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado</title>
+</head>
+<body>
+    <h1>Directorio de Animes</h1>
+    
+    {% include 'components/cuadricula.html' %}
+    
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="{% url 'listado_pagina' page_obj.previous_page_number %}">&laquo; Anterior</a>
+            {% endif %}
+        
+            {% if page_obj.has_next %}
+                <a href="{% url 'listado_pagina' page_obj.next_page_number %}">Siguiente &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</body>
+</html>

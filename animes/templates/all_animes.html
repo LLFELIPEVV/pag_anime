@@ -1,0 +1,23 @@
+<!-- all_animes.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todos los Animes</title>
+</head>
+<body>
+    <h1>Todos los Animes</h1>
+    <ul>
+        {% for anime in animes %}
+            <li>
+                <h2>{{ anime.title }}</h2>
+                <img src="{{ anime.poster }}" alt="{{ anime.title }}">
+                <p>{{ anime.synopsis }}</p>
+                <p>Rating: {{ anime.rating }}</p>
+                <a href="{{ anime.id }}">Más información</a>
+                <p>{{ anime.genres }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
