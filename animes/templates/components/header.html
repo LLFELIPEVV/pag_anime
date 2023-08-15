@@ -1,18 +1,29 @@
-<header class="top-bar">
-    <div class="logo">
-        <img src="" alt="Logo de Anime">
-    </div>
-    <nav class="navigation">
-        <ul>
-            <li><a href="{% url 'index' %}">Inicio</a></li>
-            <li><a href="{% url 'listado' %}">Directorio</a></li>
-        </ul>
-        <button class="login-button">INGRESAR</button>
-    </nav>
-    <div class="search-bar">
-        <form action="#" method="get">
-            <input type="text" name="query" placeholder="Buscar anime...">
-            <button type="submit">Buscar</button>
-        </form>
+<header class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container container-header">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa-solid fa-bars" style="color: #000000;"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+            <img src="static/images/1.jpg" alt="Logo de Anime" class="logo-img img-fluid logo">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav text-header">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'listado' %}">Directorio</a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex align-items-center navbar-search">
+            <form class="d-flex">
+                <input class="form-control me-2 busqueda" type="search" placeholder="Buscar anime..." aria-label="Search">
+                <button class="btn btn-outline-success busqueda" type="submit">Buscar</button>
+                <button class="busqueda-menor btn btn-success"><span class="fa-solid fa-magnifying-glass busqueda-menor"></span></button>
+            </form>
+            <button class="btn btn-primary ms-3 btn-login">INICIAR SESIÓN</button>
+            <button class="btn btn-primary ms-3 btn-login-2"><span class="fa-solid fa-circle-user"></span></button>
+        </div>
     </div>
 </header>

@@ -1,0 +1,84 @@
+.logo {
+    width: 100px;
+    height: auto;
+    margin-left: 8%;
+}
+
+.container-header {
+    min-width: 100%;
+    height: auto;
+}
+
+.text-header {
+    margin-left: 5%;
+}
+
+.text-header li a {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 10%;
+}
+
+.busqueda-menor {
+    display: none;
+}
+
+.btn-login {
+    display: inline-block;
+}
+
+.btn-login-2 {
+    display: none;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    /* Agrega aquí tus estilos para celulares */
+    .navbar-toggler {
+        order: 1;
+    }
+    
+    .navbar-brand {
+        order: 2;
+    }
+
+    .navbar-collapse {
+        order: 4;
+    }
+
+    .navbar-search {
+        order: 3;
+    }
+    
+    .busqueda {
+        display: none;
+    }
+
+    .busqueda-menor {
+        display: inline-block;
+    }
+
+    .btn-login {
+        display: none;
+    }
+
+    .btn-login-2 {
+        display: inline-block;
+    }
+
+}
+
+/* Estilos para tabletas */
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* Agrega aquí tus estilos para tabletas */
+}
+
+/* Estilos para computadoras */
+@media (min-width: 1024px) and (max-width: 1919px) {
+    /* Agrega aquí tus estilos para computadoras */
+}
+
+/* Estilos para televisores */
+@media (min-width: 1920px) {
+    /* Agrega aquí tus estilos para televisores */
+}
