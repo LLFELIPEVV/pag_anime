@@ -1,3 +1,10 @@
+header {
+    border-bottom: 1px solid #000000;
+    position: fixed;
+    transition: top 0.3s;
+    z-index: 1000;
+}
+
 .navbar {
     padding: 0px;
 }
