@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="static/styles/menu_lateral.css">
     <link rel="stylesheet" href="static/styles/header.css">
     <link rel="stylesheet" href="static/styles/styles.css">
+    <link rel="stylesheet" href="static/styles/login.css">
+    <link rel="stylesheet" href="static/styles/slider.css">
 </head>
 <body>
     {% include 'components/header.html' %}
@@ -18,7 +20,13 @@
     <div class="content">
 
         {% include 'components/menu_lateral.html' %}
+
+        {% include 'components/login.html' %}
+
         <div class="page-content">
+
+            {% include 'components/slider_primario.html' %}
+
             {% block content %}
             <!-- Contenido específico de cada página irá aquí -->
             {% endblock %}
@@ -28,5 +36,6 @@
     {% include 'components/footer.html' %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="static/js/btn_busqueda.js"></script>
+    <script src="static/js/btn_login.js"></script>
 </body>
 </html>

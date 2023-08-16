@@ -12,6 +12,11 @@
     --color-button-text: #fff;
 }
 
+body {
+    height: 100%;
+    width: 100%;
+}
+
 header div{
     margin: 0;
 }
@@ -30,9 +35,15 @@ header div .navbar-directori ul li a {
 
 .page-content {
     flex-grow: 1;
-    padding: 20px;
+    padding: 0px;
+    width: 100%;
+    position: absolute;
 }
 
 .menu_lateral {
-    background-color: var(--color-cuartenary) !important;
+    position: absolute;
+    background-color: var(--color-primary) !important;
+    border-right: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    z-index: 99999;
 }

@@ -1,0 +1,39 @@
+#loginCard {
+    position: absolute;
+    top: 14%; /* Coloca el card en la mitad vertical */
+    right: 0; /* Coloca el card al lado derecho */
+    transform: translateY(0%); /* Centra verticalmente el card */
+    z-index: 9999; /* Coloca el card por encima de todo */
+}
+
+.container-login {
+    z-index: 9999;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    #loginCard {
+        top: 10%;
+    }
+}
+
+/* Estilos para tabletas */
+@media (min-width: 768px) and (max-width: 1023px) {
+    #loginCard {
+        top: 7.3%;
+    }
+}
+
+/* Estilos para computadoras */
+@media (min-width: 1024px) and (max-width: 1919px) {
+    #loginCard {
+        top: 9.7%;
+    }
+}
+
+/* Estilos para televisores */
+@media (min-width: 1920px) {
+    #loginCard {
+        top: 10%;
+    }
+}
