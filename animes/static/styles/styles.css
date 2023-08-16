@@ -1,0 +1,38 @@
+:root {
+    --color-background: #f5f5f5;
+    --color-primary: #591778;      /* Morado suave */
+    --color-secondary: #0C0D11;    /* Gris oscuro */
+    --color-tertiary: #40423C;     /* Amarillo vibrante */
+    --color-cuartenary: #9F3BC0;
+    --color-quint: #757470;
+    --color-text: #333;
+    --color-text-morado: #ffffff;
+    --color-link: var(--color-primary);
+    --color-button-bg: var(--color-primary);
+    --color-button-text: #fff;
+}
+
+header div{
+    margin: 0;
+}
+
+header div .navbar-directori ul li a {
+    color: var(--color-text-morado);
+}
+
+.container-header {
+    background-color: var(--color-primary);
+}
+
+.content {
+    display: flex;
+}
+
+.page-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.menu_lateral {
+    background-color: var(--color-cuartenary) !important;
+}

@@ -1,0 +1,56 @@
+.menu_lateral {
+    display: none;
+    font-size: 0.9em;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 10%;
+}
+
+.navbar-collapse {
+    padding: 0%;
+    margin: 0px 20px;
+}
+
+.menu_lateral div ul li {
+    padding: 10% 0;
+}
+
+.nav-link {
+    font-weight: bold;
+}
+
+.nav-item button {
+    width: 100%;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    .menu_lateral {
+        height: auto; /* Establece la altura en el 100% del alto de la ventana */
+        display: flex;
+        flex-direction: column;
+        width: max-content;
+    }
+}
+
+/* Estilos para tabletas */
+@media (min-width: 768px) and (max-width: 991px) {
+    /* Agrega aquí tus estilos para tabletas */
+    .menu_lateral {
+        height: auto; /* Establece la altura en el 100% del alto de la ventana */
+        display: flex;
+        flex-direction: column;
+        width: max-content;
+    }
+}
+
+/* Estilos para computadoras */
+@media (min-width: 992px) and (max-width: 1919px) {
+    /* Agrega aquí tus estilos para computadoras */
+}
+
+/* Estilos para televisores */
+@media (min-width: 1920px) {
+    /* Agrega aquí tus estilos para televisores */
+}

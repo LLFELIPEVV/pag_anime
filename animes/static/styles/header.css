@@ -1,7 +1,20 @@
+.navbar {
+    padding: 0px;
+}
+
 .logo {
-    width: 100px;
+    width: 100%;
     height: auto;
-    margin-left: 8%;
+    margin-left: 0.1%;
+    border-radius: 40%;
+    padding: 5% 0%;
+    padding-left: 1%;
+}
+
+.navbar-brand {
+    width: 6%;
+    padding: 0;
+    margin: 0;
 }
 
 .container-header {
@@ -10,7 +23,7 @@
 }
 
 .text-header {
-    margin-left: 5%;
+    margin-left: 10%;
 }
 
 .text-header li a {
@@ -31,6 +44,11 @@
     display: none;
 }
 
+.nav-link {
+    width: max-content;
+}
+
+
 /* Estilos para dispositivos móviles */
 @media (max-width: 767px) {
     /* Agrega aquí tus estilos para celulares */
@@ -40,6 +58,11 @@
     
     .navbar-brand {
         order: 2;
+        width: 15%;
+    }
+
+    .logo {
+        width: 100%;
     }
 
     .navbar-collapse {
@@ -71,14 +94,23 @@
 /* Estilos para tabletas */
 @media (min-width: 768px) and (max-width: 1023px) {
     /* Agrega aquí tus estilos para tabletas */
+    .busqueda-2 {
+        display: none;
+    }
 }
 
 /* Estilos para computadoras */
 @media (min-width: 1024px) and (max-width: 1919px) {
     /* Agrega aquí tus estilos para computadoras */
+    .busqueda-2 {
+        display: none;
+    }
 }
 
 /* Estilos para televisores */
 @media (min-width: 1920px) {
     /* Agrega aquí tus estilos para televisores */
+    .busqueda-2 {
+        display: none;
+    }
 }
