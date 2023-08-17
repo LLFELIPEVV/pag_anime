@@ -59,6 +59,10 @@ header {
 /* Estilos para dispositivos móviles */
 @media (max-width: 767px) {
     /* Agrega aquí tus estilos para celulares */
+    .container-header {
+        padding: 0;
+    }
+
     .navbar-toggler {
         order: 1;
     }
@@ -77,15 +81,20 @@ header {
     }
 
     .navbar-search {
-        order: 3;
+        order: 2;
     }
-    
+
     .busqueda {
         display: none;
+        width: 13vw;
+        padding: 0;
     }
 
     .busqueda-menor {
         display: inline-block;
+        width: 10vw;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .btn-login {
@@ -94,8 +103,26 @@ header {
 
     .btn-login-2 {
         display: inline-block;
+        margin-left: 0 !important;
     }
 
+    .navbar-search * {
+        font-size: 10px !important;
+        right: 0 !important;
+    }
+
+    #inputBusqueda {
+        width: 37vw !important;
+        margin-right: 0 !important;
+    }
+
+    header {
+        align-items: end;
+    }
+
+    .navbar-search form {
+        max-width: min-content;
+    }
 }
 
 /* Estilos para tabletas */
@@ -104,6 +131,15 @@ header {
     .busqueda-2 {
         display: none;
     }
+
+    .navbar-search * {
+        font-size: 12px !important;
+    }
+
+    .btn-login {
+        margin: 1vw !important;
+    }
+
 }
 
 /* Estilos para computadoras */
@@ -112,6 +148,19 @@ header {
     .busqueda-2 {
         display: none;
     }
+
+    .navbar-search * {
+        font-size: 1vw !important;
+    }
+
+    .navbar-directori *{
+        font-size: 1.2vw !important;
+    }
+
+    .logo {
+        width: 5vw;
+    }
+
 }
 
 /* Estilos para televisores */
@@ -120,4 +169,13 @@ header {
     .busqueda-2 {
         display: none;
     }
+
+    .navbar-search * {
+        font-size: 1.3vw !important;
+    }
+
+    .navbar-directori *{
+        font-size: 1.8vw !important;
+    }
+
 }

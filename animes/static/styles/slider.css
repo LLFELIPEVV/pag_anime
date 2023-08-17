@@ -4,3 +4,127 @@
     transition: top 0.3s;
     z-index: 1000;
 }
+
+.carousel-control-next, .carousel-control-prev {
+    width: 3% !important;
+}
+
+.carousel-indicators {
+    z-index: 9999 !important;
+    color: #000000;
+    list-style: none;
+}
+
+.carousel-indicators li {
+    color: #000;
+}
+
+.d-block {
+    filter: brightness(0.5);
+}
+
+#slider h5, h6 {
+    margin: 0; /* Elimina el margen por defecto */
+    font-weight: bold; /* Aplica negrita al texto */
+    overflow: hidden; /* Oculta el contenido que excede */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos (...) si el texto se corta */
+    white-space: nowrap; /* Evita que el texto se divida en múltiples líneas */
+}
+
+/* Estilos específicos para h5 (título del anime) */
+#slider h5 {
+    color: white; /* Color de texto blanco */
+    text-align: left;
+    font-family: 'Playfair Display', serif !important;
+}
+
+/* Estilos específicos para h6 (sinopsis) */
+#slider h6 {
+    color: rgba(255, 255, 255, 0.8); /* Color de texto blanco con transparencia */
+    margin-top: 5px; /* Pequeño margen superior para separación */
+    margin-bottom: 1.3%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    .carousel-indicators {
+        margin: 0;
+    }
+
+    #slider h5 {
+        font-size: 15px;
+    }
+
+    #slider h6{
+        font-size: 10px;  /*Tamaño de fuente más pequeño para dispositivos móviles */
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+/* Estilos para tabletas */
+@media (min-width: 768px) and (max-width: 1023px) {
+    #slider h5 {
+        font-size: 30px;
+    }
+
+    #slider h6{
+        font-size: 15px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-bottom: 3%;
+    }
+}
+
+/* Estilos para computadoras */
+@media (min-width: 1024px) and (max-width: 1919px) {
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: #0d0a0e !important;
+        height: 20%;
+        width: 70%;
+    }
+
+    #slider h5 {
+        font-size: 40px;
+    }
+
+    #slider h6{
+        font-size: 20px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+/* Estilos para televisores */
+@media (min-width: 1920px) {
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: #0d0a0e !important;
+        height: 30%;
+        width: 70%;
+    }
+
+    .carousel-control-next, .carousel-control-prev {
+        width: 5% !important;
+    }
+
+    #slider h5 {
+        font-size: 100px;
+    }
+
+    #slider h6{
+        font-size: 40px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
