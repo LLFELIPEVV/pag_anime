@@ -16,7 +16,6 @@ class Command(BaseCommand):
         logging.basicConfig(filename='animes_import.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
         
         api = AnimeFLV()
-        
         animes_404 = []
         
         with open('lista_id.json') as json_file:

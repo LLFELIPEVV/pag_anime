@@ -1,0 +1,10 @@
+<div class="container mt-5">
+    <!-- Include the AnimeGrid component here -->
+    <div class="row">
+        <h3>Animes mas Recientes</h3>
+        <!-- Loop to generate 24 AnimeCard components -->
+        {% for anime in last %}
+            {% include 'components/anime_card.html' %}
+        {% endfor %}
+    </div>
+</div>

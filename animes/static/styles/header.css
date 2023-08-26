@@ -5,6 +5,10 @@ header {
     z-index: 1000;
 }
 
+header ul.listado-anime li a {
+    padding-right: 1.2vw !important;
+}
+
 .navbar {
     padding: 0px;
 }
@@ -87,7 +91,7 @@ header {
     .busqueda {
         display: none;
         width: 13vw;
-        padding: 0;
+        padding: 0 ;
     }
 
     .busqueda-menor {
@@ -161,6 +165,11 @@ header {
         width: 5vw;
     }
 
+    #busqueda {
+        width: min-content;
+        padding-right: 2vw !important;
+        padding-left: 1vw !important;
+    }
 }
 
 /* Estilos para televisores */

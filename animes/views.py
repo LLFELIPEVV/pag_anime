@@ -3,7 +3,7 @@ import json
 from animeflv import AnimeFLV
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage
-from .models import Anime
+from .models import Anime, Episodios
 
 # Create your views here.
 
@@ -55,5 +55,31 @@ def listado(request, page=1):
     return render(request, 'listado/listado.html', {'page_obj': page_obj})
 
 def index(request):
+    with open('lista_episodes.json') as json_file:
+        episodes_data = json.load(json_file)
+
+        episodes_dict = []
+        
+        for anime_id, anime_info in episodes_data.items():
+            episode_number = anime_info['id_episode']
+            imagen = str(anime_info['imagen'])
+            titulo = Anime.objects.get(id=anime_id).titulo
+            numero = int(episode_number)
+            episodes_dict.append({'titulo': titulo, 'poster': imagen, 'numero': numero})
     
-    return render(request, 'inicio/index.html')
+    with open('lista_last_animes.json') as json_file:
+        last_data = json.load(json_file)
+        
+        last_dict = []
+        
+        for anime_id, anime_info in last_data.items():
+            poster = f'{Anime.objects.get(id=anime_id).poster_url}'
+            title = Anime.objects.get(id=anime_id).titulo
+            type = Anime.objects.get(id=anime_id).tipo
+            last_dict.append({'title': title, 'type': type, 'poster': poster})
+    
+    context = {'episodes': episodes_dict, 'last': last_dict}  # Combine both dictionaries
+    
+    return render(request, 'inicio/index.html', context)
+
+

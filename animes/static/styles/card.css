@@ -1,0 +1,114 @@
+.anime-card {
+    width: min-content;
+    overflow: hidden;
+    position: relative;
+}
+
+.anime-card div.overlay p{
+    font-size: 11px;
+    text-align: center;
+    margin: 0;
+    margin-left: 3%;
+    border-radius: 20%;
+    background-color: blueviolet;
+    width: 20%;
+}
+
+.anime-card div.overlay h5 {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.anime-image {
+    width: 198px;
+    height: 138px;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.anime-list {
+    max-width: 100%;
+}
+
+.anime-list div.row div.col-md-3 {
+    width: 198px;
+    padding: 0 0.1vw !important;
+}
+
+.anime-list div.row div.col-md-3 .anime-card img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.anime-list div.row div.col-md-3 .anime-card img:hover {
+    transform: scale(1.3);
+}
+
+.anime-list div.row div {
+    padding: 0 !important;
+    
+}
+
+.anime-list h3 {
+    padding-left: 0;
+}
+
+
+div.row div.col-md-2 {
+    width: 25vw;
+    margin-right: 0vw;
+    margin-left: 2vw;
+}
+
+div.row div.col-md-8 {
+    padding-left: 0 !important;
+    width: min-content;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+
+}
+
+/* Estilos para tabletas */
+@media (min-width: 768px) and (max-width: 1023px) {    
+    div.row div.col-md-2 {
+        margin-right: 14vw;
+        margin-left: 1vw;
+    }
+
+    div.row div.col-md-8 {
+        padding-left: 0 !important;
+        width: min-content;
+    }
+
+    div.row {
+        flex: 0 0 33.33% !important; /* Cambiar el valor para ajustar el número de columnas */
+    }
+
+    .anime-list div.row div.col-md-3 {
+        width: 198px !important;
+    }
+}
+
+/* Estilos para computadoras */
+@media (min-width: 1024px) and (max-width: 1919px) {
+    .anime-list div.row div.col-md-3 {
+        width: 198px;
+        margin-left: 1vw;
+    }
+}
+
+/* Estilos para televisores */
+@media (min-width: 1920px) {
+
+}

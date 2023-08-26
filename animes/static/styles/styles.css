@@ -12,9 +12,24 @@
     --color-button-text: #fff;
 }
 
+html *{
+    overflow-x: hidden;
+}
+
 body {
-    height: 100%;
-    width: 100%;
+    width: 100vw;
+    min-height: auto;
+    min-height: max-content;
+    overflow-x: hidden;
+    /* Oculta la barra de desplazamiento vertical */
+    scrollbar-width: none; /* Para navegadores basados en Firefox */
+    -ms-overflow-style: none; /* Para navegadores basados en Internet Explorer y Edge */
+    overflow: -moz-scrollbars-none; /* Para navegadores basados en Firefox */
+}
+
+body::-webkit-scrollbar {
+    width: 0; /* Ancho cero para navegadores basados en WebKit (Chrome, Safari) */
+    height: 0; /* Altura cero para navegadores basados en WebKit (Chrome, Safari) */
 }
 
 header div{
@@ -31,6 +46,8 @@ header div .navbar-directori ul li a {
 
 .content {
     display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Mínimo 100% del viewport height */
 }
 
 .page-content {

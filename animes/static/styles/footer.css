@@ -1,0 +1,122 @@
+/* Agrega esta regla para hacer que el footer se pegue al final */
+.body-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1; /* Este div crecerá para ocupar el espacio restante */
+    padding-bottom: 60px; /* Altura del footer */
+}
+
+.footer {
+    flex-shrink: 0; /* El footer no se encogerá, mantendrá su altura */
+    width: 100%;
+    padding: 1vh 0;
+    background-color: #161616;
+    color: #ffffff;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Estilos generales para el footer */
+.footer h5 {
+    border-bottom: 1px solid #000000;
+}
+
+.footer p {
+    margin-bottom: 0.2rem;
+}
+
+.footer a {
+    color: #ffffff;
+}
+
+.footer a:hover {
+    color: var(--color-primary);
+}
+
+.footer ul {
+    margin-bottom: 0;
+    height: min-content;
+}
+
+.footer ul li {
+    padding-right: 12%;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    footer h5 {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    footer p,
+    footer a {
+        font-size: 10px;
+    }
+
+    footer ul li {
+        padding-right: 12%;
+    }
+}
+
+/* Estilos para tabletas y computadoras */
+@media (min-width: 768px) and (max-width: 1919px) {
+    footer {
+        padding-top: 2vh;
+        padding-bottom: 2vh !important;
+    }
+
+    footer div.col-md-6 {
+        border: 2px solid #000000;
+        border-radius: 15% 0%;
+        background-color: #161616;
+    }
+
+    footer h5 {
+        font-size: 15px;
+        font-weight: bold;
+        border-bottom: 1px solid #000000;
+    }
+
+    footer p,
+    footer a {
+        font-size: 11px;
+    }
+
+    footer ul li {
+        padding-right: 12%;
+    }
+}
+
+/* Estilos para televisores */
+@media (min-width: 1920px) {
+    footer {
+        padding-top: 2vh;
+        padding-bottom: 2vh !important;
+    }
+
+    footer div.col-md-6 {
+        border: 2px solid #000000;
+        border-radius: 15% 0%;
+        background-color: #161616;
+    }
+
+    footer h5 {
+        font-size: 25px;
+        font-weight: bold;
+        border-bottom: 1px solid #000000;
+    }
+
+    footer p,
+    footer a {
+        font-size: 21px;
+    }
+
+    footer ul li {
+        padding-right: 12%;
+    }
+}

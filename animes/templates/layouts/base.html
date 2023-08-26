@@ -16,29 +16,51 @@
     <link rel="stylesheet" href="static/styles/styles.css">
     <link rel="stylesheet" href="static/styles/login.css">
     <link rel="stylesheet" href="static/styles/slider.css">
+    <link rel="stylesheet" href="static/styles/footer.css">
+    <link rel="stylesheet" href="static/styles/animes_emision.css">
+    <link rel="stylesheet" href="static/styles/card.css">
+    <link rel="stylesheet" href="static/styles/last_episodes.css">
+    <link rel="stylesheet" href="static/styles/last_animes.css">
 </head>
-<body>
-    {% include 'components/header.html' %}
+<body class="d-flex flex-column">
+    <div class="body-wrapper">
+        {% include 'components/header.html' %}
 
-    <div class="content">
+        <main class="content">
+            {% include 'components/menu_lateral.html' %}
+            {% include 'components/login.html' %}
 
-        {% include 'components/menu_lateral.html' %}
-
-        {% include 'components/login.html' %}
-
-        <div class="page-content">
-
-            {% include 'components/slider_primario.html' %}
-
-            {% block content %}
-            <!-- Contenido específico de cada página irá aquí -->
-            {% endblock %}
-        </div>
+            <div class="page-content">
+                {% include 'components/slider_primario.html' %}
+                
+                <div class="row row-main">
+                    <div class="col-md-2">
+                        <div class="container-emision">
+                            {% include 'components/animes_emision.html' %}
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="last-anime">
+                            {% include 'components/list_last_episodes.html' %}
+                        </div>
+                    </div>
+                    <div class="lastest-animes">
+                        {% include 'components/list_last_animes.html' %}
+                    </div>
+                </div>
+                
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
     </div>
-    
-    {% include 'components/footer.html' %}
+
+    <footer class="footer bg-dark text-light">
+        {% include 'components/footer.html' %}
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="static/js/btn_busqueda.js"></script>
     <script src="static/js/btn_login.js"></script>
+    <script src="static/js/down_footer.js"></script>
 </body>
 </html>

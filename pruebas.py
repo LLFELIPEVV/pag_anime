@@ -3,7 +3,9 @@ from animeflv import AnimeFLV
 api = AnimeFLV()
 
 #print(api.list(49))
-print(api.get_anime_info('009-recyborg-2012'))
+anime_list = api.get_latest_animes()
+print(anime_list[0])
+print(anime_list[0].id)
 #print(api.get_anime_info('nanatsu-no-taizai'))
 #print(api.get_anime_info('akibas-trip-the-animation'))
 #print(api.get_anime_info('pokemon-sun-moon'))

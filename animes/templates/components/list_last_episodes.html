@@ -1,8 +1,8 @@
 <div class="anime-list">
-    {% for anime in page_obj %}
-        <div class="anime">
-            <img src="{{ anime.poster_url }}" alt="{{ anime.titulo }}">
-            <h2>{{ anime.titulo }}</h2>
-        </div>
-    {% endfor %}
+    <div class="row">
+        <h3>Ultimos Episodios</h3>
+        {% for anime in episodes %}
+            {% include 'components/episode_card.html' %}
+        {% endfor %}
+    </div>
 </div>

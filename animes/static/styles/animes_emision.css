@@ -1,0 +1,15 @@
+.container-emision {
+    width: 100%;
+    padding: 1vh 1vw;
+    margin-right: 1vw;
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
+    max-height: calc(100vh - 60px); /* Ajusta la altura máxima del contenido */
+}
+
+.container-emision h2 {
+    font-size: 20px;
+}
+
+.container-emision a {
+    font-size: 15px;
+}

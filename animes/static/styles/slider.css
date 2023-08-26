@@ -1,3 +1,7 @@
+#slider {
+    min-width: 100vw;
+}
+
 #slider * {
     padding: 0%;
     color: #000;
