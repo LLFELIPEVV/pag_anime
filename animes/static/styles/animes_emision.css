@@ -3,7 +3,6 @@
     padding: 1vh 1vw;
     margin-right: 1vw;
     box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
-    max-height: calc(100vh - 60px); /* Ajusta la altura máxima del contenido */
 }
 
 .container-emision h2 {
@@ -12,4 +11,30 @@
 
 .container-emision a {
     font-size: 15px;
+}
+.col-md-2 {
+    /* min-height: 100vh !important;
+    max-height: min-content; */
+}
+
+.purple-badge {
+    background-color: purple;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    float: right;
+    font-size: 14px; /* Tamaño de fuente responsive */
+}
+
+.anime-title {
+    float: left;
+    font-size: 16px; /* Tamaño de fuente responsive */
+    max-width: calc(100% - 80px); /* Asegura que el título ocupe solo una línea */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Agrega puntos suspensivos si el título es demasiado largo */
+    white-space: nowrap; /* Evita que el título se divida en varias líneas */
+}
+
+.row .list-group .list-group-item {
+    padding-bottom: 1px;
 }

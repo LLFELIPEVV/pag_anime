@@ -7,3 +7,38 @@
 .anime-list h3 {
     padding-left: 1vw;
 }
+
+@media (max-width: 767px) {
+    .row-main .col-md-8 {
+        width: 100% !important;
+        padding-right: 0 !important;
+    }
+
+    .row-main .col-md-8 .last-anime .anime-list .row .col-md-3 .anime-card {
+        width: 100% !important; /* Establece el ancho al 100% */
+        margin: 0 !important; /* Centra horizontalmente la tarjeta */
+    }
+    
+    .row-main .col-md-8 .last-anime .anime-list .row .col-md-3 .anime-card .anime-image {
+        width: 100%; /* Asegura que la imagen ocupe el ancho completo */
+        height: auto; /* Mantiene la proporción de la imagen */
+        object-fit: contain; /* Escala la imagen para que quepa dentro de la tarjeta sin recortarse */
+    }    
+
+    .last-anime {
+        display: flex; /* Utiliza flexbox para centrar contenido */
+        flex-direction: column; /* Alinea el contenido verticalmente */
+        align-items: center; /* Centra el contenido horizontalmente */
+        margin: 1vh auto; /* Aplica margen vertical y centrado horizontal */
+        width: 100%;
+    }
+
+    .row-main .col-md-8 .last-anime .anime-list .row {
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    .row-main .col-md-8 .last-anime .anime-list .row .col-md-3 {
+        width: 100%;
+    }
+}

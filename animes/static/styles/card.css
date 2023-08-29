@@ -82,12 +82,13 @@ div.row div.col-md-8 {
 /* Estilos para tabletas */
 @media (min-width: 768px) and (max-width: 1023px) {    
     div.row div.col-md-2 {
-        margin-right: 14vw;
+        margin-right: 2vw;
         margin-left: 1vw;
     }
 
     div.row div.col-md-8 {
         padding-left: 0 !important;
+        padding-right: 0;
         width: min-content;
     }
 

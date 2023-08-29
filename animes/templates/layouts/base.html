@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="static/styles/card.css">
     <link rel="stylesheet" href="static/styles/last_episodes.css">
     <link rel="stylesheet" href="static/styles/last_animes.css">
+    <link rel="stylesheet" href="static/styles/btn_phone_row-main.css">
 </head>
 <body class="d-flex flex-column">
     <div class="body-wrapper">
@@ -33,14 +34,20 @@
             <div class="page-content">
                 {% include 'components/slider_primario.html' %}
                 
+                <div class="mobile-buttons">
+                    <button class="mobile-button btn btn-primary active" onclick="showContent('col-md-2')">Emisión</button>
+                    <button class="mobile-button btn btn-primary" onclick="showContent('col-md-8')">Últimos Episodios</button>
+                    <button class="mobile-button btn btn-primary" onclick="showContent('lastest-animes')">Últimos Animes</button>
+                </div>
+
                 <div class="row row-main">
-                    <div class="col-md-2">
+                    <div class="col-md-2" id="col-md-2">
                         <div class="container-emision">
                             {% include 'components/animes_emision.html' %}
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <div class="last-anime">
+                        <div class="last-anime" id="anime-list">
                             {% include 'components/list_last_episodes.html' %}
                         </div>
                     </div>
@@ -62,5 +69,7 @@
     <script src="static/js/btn_busqueda.js"></script>
     <script src="static/js/btn_login.js"></script>
     <script src="static/js/down_footer.js"></script>
+    <script src="static/js/btn_phone_row-main.js"></script>
+    <script src="static/js/height_list.js"></script>
 </body>
 </html>
