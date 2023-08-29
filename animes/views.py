@@ -78,8 +78,13 @@ def index(request):
             type = Anime.objects.get(id=anime_id).tipo
             last_dict.append({'title': title, 'type': type, 'poster': poster})
     
-    context = {'episodes': episodes_dict, 'last': last_dict}  # Combine both dictionaries
+    emis_dict = []
+    for anime in Anime.objects.filter(debut="En emision"):
+        titulo_emision = Anime.objects.get(id=anime.id).titulo
+        tipo_emision = Anime.objects.get(id=anime.id).tipo
+        emis_dict.append({'title': titulo_emision, 'type': tipo_emision})
+
+    context = {'episodes': episodes_dict, 'last': last_dict, 'emision': emis_dict}  # Combine both dictionaries
     
     return render(request, 'inicio/index.html', context)
-
 
