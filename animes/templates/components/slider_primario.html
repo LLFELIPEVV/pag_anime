@@ -1,12 +1,21 @@
 <!-- slider.html -->
 <div id="slider" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-bs-target="#slider" data-bs-slide-to="0" class="active"></li>
-        <li data-bs-target="#slider" data-bs-slide-to="1"></li>
-        <li data-bs-target="#slider" data-bs-slide-to="2"></li>
+        {% for index in random %}
+            <li data-bs-target="#slider" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+        {% endfor %}
     </ol>
     <div class="carousel-inner">
-        <div class="carousel-item active">
+        {% for anime in random %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ anime.banner_url }}" class="d-block w-100" alt="{{ anime.titulo }}">
+                <div class="carousel-caption">
+                    <h5>{{ anime.titulo }}</h5>
+                    <h6>{{ anime.sinopsis }}</h6>
+                </div>
+            </div>
+        {% endfor %}
+        <!-- <div class="carousel-item active">
             <img src="static/images/20.jpg" class="d-block w-100" alt="Imagen 1">
             <div class="carousel-caption">
                 <h5>Dragon Ball Z</h5>
@@ -26,7 +35,7 @@
                 <h5>Hunter X Hunter 2011</h5>
                 <h6>Subtítulo Imagen 3</h6>
             </div>
-        </div>
+        </div> -->
     </div>
     <a class="carousel-control-prev" href="#slider" role="button" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true" style="color: rgb(255, 255, 255);"></span>

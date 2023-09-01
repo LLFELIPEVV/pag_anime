@@ -1,4 +1,5 @@
 import json
+import random
 
 from animeflv import AnimeFLV
 from django.shortcuts import render
@@ -84,7 +85,9 @@ def index(request):
         tipo_emision = Anime.objects.get(id=anime.id).tipo
         emis_dict.append({'title': titulo_emision, 'type': tipo_emision})
 
-    context = {'episodes': episodes_dict, 'last': last_dict, 'emision': emis_dict}  # Combine both dictionaries
+    random_animes = random.sample(list(Anime.objects.all()), 6)
+    
+    context = {'episodes': episodes_dict, 'last': last_dict, 'emision': emis_dict, 'random': random_animes}  # Combine both dictionaries
     
     return render(request, 'inicio/index.html', context)
 
