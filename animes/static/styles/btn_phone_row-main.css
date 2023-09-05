@@ -1,5 +1,6 @@
+/* Estilos para ocultar los botones en pantallas no móviles */
 .mobile-buttons {
-    display: none; /* Ocultar los botones por defecto en pantallas no móviles */
+    display: none;
 }
 
 /* Estilos para dispositivos móviles */
@@ -26,31 +27,32 @@
         color: white;
     }
 
+    /* Estilos para las columnas y la lista de anime */
     .col-md-2,
     .lastest-animes {
         width: 100vw !important;
         align-items: center;
         justify-content: center;
     }
-    
+
     .anime-list {
         max-width: 90vh;
-        width: 100%; /* Asegura que el ancho sea 100% */
+        width: 100%;
     }
-    
+
     .col-md-8 .last-anime .anime-list .row {
         padding-left: 1vh;
-    }   
-
-    .card {
-        width: 85% !important; /* Establece el ancho al 100% */
-        margin: 0; /* Centra horizontalmente la tarjeta */
     }
-    
-    .card-img-top {
-        width: 100% !important; /* Asegura que la imagen ocupe el ancho completo */
-        height: auto !important; /* Mantiene la proporción de la imagen */
-        object-fit: contain; /* Escala la imagen para que quepa dentro de la tarjeta sin recortarse */
-    }      
-}
 
+    /* Estilos para las tarjetas de anime */
+    .card {
+        width: 85% !important;
+        margin: 0;
+    }
+
+    .card-img-top {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain;
+    }
+}

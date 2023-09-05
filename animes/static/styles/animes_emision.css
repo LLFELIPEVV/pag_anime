@@ -1,3 +1,4 @@
+/* Estilos para el contenedor de emisión */
 .container-emision {
     width: 100%;
     padding: 1vh 1vw;
@@ -12,11 +13,8 @@
 .container-emision a {
     font-size: 15px;
 }
-.col-md-2 {
-    /* min-height: 100vh !important;
-    max-height: min-content; */
-}
 
+/* Estilos para las insignias de color púrpura */
 .purple-badge {
     background-color: purple;
     color: white;
@@ -26,6 +24,7 @@
     font-size: 14px; /* Tamaño de fuente responsive */
 }
 
+/* Estilos para el título del anime */
 .anime-title {
     float: left;
     font-size: 16px; /* Tamaño de fuente responsive */
@@ -35,6 +34,7 @@
     white-space: nowrap; /* Evita que el título se divida en varias líneas */
 }
 
+/* Estilos para los elementos de la lista en las filas */
 .row .list-group .list-group-item {
     padding-bottom: 1px;
 }

@@ -64,3 +64,8 @@ header div .navbar-directori ul li a {
     border-bottom: 2px solid var(--color-primary);
     z-index: 99999;
 }
+
+#slider {
+    width: 100%; /* Ancho del 100% del contenedor padre */
+    height: auto;
+}

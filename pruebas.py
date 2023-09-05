@@ -38,25 +38,19 @@ api = AnimeFLV()
 #code 4
 
 
-from jikanpy import Jikan
+import requests
 
-# Crear una instancia de Jikan
-jikan = Jikan()
+url = "https://animeflv.net//uploads/animes/banners/962.jpg"
+url1 = "https://animeflv.net//uploads/animes/banners/2638.jpg"
 
-# Obtener información sobre un anime por su ID
-anime_id = 223  # Puedes cambiar este ID al de Dragon Ball u otro anime de tu elección
-anime_info = jikan.anime(anime_id)
+try:
+    response = requests.head(url1, allow_redirects=True)
+    final_url = response.url
+    status_code = response.status_code
 
-#print(anime_info)
-
-# Obtener la URL de la imagen de portada en formato JPG
-anime_image_url_jpg = anime_info['data']['images']['jpg']['image_url']
-
-# Obtener la URL de la imagen de portada en formato WebP
-anime_image_url_webp = anime_info['data']['images']['webp']['image_url']
-
-# Imprimir las URL de las imágenes de portada
-#print(f"URL de la imagen de portada en formato JPG: {anime_image_url_jpg}")
-#print(f"URL de la imagen de portada en formato WebP: {anime_image_url_webp}")
-
-print(jikan.search('anime', '12-sai-chiccha-na-mune-no-tokimeki-2nd-season', page=1, parameters={'genre':'Romance', 'type':'tv', 'episodes': 12}))
+    if status_code == 200:
+        print(f"La imagen en {final_url} está disponible (estado {status_code}).")
+    else:
+        print(f"La imagen en {final_url} no está disponible (estado {status_code}).")
+except requests.ConnectionError:
+    print(f"No se pudo conectar a {url1}. Verifique la URL o su conexión a internet.")
