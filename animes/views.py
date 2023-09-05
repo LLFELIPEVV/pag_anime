@@ -37,23 +37,21 @@ def all_animes(request):
     return render(request, 'all_animes.html', {'animes': all_animes_info})
 
 def listado(request, page=1):
-    with open('lista_id.json') as json_file:
-        animes_data = json.load(json_file)
-    
-    nombres_animes = [animes_data[clave] for clave in animes_data.keys()]
-    animes_en_orden = Anime.objects.in_bulk(nombres_animes)
-    animes_ordenados = []
-    
-    for nombre in nombres_animes:
-        if nombre in animes_en_orden:
-            animes_ordenados.append(animes_en_orden[nombre])
-    
-    animes_ordenados.reverse()
-    
-    paginator = Paginator(animes_ordenados, 24)
+    # Obtén todos los animes de la base de datos
+    anime_queryset = Anime.objects.all()
+
+    # Mapea los datos necesarios para la paginación
+    last_dict = []
+    for anime in anime_queryset:
+        poster = anime.poster_url
+        title = anime.titulo
+        type = anime.tipo
+        last_dict.append({'title': title, 'type': type, 'poster': poster})
+
+    paginator = Paginator(last_dict, 24)
     page_number = page
     page_obj = paginator.page(page_number)
-    
+
     return render(request, 'listado/listado.html', {'page_obj': page_obj})
 
 def index(request):

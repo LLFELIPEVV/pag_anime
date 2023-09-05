@@ -1,10 +1,11 @@
+{% load static %}
 <header class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container container-header">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="fa-solid fa-bars" style="color: #000000;"></span>
         </button>
-        <a class="navbar-brand" href="#">
-            <img src="static/images/1.jpg" alt="Logo de Anime" class="logo-img img-fluid logo" id="logo">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'images/1.jpg' %}" alt="Logo de Anime" class="logo-img img-fluid logo" id="logo">
         </a>
         <div class="collapse navbar-collapse navbar-directori" id="navbarNav">
             <ul class="navbar-nav text-header listado-anime">
@@ -27,4 +28,5 @@
         </div>
     </div>
 </header>
+
 
