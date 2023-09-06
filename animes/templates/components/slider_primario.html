@@ -10,32 +10,13 @@
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                 <img src="{{ anime.banner_url }}" class="d-block w-100" alt="{{ anime.titulo }}">
                 <div class="carousel-caption">
-                    <h5>{{ anime.titulo }}</h5>
-                    <h6>{{ anime.sinopsis }}</h6>
+                    {% if anime.banner_url %}
+                        <h5>{{ anime.titulo }}</h5>
+                        <h6>{{ anime.sinopsis }}</h6>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
-        <!-- <div class="carousel-item active">
-            <img src="static/images/20.jpg" class="d-block w-100" alt="Imagen 1">
-            <div class="carousel-caption">
-                <h5>Dragon Ball Z</h5>
-                <h6>En Dragon ball Z Goku se ha convertido en un adulto y está casado con Milk, con la que tiene un hijo llamado Gohan. En esta segunda saga de Dragon ball Goku descubrirá que no es un terricola, sino que pertenece a una raza de guerreros conocida por ser una de las más poderosas de la galaxia, para posteriormente dar paso a los verdaderos enemigos de la serie. Para poder vencer a los nuevos enemigos que irán surgiendo, Goku y sus amigos tendrán que viajar por otros planetas e incluso al cielo y al infierno. Cada enemigo será más fuerte que el anterior, por lo que tendrán que entrenar muy duro para poder derrotarlos además de que se les irán uniendo nuevos personajes que les ayudarán a vencerlos.</h6>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="static/images/21.jpg" class="d-block w-100" alt="Imagen 2">
-            <div class="carousel-caption">
-                <h5>Dragon Ball Super</h5>
-                <h6>Subtitulo Imagen 2</h6>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="static/images/22.jpg" class="d-block w-100" alt="Imagen 3">
-            <div class="carousel-caption">
-                <h5>Hunter X Hunter 2011</h5>
-                <h6>Subtítulo Imagen 3</h6>
-            </div>
-        </div> -->
     </div>
     <a class="carousel-control-prev" href="#slider" role="button" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true" style="color: rgb(255, 255, 255);"></span>

@@ -1,0 +1,42 @@
+h1 {
+    padding-left: 5vw;
+}
+
+/* Estilos personalizados para las tarjetas de anime en el directorio */
+.container.directorio {
+    padding: 20px; /* Espacio interno para el contenedor */
+}
+
+.container.directorio .card {
+    border: 1px solid #888 !important;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    height: 100%;
+}
+
+.card .card-img-top {
+    transition: transform 0.2s;
+}
+
+.card .card-img-top:hover {
+    transform: scale(1.05);
+}
+
+.card .card-body {
+    padding: 10px;
+    text-align: center;
+}
+
+.card-title {
+    max-height: 2.3em; /* Ajusta la altura máxima según tu diseño (2 líneas) */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 0; /* Eliminamos el margen inferior que podría afectar la altura */
+}
+
+.card .card-text {
+    font-size: 14px;
+    color: #888;
+}

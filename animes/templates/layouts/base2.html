@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{% static 'styles/last_episodes.css' %}">
     <link rel="stylesheet" href="{% static 'styles/last_animes.css' %}">
     <link rel="stylesheet" href="{% static 'styles/btn_phone_row-main.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/directorio.css' %}">
 </head>
 <body class="d-flex flex-column">
     <div class="body-wrapper">
@@ -33,30 +34,6 @@
             {% include 'components/login.html' %}
 
             <div class="page-content">
-                {% include 'components/slider_primario.html' %}
-                
-                <div class="mobile-buttons">
-                    <button class="mobile-button btn btn-primary active" onclick="showContent('col-md-2')">Emisión</button>
-                    <button class="mobile-button btn btn-primary" onclick="showContent('col-md-8')">Últimos Episodios</button>
-                    <button class="mobile-button btn btn-primary" onclick="showContent('lastest-animes')">Últimos Animes</button>
-                </div>
-
-                <div class="row row-main">
-                    <div class="col-md-2" id="col-md-2">
-                        <div class="container-emision">
-                            {% include 'components/animes_emision.html' %}
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="last-anime" id="anime-list">
-                            {% include 'components/list_last_episodes.html' %}
-                        </div>
-                    </div>
-                    <div class="lastest-animes">
-                        {% include 'components/list_last_animes.html' %}
-                    </div>
-                </div>
-                
                 {% block content %}
                 {% endblock %}
             </div>
@@ -75,4 +52,5 @@
     <script src="{% static 'js/img_slider.js' %}"></script>
 </body>
 </html>
+
 
