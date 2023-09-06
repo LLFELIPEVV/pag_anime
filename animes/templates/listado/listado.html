@@ -5,32 +5,32 @@
     {% block content %}
         <h1>Directorio de Animes</h1>   
 
+        {% include 'components/filtros.html' %}
+
         {% include 'components/cuadricula.html' %}
 
         <div class="pagination mx-auto text-center">
             <span class="step-links">
                 {% if page_obj.has_previous %}
-                    <a href="{% url 'listado_pagina' 1 %}">Primera</a>
-                    <a href="{% url 'listado_pagina' page_obj.previous_page_number %}">&laquo; Anterior</a>
+                    <a href="{% url 'listado_pagina' 1 %}?{{ tipo }}{{ debut }}&orden={{ orden }}">Primera</a>
+                    <a href="{% url 'listado_pagina' page_obj.previous_page_number %}?{{ tipo }}{{ debut }}&orden={{ orden }}">&laquo; Anterior</a>
                 {% endif %}
                 
                 {% for i in page_obj.paginator.page_range %}
                     {% if page_obj.number == i %}
                         <span class="current-page">{{ i }}</span>
-                    {% elif i > page_obj.number|add:"-5" and i < page_obj.number|add:"6" %}
-                        <a href="{% url 'listado_pagina' i %}">{{ i }}</a>
+                    {% elif i <= 8 %} {# Muestra páginas hasta 8 #}
+                        <a href="{% url 'listado_pagina' i %}?{{ tipo }}{{ debut }}&orden={{ orden }}">{{ i }}</a>
                     {% endif %}
                 {% endfor %}
-        
+            
                 {% if page_obj.has_next %}
-                    <a href="{% url 'listado_pagina' page_obj.next_page_number %}">Siguiente &raquo;</a>
-                    <a href="{% url 'listado_pagina' page_obj.paginator.num_pages %}">Última</a>
+                    <a href="{% url 'listado_pagina' page_obj.next_page_number %}?{{ tipo }}{{ debut }}&orden={{ orden }}">Siguiente &raquo;</a>
+                    <a href="{% url 'listado_pagina' page_obj.paginator.num_pages %}?{{ tipo }}{{ debut }}&orden={{ orden }}">Última</a>
                 {% endif %}
             </span>
         </div>
-        
-        
-        
+                   
         
     {% endblock %}
 </body>
