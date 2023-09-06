@@ -4,7 +4,7 @@ import random
 
 from animeflv import AnimeFLV
 from django.shortcuts import render
-from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Anime, Episodios
 
 # Create your views here.
@@ -40,7 +40,20 @@ def listado(request, page=1):
     # Obtén todos los animes de la base de datos
     anime_queryset = Anime.objects.all()
 
-    # Mapea los datos necesarios para la paginación
+    # Filtrar por tipo (Anime, Película, OVA)
+    tipos = request.GET.getlist('tipo')
+    if tipos:
+        anime_queryset = anime_queryset.filter(tipo__in=tipos)
+
+    # Filtrar por estado (En emisión, Finalizado, Próximamente)
+    estados = request.GET.getlist('debut')
+    if estados:
+        anime_queryset = anime_queryset.filter(debut__in=estados)
+
+    # Obtener el valor del parámetro 'orden' y establecer un valor predeterminado si no está presente
+    orden = request.GET.get('orden', 'default')
+
+    # Procesar la consulta paginada como antes
     last_dict = []
     for anime in anime_queryset:
         poster = anime.poster_url
@@ -52,7 +65,14 @@ def listado(request, page=1):
     page_number = page
     page_obj = paginator.page(page_number)
 
-    return render(request, 'listado/listado.html', {'page_obj': page_obj})
+    # Obtener los filtros seleccionados
+    tipo = "&tipo=" + "&tipo=".join(tipos) if tipos else ""
+    debut = "&debut=" + "&debut=".join(estados) if estados else ""
+
+    return render(request, 'listado/listado.html', {'page_obj': page_obj, 'orden': orden, 'tipo': tipo, 'debut': debut})
+
+
+
 
 def index(request):
     with open('lista_episodes.json') as json_file:

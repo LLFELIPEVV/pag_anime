@@ -1,0 +1,70 @@
+<form method="get" class="filtros">
+    <!-- Otros filtros aquí -->
+
+    <div class="form-row row">
+        <input type="hidden" name="orden" value="{{ request.GET.orden }}">
+        <div class="filtro-item col-md-2">
+            <label>Tipo:</label>
+            <div class="custom-checkbox-list">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="tipo-anime" name="tipo" value="Anime" {% if "Anime" == request.GET.tipo %}checked{% endif %}>
+                    <label class="form-check-label" for="tipo-anime">Anime</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="tipo-pelicula" name="tipo" value="Película" {% if "Película" == request.GET.tipo %}checked{% endif %}>
+                    <label class="form-check-label" for="tipo-pelicula">Película</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="tipo-ova" name="tipo" value="OVA" {% if "OVA" == request.GET.tipo %}checked{% endif %}>
+                    <label class="form-check-label" for="tipo-ova">OVA</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filtro-item col-md-2">
+            <label>Estado:</label>
+            <div class="custom-checkbox-list">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="estado-emision" name="debut" value="En emisión" {% if "En emisión" == request.GET.debut %}checked{% endif %}>
+                    <label class="form-check-label" for="estado-emision">En emisión</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="estado-finalizado" name="debut" value="Finalizado" {% if "Finalizado" == request.GET.debut %}checked{% endif %}>
+                    <label class="form-check-label" for="estado-finalizado">Finalizado</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="estado-proximamente" name="debut" value="Próximamente" {% if "Próximamente" == request.GET.debut %}checked{% endif %}>
+                    <label class="form-check-label" for="estado-proximamente">Próximamente</label>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="filtro-item col-md-2">
+            <label>Orden:</label>
+            <div class="custom-checkbox-list">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="orden" value="alfabetico" {% if request.GET.orden == 'alfabetico' %}checked{% endif %}>
+                    <label class="form-check-label" for="orden-alfabetico">Orden alfabético</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="orden" value="rating" {% if request.GET.orden == 'rating' %}checked{% endif %}>
+                    <label class="form-check-label" for="orden-rating">Orden por rating</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filtro-item col-md-2 apply-filter">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn btn-primary btn-block">Aplicar Filtros</button>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
