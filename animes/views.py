@@ -51,7 +51,11 @@ def listado(request, page=1):
         anime_queryset = anime_queryset.filter(debut__in=estados)
 
     # Obtener el valor del parámetro 'orden' y establecer un valor predeterminado si no está presente
-    orden = request.GET.get('orden', 'default')
+    orden = request.GET.get('orden')
+    if orden == 'titulo':
+        anime_queryset = anime_queryset.order_by('titulo')
+    elif orden == 'rating':
+        anime_queryset = anime_queryset.order_by('-rating')  # El '-' indica orden descendente
 
     # Procesar la consulta paginada como antes
     last_dict = []
@@ -109,4 +113,48 @@ def index(request):
     context = {'episodes': episodes_dict, 'last': last_dict, 'emision': emis_dict, 'random': random_animes}  # Combine both dictionaries
     
     return render(request, 'inicio/index.html', context)
+
+def buscar_animes(request):
+    query = request.GET.get('q')
+    resultados = []  # Inicializa resultados como una lista vacía
+    busqueda = []  # Inicializa busqueda como una lista vacía
+
+    # Comprueba si 'query' tiene un valor antes de realizar la consulta en la base de datos
+    if query is not None:
+        resultados = Anime.objects.filter(titulo__icontains=query)
+
+    # Formatea los resultados si los hay
+    for anime in resultados:
+        poster = anime.poster_url
+        title = anime.titulo
+        type = anime.tipo
+        busqueda.append({'title': title, 'type': type, 'poster': poster})
+    
+    print(resultados)
+    print(busqueda)
+    print(query)
+    
+    page = request.GET.get('page')
+    page_actual = 1  # Valor predeterminado para la página actual
+
+    # Verifica si 'page' es un número entero válido
+    if page:
+        try:
+            page_actual = int(page)
+        except ValueError:
+            page_actual = 1
+
+    paginator = Paginator(busqueda, 24)
+
+    try:
+        busqueda_obj = paginator.page(page_actual)
+    except PageNotAnInteger:
+        # Si la página no es un número entero válido, muestra la primera página
+        busqueda_obj = paginator.page(1)
+    except EmptyPage:
+        # Si la página está vacía, muestra la última página
+        busqueda_obj = paginator.page(paginator.num_pages)
+
+    return render(request, 'listado/busqueda.html', {'resultados': busqueda_obj, 'query': query, 'page': page_actual})
+
 

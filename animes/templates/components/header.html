@@ -18,11 +18,12 @@
             </ul>
         </div>
         <div class="d-flex align-items-center navbar-search">
-            <form class="d-flex">
-                <input class="form-control me-2 busqueda" id="inputBusqueda" type="search" placeholder="Buscar anime..." aria-label="Search">
+            <form class="d-flex" action="{% url 'buscar_animes' %}" method="get">
+                <input class="form-control me-2 busqueda" id="inputBusqueda" type="search" name="q" placeholder="Buscar anime..." aria-label="Search">
                 <button class="btn btn-success busqueda" id="busqueda" type="submit">Buscar</button>
                 <button class="busqueda-menor btn btn-success" id="botonBusquedaMenor" type="menu"><span class="fa-solid fa-magnifying-glass busqueda-menor"></span></button>
-            </form>
+                <input type="hidden" name="page" value="{{ page.number }}">
+            </form>            
             <button class="btn btn-primary ms-3 btn-login" id="showLoginBtn">Iniciar Sesión</button>
             <button class="btn btn-primary ms-3 btn-login-2" id="showLoginBtn2"><span class="fa-solid fa-circle-user"></span></button>
         </div>
