@@ -1,0 +1,36 @@
+{% extends 'layouts/base2.html' %}
+{% block title %}Busqueda{% endblock %}
+</head>
+<body>
+    {% block content %}
+        <h1>Directorio de Animes</h1>   
+
+        {% include 'components/cuadricula_search.html' %}
+
+        <div class="pagination mx-auto text-center">
+            <span class="step-links">
+                {% if resultados.has_previous %}
+                    <a href="?page=1&q={{ query }}{{ tipo }}{{ debut }}&orden={{ orden }}">Primera</a>
+                    <a href="?page={{ resultados.previous_page_number }}&q={{ query }}{{ tipo }}{{ debut }}&orden={{ orden }}">&laquo; Anterior</a>
+                {% endif %}
+                
+                {% for i in resultados.paginator.page_range %}
+                    {% if resultados.number == i %}
+                        <span class="current-page">{{ i }}</span>
+                    {% elif i <= 8 %} {# Muestra páginas hasta 8 #}
+                        <a href="?page={{ i }}&q={{ query }}{{ tipo }}{{ debut }}&orden={{ orden }}">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+            
+                {% if resultados.has_next %}
+                    <a href="?page={{ resultados.next_page_number }}&q={{ query }}{{ tipo }}{{ debut }}&orden={{ orden }}">Siguiente &raquo;</a>
+                    <a href="?page={{ resultados.paginator.num_pages }}&q={{ query }}{{ tipo }}{{ debut }}&orden={{ orden }}">Última</a>
+                {% endif %}
+            </span>
+        </div>
+               
+                   
+        
+    {% endblock %}
+</body>
+</html>

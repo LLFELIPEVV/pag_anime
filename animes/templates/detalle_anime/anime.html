@@ -1,0 +1,15 @@
+{% extends 'layouts/base2.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+    {% block styles %}<link rel="stylesheet" href="{% static 'styles/detalles_anime.css' %}">{% endblock %}
+</head>
+<body>
+    {% block content %}
+        {% include 'components/poster.html' %}
+    {% endblock %}
+
+    {% block script %}
+    <script src="{% static 'js/star_rating.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

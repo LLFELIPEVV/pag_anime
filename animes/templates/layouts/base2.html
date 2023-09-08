@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{% static 'styles/last_animes.css' %}">
     <link rel="stylesheet" href="{% static 'styles/btn_phone_row-main.css' %}">
     <link rel="stylesheet" href="{% static 'styles/directorio.css' %}">
+    {% block styles %}{% endblock %}
 </head>
 <body class="d-flex flex-column">
     <div class="body-wrapper">
@@ -50,6 +51,8 @@
     <script src="{% static 'js/btn_phone_row-main.js' %}"></script>
     <script src="{% static 'js/height_list.js' %}"></script>
     <script src="{% static 'js/img_slider.js' %}"></script>
+    {% block script %} 
+    {% endblock %}
 </body>
 </html>
 

@@ -26,16 +26,15 @@ h1 {
 
 .card .card-body {
     padding: 10px;
-    text-align: center;
 }
 
 .card-title {
-    max-height: 2.3em; /* Ajusta la altura máxima según tu diseño (2 líneas) */
+    max-height: 2.3em; 
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 12px;
     font-weight: bold;
-    margin-bottom: 0; /* Eliminamos el margen inferior que podría afectar la altura */
+    margin-bottom: 0; 
 }
 
 .card .card-text {
@@ -83,6 +82,7 @@ form.filtros div.col-md-2 {
     align-items: center;
     vertical-align: bottom;
 }
+
 .apply-filter button {
     margin-top: 16%;
     margin-bottom: 16%;
