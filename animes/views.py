@@ -130,9 +130,9 @@ def buscar_animes(request):
         type = anime.tipo
         busqueda.append({'title': title, 'type': type, 'poster': poster})
     
-    print(resultados)
+    """ print(resultados)
     print(busqueda)
-    print(query)
+    print(query) """
     
     page = request.GET.get('page')
     page_actual = 1  # Valor predeterminado para la página actual
@@ -157,4 +157,5 @@ def buscar_animes(request):
 
     return render(request, 'listado/busqueda.html', {'resultados': busqueda_obj, 'query': query, 'page': page_actual})
 
-
+def anime(request):
+    return render(request, 'detalle_anime/anime.html')
