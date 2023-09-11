@@ -1,26 +1,27 @@
-<!-- anime_card.html -->
-{% load static %}
-<div class="anime-banner">
-    <div class="anime-poster" style="max-width: 260px;">
-        <img src="https://www3.animeflv.net/uploads/animes/covers/3856.jpg" alt="nombre_del_anime">
+<div class="anime-component">
+    <div class="anime-poster">
+        <img src="https://www3.animeflv.net/uploads/animes/covers/3856.jpg" alt="Nombre del Anime" width="260" height="370">
     </div>
-    <div class="background-image">
-        <img src="{% static 'images/negro.jpg' %}" alt="negro">
+    <div class="anime-status">
+        {% if en_emision %}
+            <div class="status-box airing"><i class="fas fa-tv"></i> En Emisión</div>
+        {% endif %}
+        {% if finalizado %}
+            <div class="status-box finished"><i class="fas fa-check"></i> Finalizado</div>
+        {% endif %}
+        {% if proximamente %}
+            <div class="status-box upcoming"><i class="fas fa-calendar-alt"></i> Próximamente</div>
+        {% else %}
+            <div class="status-box finished"><i class="fas fa-check"></i> Finalizado</div>
+        {% endif %}
     </div>
-    <div class="rating-box">
-        <span class="rating">4.5</span>
-        <div class="rating-stars">
-            <i class="fas fa-star gold-star"></i>
-            <i class="fas fa-star gold-star"></i>
-            <i class="fas fa-star gold-star"></i>
-            <i class="fas fa-star-half-alt gold-star"></i>
-            <i class="fas fa-star gold-star"></i>
-        </div>
+    <div class="anime-buttons">
+        <button class="favorite-button"><i class="fas fa-heart"></i> Agregar a Favoritos</button>
+        <button class="follow-button"><i class="fas fa-eye"></i> Seguir Anime</button>
     </div>
-    <div class="detalle-title">
-        Nombre del Anime
+    <div class="plan-to-watch-button">
+        <button><i class="fas fa-plus"></i> Poner en Planeados</button>
     </div>
 </div>
-
 
 
