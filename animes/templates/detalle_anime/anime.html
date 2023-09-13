@@ -3,12 +3,16 @@
 {% block title %}{% endblock %}
 {% block styles %}
 <link rel="stylesheet" href="{% static 'styles/detalles_anime.css' %}">
+<link rel="stylesheet" href="{% static 'styles/listado_episodios.css' %}">
 {% endblock %}
 </head>
 <body>
     {% block content %}
     {% include 'components/banner.html' %}
-    {% include 'components/poster.html' %}
+    <div class="anime-content">
+        {% include 'components/poster.html' %}
+        {% include 'components/lista_episodios.html' %}
+    </div>
     {% endblock %}
     {% block script %}
     <script src="{% static 'js/star_rating.js' %}"></script>

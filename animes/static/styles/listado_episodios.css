@@ -1,0 +1,140 @@
+/* Estilo de .anime-details */
+.anime-details {
+    width: 80%;
+    float: left;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Estilo de .synopsis y .episode-list */
+.synopsis, .episode-list {
+    width: 100%; /* Divide la columna en dos partes */
+    float: left;
+    margin-right: 2%; /* Agrega un pequeño margen derecho entre rectángulos */
+    background-color: #e7e7e7; /* Cambia al color deseado */
+    border-radius: 15px; /* Bordes semicirculares */
+    margin-bottom: 20px; /* Aumenta el espacio inferior */
+    padding: 15px; /* Añade espacio interior */
+    border: 1px #ab96af solid; /* Borde inicial transparente */
+}
+
+.synopsis h2, .episode-list h2 {
+    font-size: 24px; /* Aumenta el tamaño del título */
+    margin-top: 0;
+    color: var(--color-primary); /* Cambia al color deseado */
+}
+
+.synopsis p, .synopsis li {
+    font-size: 16px; /* Tamaño de fuente del texto */
+    line-height: 1.5; /* Espaciado entre líneas para mejor legibilidad */
+    color: #333; /* Color de texto predeterminado */
+}
+
+/* Estilo de la lista de géneros */
+.synopsis ul {
+    list-style: none;
+    padding: 0;
+}
+
+.synopsis ul.generos li {
+    font-size: 16px;
+    padding: 5px 10px; /* Espaciado interno para los géneros */
+    border-radius: 20px; /* Bordes semicirculares para los géneros */
+    background-color: var(--color-cuartenary); /* Color de fondo para los géneros */
+    color: var(--color-primary); /* Color del texto para los géneros */
+    display: inline-block;
+    margin-right: 10px; /* Espacio entre géneros */
+    margin-bottom: 10px; /* Espacio inferior entre géneros */
+}
+
+.synopsis ul.generos li:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+/* Estilo de la lista de episodios */
+.episode-items {
+    /* Estilo de la lista de episodios aquí */
+}
+
+.episode-item {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 15px; /* Aumenta el espacio interior */
+    margin-bottom: 20px; /* Aumenta el espacio inferior entre episodios */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+}
+
+.episode-image {
+    width: 110px;
+    height: 60px;
+    overflow: hidden;
+    margin-right: 20px; /* Aumenta el espacio entre la imagen y el texto */
+    border-radius: 10px; /* Bordes semicirculares para la imagen */
+}
+
+.episode-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.episode-info {
+    flex-grow: 1; /* El texto ocupa todo el espacio restante */
+}
+
+.episode-title {
+    font-size: 18px;
+    margin: 0;
+    color: var(--color-primary); /* Cambia al color deseado */
+}
+
+.episode-watched {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #555; /* Color de texto más claro para el estado visto/no visto */
+}
+
+.anime-content {
+    display: flex;
+    justify-content: space-between; /* Coloca .anime-component y .anime-details en lados opuestos */
+    align-items: flex-start; /* Alinea los elementos en la parte superior */
+}
+
+.episode-filter {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+}
+
+.episode-filter h2 {
+    overflow: hidden;
+    margin-right: 29%;
+    font-size: 24px;
+    color: var(--color-primary);
+}
+
+.episode-filter label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.episode-filter select {
+    width: auto;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.episode-filter input[type="text"] {
+    width: auto;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 1vw;
+}
