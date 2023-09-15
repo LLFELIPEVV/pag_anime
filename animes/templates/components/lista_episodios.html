@@ -1,12 +1,12 @@
 <div class="anime-details">
     <div class="synopsis">
         <h2 style="overflow: hidden;">Sinopsis</h2>
-        <p>Texto de la sinopsis del anime...</p>
+        <p>{{ datos.0.sinopsis }}</p>
         <h2 style="overflow: hidden;">Géneros</h2>
         <ul class="generos">
-            <li>Género 1</li>
-            <li>Género 2</li>
-            <!-- Agrega más géneros aquí -->
+            {% for genero in datos.0.generos %}
+            <li>{{ genero.nombre_genero }}</li>
+            {% endfor %}
         </ul>
     </div>
     <div class="episode-list">
@@ -19,8 +19,8 @@
             </select>
             <input type="text" id="episode-search" placeholder="Buscar episodio">
         </div>
-        <div class="episode-items">
-            <!-- Aquí se generarán dinámicamente los elementos de la lista de episodios -->
-        </div>
+        <div class="anime-list">
+            {% include 'components/episodio_link.html' %}
+        </div>        
     </div>
 </div>

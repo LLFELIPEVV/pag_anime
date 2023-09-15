@@ -2,13 +2,13 @@
 {% load static %}
 <div class="anime-banner">
     <div class="background-image">
-        <img src="{% static 'images/negro.jpg' %}" alt="negro">
+        <img src="{{ datos.0.banner }}" alt="{{ datos.0.titulo }}">
         <div class="detalle-title">
-            Nombre del Anime <span>OVA</span>
+            {{ datos.0.titulo }} <span>{{ datos.0.tipo }}</span>
         </div>
     </div>
     <div class="rating-box">
-        <span class="rating">4.5</span>
+        <span class="rating">{{ datos.0.rating }}</span>
         <div class="rating-stars">
             <i class="fas fa-star gold-star"></i>
             <i class="fas fa-star gold-star"></i>

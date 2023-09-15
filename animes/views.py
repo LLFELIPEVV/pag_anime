@@ -60,10 +60,11 @@ def listado(request, page=1):
     # Procesar la consulta paginada como antes
     last_dict = []
     for anime in anime_queryset:
+        id = anime.id
         poster = anime.poster_url
         title = anime.titulo
         type = anime.tipo
-        last_dict.append({'title': title, 'type': type, 'poster': poster})
+        last_dict.append({'title': title, 'type': type, 'poster': poster, 'id': id})
 
     paginator = Paginator(last_dict, 24)
     page_number = page
@@ -97,16 +98,18 @@ def index(request):
         last_dict = []
         
         for anime_id, anime_info in last_data.items():
+            id = Anime.objects.get(id=anime_id).id
             poster = f'{Anime.objects.get(id=anime_id).poster_url}'
             title = Anime.objects.get(id=anime_id).titulo
             type = Anime.objects.get(id=anime_id).tipo
-            last_dict.append({'title': title, 'type': type, 'poster': poster})
+            last_dict.append({'title': title, 'type': type, 'poster': poster, 'id': id})
     
     emis_dict = []
     for anime in Anime.objects.filter(debut="En emision"):
+        id = Anime.objects.get(id=anime.id).id
         titulo_emision = Anime.objects.get(id=anime.id).titulo
         tipo_emision = Anime.objects.get(id=anime.id).tipo
-        emis_dict.append({'title': titulo_emision, 'type': tipo_emision})
+        emis_dict.append({'title': titulo_emision, 'type': tipo_emision, 'id': id})
 
     random_animes = random.sample(list(Anime.objects.all()), 6)
     
@@ -125,10 +128,11 @@ def buscar_animes(request):
 
     # Formatea los resultados si los hay
     for anime in resultados:
+        id = anime.id
         poster = anime.poster_url
         title = anime.titulo
         type = anime.tipo
-        busqueda.append({'title': title, 'type': type, 'poster': poster})
+        busqueda.append({'title': title, 'type': type, 'poster': poster, 'id': id})
     
     """ print(resultados)
     print(busqueda)
@@ -157,5 +161,21 @@ def buscar_animes(request):
 
     return render(request, 'listado/busqueda.html', {'resultados': busqueda_obj, 'query': query, 'page': page_actual})
 
-def anime(request):
-    return render(request, 'detalle_anime/anime.html')
+def anime(request, anime_id):
+    anime = Anime.objects.get(id=anime_id)
+    titulo = anime.titulo
+    tipo = anime.tipo
+    poster = anime.poster_url
+    banner = anime.banner_url
+    debut = anime.debut
+    sinopsis = anime.sinopsis
+    generos = anime.genero_id.all()
+    rating = anime.rating
+    episodios = Episodios.objects.filter(anime_id=anime_id)
+    
+    datos = []
+    datos.append({'titulo': titulo, 'tipo':tipo, 'poster': poster, 'banner': banner, 'debut': debut, 'sinopsis': sinopsis, 'generos': generos, 'rating': rating, 'episodios': episodios})
+    
+    print(datos)
+    
+    return render(request, 'detalle_anime/anime.html', {'datos': datos})

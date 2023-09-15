@@ -1,9 +1,11 @@
 <div class="card" style="width: 180px;">
-    <img src="{{ anime.poster }}" class="card-img-top" alt="Anime Image" style="width: 180px; height: 262px; object-fit: cover;">
-    <div class="card-body">
-        <p class="card-text">{{ anime.type }}</p>
-        <h5 class="card-title">{{ anime.title }}</h5>
-    </div>
+    <a href="{% url 'detalle_anime' anime.id %}" class="link_detalle_anime">
+        <img src="{{ anime.poster }}" class="card-img-top" alt="Anime Image" style="width: 180px; height: 262px; object-fit: cover;">
+        <div class="card-body">
+            <p class="card-text">{{ anime.type }}</p>
+            <h5 class="card-title">{{ anime.title }}</h5>
+        </div>
+    </a>
 </div>
 
 

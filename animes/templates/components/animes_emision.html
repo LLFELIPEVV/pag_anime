@@ -4,7 +4,7 @@
         <ul class="list-group">
             {% for anime in emision %}
                 <li class="list-group-item">
-                    <span class="anime-title"><a href="#">{{ anime.title }}</a></span>
+                    <span class="anime-title"><a href="{% url 'detalle_anime' anime.id %}">{{ anime.title }}</a></span>
                     <span class="purple-badge">{{ anime.type }}</span>
                     <div style="clear: both;"></div>
                 </li>

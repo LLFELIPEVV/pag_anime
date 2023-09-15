@@ -1,15 +1,15 @@
 <div class="anime-component">
     <div class="anime-poster">
-        <img src="https://www3.animeflv.net/uploads/animes/covers/3856.jpg" alt="Nombre del Anime" width="260" height="370">
+        <img src="{{ datos.0.poster }}" alt="{{ datos.0.title }}" width="260" height="370">
     </div>
     <div class="anime-status">
-        {% if en_emision %}
+        {% if datos.0.debut == "En Emision"%}
             <div class="status-box airing"><i class="fas fa-tv"></i> En Emisión</div>
         {% endif %}
-        {% if finalizado %}
+        {% if datos.0.debut == "finalizado" %}
             <div class="status-box finished"><i class="fas fa-check"></i> Finalizado</div>
         {% endif %}
-        {% if proximamente %}
+        {% if datos.0.debut == "proximamente" %}
             <div class="status-box upcoming"><i class="fas fa-calendar-alt"></i> Próximamente</div>
         {% else %}
             <div class="status-box finished"><i class="fas fa-check"></i> Finalizado</div>

@@ -74,6 +74,11 @@ div.row div.col-md-8 {
     width: min-content;
 }
 
+.link_detalle_anime {
+    text-decoration: none; /* Quitar el subrayado */
+    color: inherit; /* Utilizar el color heredado del elemento padre */
+}
+
 /* Estilos para dispositivos móviles */
 @media (max-width: 767px) {
 
