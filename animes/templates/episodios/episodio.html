@@ -1,0 +1,19 @@
+{% extends 'layouts/base2.html' %}
+{% load static %}
+{% block meta %}
+<meta http-equiv="Permissions-Policy" content="accelerometer=(self 'unsafe-inline')">{% endblock %}
+{% block title %}{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/capitulos.css' %}">
+<link rel="stylesheet" href="{% static 'styles/listado_episodios.css' %}">
+{% endblock %}
+</head>
+<body>
+    {% block content %}
+    {% include 'components/capitulo.html' %}
+    {% endblock %}
+    {% block script %}
+    <script src="{% static 'js/videos.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

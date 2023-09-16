@@ -5,7 +5,7 @@ import random
 from animeflv import AnimeFLV
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Anime, Episodios
+from .models import Anime, Episodios, Video_server
 
 # Create your views here.
 
@@ -163,6 +163,7 @@ def buscar_animes(request):
 
 def anime(request, anime_id):
     anime = Anime.objects.get(id=anime_id)
+    id = anime.id
     titulo = anime.titulo
     tipo = anime.tipo
     poster = anime.poster_url
@@ -174,8 +175,21 @@ def anime(request, anime_id):
     episodios = Episodios.objects.filter(anime_id=anime_id)
     
     datos = []
-    datos.append({'titulo': titulo, 'tipo':tipo, 'poster': poster, 'banner': banner, 'debut': debut, 'sinopsis': sinopsis, 'generos': generos, 'rating': rating, 'episodios': episodios})
-    
-    print(datos)
+    datos.append({'id': id, 'titulo': titulo, 'tipo':tipo, 'poster': poster, 'banner': banner, 'debut': debut, 'sinopsis': sinopsis, 'generos': generos, 'rating': rating, 'episodios': episodios})
     
     return render(request, 'detalle_anime/anime.html', {'datos': datos})
+
+def episodio(request, anime_id, episodio):
+    anime = Anime.objects.get(id=anime_id)
+    titulo = anime.titulo
+    numero = episodio
+    id_episodio = Episodios.objects.get(anime_id_id=anime_id, numero_episodio=numero).id
+    servidores = Video_server.objects.filter(episodio_id=id_episodio)
+    
+    datos = []
+    datos.append({'titulo': titulo, 'episodio': numero, 'servidores': servidores})
+    
+    for servidor in servidores:
+        print(f"{servidor.title}, url: {servidor.url_episodios}, code: {servidor.code}")
+    
+    return render(request, 'episodios/episodio.html', {'datos': datos})

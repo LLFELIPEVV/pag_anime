@@ -1,0 +1,51 @@
+<!-- Template para los videos del capítulo -->
+<div class="episode-video column">
+    <h2> {{ datos.0.titulo }} - Episodio {{ datos.0.episodio }}</h2>
+
+    <p>Episodio: {{ datos.0.episodio }}</p>
+
+    <div class="container-videos">
+        <!-- Barra de opciones de video -->
+        <div class="video-options">
+            <!-- Opciones de video (pueden ser dinámicas según la cantidad de opciones) -->
+            {% for servidor in datos.0.servidores %}
+                <div class="video-option">
+                    <button class="option-button" data-src="{{ servidor.code }}"> {{ servidor.title }} </button>
+                </div>
+            {% endfor %}
+            <!-- <div class="video-option">
+                <button id="Mega" class="option-button play-button active">Mega</button>
+            </div>
+            <div class="video-option">
+                <button id="SW" class="option-button">SW</button>
+            </div> -->
+        </div>
+
+        <div class="video-container" role="tabpanel">
+            <iframe id="video-iframe" frameborder="0" allowfullscreen=""></iframe>
+        </div>   
+
+        <!-- Agrega las clases "icon" a los botones para incluir iconos -->
+        <button class="back-button icon"><i class="fas fa-list-check"></i> Lista de Episodios</button>
+
+        <button class="mark-as-watched-button icon"><i class="far fa-eye"></i> Marcar como Visto</button>
+
+        <button class="download-button icon"><i class="fas fa-download"></i> Descargar Episodio</button>
+    </div>
+
+    <div class="episode-list">
+        <div class="episode-filter">
+            <h2>Lista de Episodios</h2>
+            <label for="order">Ordenar por:</label>
+            <select id="order">
+                <option value="asc">Ascendente</option>
+                <option value="desc">Descendente</option>
+            </select>
+            <input type="text" id="episode-search" placeholder="Buscar episodio">
+        </div>
+        <div class="anime-list">
+            {% include 'components/episodio_link.html' %}
+        </div>        
+    </div>
+
+</div>

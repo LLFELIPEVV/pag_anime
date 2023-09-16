@@ -1,0 +1,150 @@
+/* Estilos generales para el contenedor de video del capítulo */
+.episode-video {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.episode-video h2 {
+    overflow: hidden;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.episode-video p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.video-options {
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+    overflow-x: auto; /* Permite desplazamiento horizontal si el contenido es demasiado ancho */
+    white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
+    margin-top: 10px;
+    background-color: #333;
+    max-width: 100%;
+    height: max-content;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.video-option {
+    height: 100%;
+    flex: 1; /* Hace que los elementos ocupen todo el ancho disponible */
+}
+
+.option-button {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Estilos para el botón de reproducción de video */
+.play-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* Estilo para el contenedor del video */
+.video-container {
+    position: relative;
+    width: 100%; /* Cambiado al 60% del ancho del elemento padre */
+    padding-top: 56.25%; /* Mantenemos la relación de aspecto 820px/470px en forma de porcentaje (470/820 * 100%) */
+    background-color: #000; /* Color de fondo para el espacio vacío si es necesario */
+    overflow: hidden; /* Ocultar cualquier contenido adicional que pueda desbordar */
+}
+
+/* Estilo para el video dentro del contenedor */
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0; /* Eliminar el borde del iframe */
+}
+
+/* Estilos para los botones con iconos */
+.icon {
+    padding-left: 30px; /* Espacio a la izquierda del icono */
+}
+
+/* Estilos para los iconos */
+i.fas, i.far {
+    margin-right: 10px; /* Espacio a la derecha del icono */
+    font-size: 20px; /* Tamaño del icono */
+}
+
+/* Estilos para el botón de volver a la lista de episodios */
+.back-button {
+    background-color: #000; /* Fondo negro */
+    color: var(--color-primary); /* Color primario */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para el icono en el botón "Lista de Episodios" */
+.back-button i.fas {
+    color: var(--color-primary); /* Color primario */
+    margin-right: 10px; /* Espacio a la derecha del icono */
+    font-size: 20px; /* Tamaño del icono */
+}
+
+/* Estilos para el botón "Marcar como Visto" */
+.mark-as-watched-button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Estilos para el botón "Descargar Episodio" */
+.download-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.container-videos {
+    width: 60%;
+    height: 100vh;
+    float: left; /* Añade float left para que "container-videos" esté a la izquierda */
+}
+
+.episode-list {
+    width: 39% !important;
+    float: right; /* Añade float right para que "episode-list" esté a la derecha */
+    margin-right: 0 !important;
+    margin-left: 1%;
+}
+
+.episode-filter h2 {
+    margin: 0 !important;
+    font-size: 15px !important;
+}
+
+.episode-filter label {
+    font-size: 12px !important;
+}

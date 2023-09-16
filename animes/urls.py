@@ -8,4 +8,5 @@ urlpatterns = [
     path('listado/<int:page>/', views.listado, name='listado_pagina'),
     path('search/', views.buscar_animes, name='buscar_animes'),
     path('detalle_anime/<str:anime_id>', views.anime, name='detalle_anime'),
+    path('detalle_anime/<str:anime_id>/episodio/<int:episodio>', views.episodio, name='episodio')
 ]
