@@ -148,3 +148,51 @@ i.fas, i.far {
 .episode-filter label {
     font-size: 12px !important;
 }
+
+/* Estilo para el contenedor de enlaces y centrado horizontal */
+#download-links {
+    display: flex;
+    margin-top: 10px;
+    right: 0;
+    float: right;
+    width: 60%;
+}
+
+.RTbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.RTbl th,
+.RTbl td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.RTbl th {
+    background-color: #f2f2f2;
+}
+
+.RTbl tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.Button.Sm {
+    padding: 5px 10px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.Button.Sm:hover {
+    background-color: #0056b3;
+}
+
+.fa-download {
+    margin-right: 5px;
+}

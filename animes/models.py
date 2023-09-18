@@ -86,7 +86,7 @@ class Download_Server(models.Model):
     download_url = models.URLField()
 
     def __str__(self):
-        return f"{self.dowload_server} - {self.episodio_id}"
+        return f"{self.download_server} - {self.episodio_id}"
 
 class Video_server(models.Model):
     episodio_id = models.ForeignKey(Episodios, on_delete=models.CASCADE)
