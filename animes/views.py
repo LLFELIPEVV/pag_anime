@@ -5,7 +5,7 @@ import random
 from animeflv import AnimeFLV
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Anime, Episodios, Video_server
+from .models import Anime, Episodios, Video_server, Download_Server
 
 # Create your views here.
 
@@ -90,7 +90,8 @@ def index(request):
             imagen = str(anime_info['imagen'])
             titulo = Anime.objects.get(id=anime_id).titulo
             numero = int(episode_number)
-            episodes_dict.append({'titulo': titulo, 'poster': imagen, 'numero': numero})
+            
+            episodes_dict.append({'id': anime_id,'titulo': titulo, 'poster': imagen, 'numero': numero})
     
     with open('lista_last_animes.json') as json_file:
         last_data = json.load(json_file)
@@ -180,16 +181,21 @@ def anime(request, anime_id):
     return render(request, 'detalle_anime/anime.html', {'datos': datos})
 
 def episodio(request, anime_id, episodio):
+    id = Anime.objects.get(id=anime_id).id
     anime = Anime.objects.get(id=anime_id)
     titulo = anime.titulo
     numero = episodio
     id_episodio = Episodios.objects.get(anime_id_id=anime_id, numero_episodio=numero).id
     servidores = Video_server.objects.filter(episodio_id=id_episodio)
+    episodios = Episodios.objects.filter(anime_id=anime_id)
+    enlace = Download_Server.objects.filter(episodio_id_id=id_episodio)
+    
+    for link in enlace:
+        print(link.download_server)
+        print(link.download_url)
+        print(link.episodio_id)
     
     datos = []
-    datos.append({'titulo': titulo, 'episodio': numero, 'servidores': servidores})
-    
-    for servidor in servidores:
-        print(f"{servidor.title}, url: {servidor.url_episodios}, code: {servidor.code}")
+    datos.append({'id': id ,'titulo': titulo, 'episodio': numero, 'servidores': servidores, 'episodios': episodios, 'enlace': enlace})
     
     return render(request, 'episodios/episodio.html', {'datos': datos})

@@ -191,6 +191,7 @@
 
 .anime-slider {
     margin-left: auto;
+    pointer-events: all;
 }
 
 .anime-slider input[type="checkbox"] {
@@ -244,3 +245,11 @@
     100% { transform: rotate(360deg); }
 }
 
+.anime-item.active {
+    background-color: #cecece; /* Cambiar el fondo cuando está activo */
+    color: #ffffff !important; /* Cambiar el color del texto cuando está activo */
+    font-weight: bold; /* Hacer el texto en negrita cuando está activo */
+    pointer-events: none;
+    cursor: not-allowed; /* Opcional: cambia el cursor para indicar que el enlace está deshabilitado */
+    text-decoration: none; /* Opcional: elimina la decoración de subrayado */
+}

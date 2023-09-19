@@ -2,7 +2,7 @@
 <div class="episode-video column">
     <h2> {{ datos.0.titulo }} - Episodio {{ datos.0.episodio }}</h2>
 
-    <p>Episodio: {{ datos.0.episodio }}</p>
+    <p data-capitulo-actual="{{ datos.0.episodio }}">Episodio: {{ datos.0.episodio }}</p>
 
     <div class="container-videos">
         <!-- Barra de opciones de video -->
@@ -26,11 +26,42 @@
         </div>   
 
         <!-- Agrega las clases "icon" a los botones para incluir iconos -->
-        <button class="back-button icon"><i class="fas fa-list-check"></i> Lista de Episodios</button>
+        <button class="back-button icon"><a class="link_detalle_anime" href="{% url 'detalle_anime' datos.0.id %}"><i class="fas fa-list-check"></i> Lista de Episodios</a></button>
 
         <button class="mark-as-watched-button icon"><i class="far fa-eye"></i> Marcar como Visto</button>
 
-        <button class="download-button icon"><i class="fas fa-download"></i> Descargar Episodio</button>
+        <button id="download-button" class="download-button icon"><i class="fas fa-download"></i> Descargar Episodio</button>
+
+        <div id="download-links" style="display: none;" class="row">
+            <table class="RTbl Dwnl">
+                <thead>
+                <tr>
+                    <th>SERVIDOR</th>
+                    <th>TAMAÑO</th>
+                    <th>FORMATO</th>
+                    <th>DESCARGAR</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for link in datos.0.enlace %}
+                        {% if link.download_server != None %}
+                            <tr>
+                                <td>{{ link.download_server }}</td>
+                                <td><strong>MP4</strong></td>
+                                <td>SUB</td>
+                                <td>
+                                    <a target="_blank" rel="nofollow" href="{{ link.download_url }}" class="Button Sm">
+                                        <i class="fas fa-download"></i> DESCARGAR
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            <p id="sin_links" style="display: none;">No hay ningún enlace para mostrar</p>
+        </div>        
     </div>
 
     <div class="episode-list">

@@ -1,6 +1,6 @@
 <ul class="anime-items">
     {% for episodio in datos.0.episodios %}
-    <li class="anime-item">
+    <li data-capitulo-lista="{{ episodio.numero_episodio }}" class="anime-item">
             <div class="anime-image">
                 <img src="" alt="Nombre del anime" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                 <div class="loading-spinner"></div>
@@ -14,8 +14,8 @@
                 </a>
             </div>
         <div class="anime-slider">
-            <input type="checkbox" id="anime-slider-1">
-            <label for="anime-slider-1"></label>
+            <input type="checkbox" id="anime-slider-{{ episodio.numero_episodio }}">
+            <label for="anime-slider-{{ episodio.numero_episodio }}"></label>
         </div>
     </li>
     {% endfor %}
