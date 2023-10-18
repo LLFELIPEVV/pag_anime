@@ -1,147 +1,237 @@
 import json
 import logging
-import traceback
 import requests
-#3775 794 675 594
-from django.core.management.base import BaseCommand #Para ejecutar como script con permisos en una app de Django
-from animeflv import AnimeFLV #Api
-from animes.models import Anime, Episodios, Generos, Download_Server, Video_server #Modelos
-from concurrent.futures import ThreadPoolExecutor, wait #Procesos multihilo
+
+from tqdm import tqdm
+from threading import Lock
+from animeflv import AnimeFLV
+from django.db import IntegrityError
+from django.core.management.base import BaseCommand
+from concurrent.futures import ThreadPoolExecutor, wait
+from animes.models import Anime, Episodios, Generos, Download_Server, Video_server
+
+
+genre_lock = Lock()
+animes_404 = []
+
+# Define una función para procesar un anime y sus datos relacionados
+def process_anime(api, clave, anime_id):
+    id_anime = anime_id
+    clave_int = int(clave)
+
+    if clave_int % 24 == 0:
+        print(f"Pagina {1 + (clave_int / 24)}")
+
+    response = requests.get(f"https://www3.animeflv.net/anime/{id_anime}")
+
+    if response.status_code != 404:
+        info_anime = api.get_anime_info(id_anime)
+        
+        # Tabla Anime
+        # Verifica si el anime ya existe en la base de datos
+        anime_obj, created = Anime.objects.get_or_create(
+            id=id_anime,
+            defaults={
+                'titulo': info_anime.title,
+                'poster_url': info_anime.poster,
+                'banner_url': info_anime.banner,
+                'sinopsis': info_anime.synopsis,
+                'rating': info_anime.rating or "N/A",
+                'debut': info_anime.debut,
+                'tipo': info_anime.type,
+                'orden': clave_int,
+            }
+        )
+
+        if created:  # El anime es nuevo
+            # Tabla Generos
+
+            # Obtén la lista de nombres de géneros desde la fuente externa
+            genres_from_source = info_anime.genres
+
+            # Crea una lista para almacenar los objetos Generos a asignar
+            genres_to_assign = []
+
+            for genre_name in genres_from_source:
+                # Verifica si el género ya existe en la base de datos
+                with genre_lock:
+                    if not Generos.objects.filter(nombre_genero=genre_name).exists():
+                        genre_obj = Generos(nombre_genero=genre_name)
+                        genre_obj.save()
+                    else:
+                        continue
+
+                # Agrega el objeto de género a la lista de géneros a asignar
+                genres_to_assign.append(genre_obj)
+
+            # Asigna los géneros al anime
+            anime_obj.genero_id.set(genres_to_assign)
+
+            # Tabla Episodios
+            episodes = info_anime.episodes
+            
+            if episodes:
+                # Iniciar barra de progreso
+                
+                with tqdm(total=len(episodes), desc=f"Procesando episodios para {info_anime.title}") as pbar:
+                    existing_episode_numbers = set(Episodios.objects.filter(anime_id=anime_obj).values_list('numero_episodio', flat=True))
+                    
+                    for episode in episodes:
+                        
+                        try:
+                            
+                            if episode.id not in existing_episode_numbers:
+                                episodio = Episodios(
+                                    anime_id=anime_obj,
+                                    numero_episodio=episode.id,
+                                    imagen_url_episodio=episode.image_preview
+                                )
+                                episodio.save()
+
+                                # Tabla Download_Server
+                                download_servers_to_create = []
+
+                                download_links = api.get_links(id_anime, episode.id)
+
+                                if download_links:
+                                    for link in download_links:
+                                        download_server = Download_Server(
+                                            episodio_id=episodio,
+                                            download_server=link.server,
+                                            download_url=link.url
+                                        )
+                                        download_servers_to_create.append(download_server)
+
+                                # Tabla Video_server
+                                video_servers_to_create = []
+
+                                video_servers = api.get_video_servers(id_anime, episode.id)
+
+                                if video_servers:
+                                    for server in video_servers[0]:
+                                        video_server = Video_server(
+                                            episodio_id=episodio,
+                                            server=server["server"],
+                                            title=server["title"],
+                                            ads=server["ads"],
+                                            url_episodios=server.get("url", ""),
+                                            allow_mobile=server["allow_mobile"],
+                                            code=server["code"]
+                                        )
+                                        video_servers_to_create.append(video_server)
+
+                                # Usamos bulk_create para insertar múltiples registros a la vez
+                                Download_Server.objects.bulk_create(download_servers_to_create)
+                                Video_server.objects.bulk_create(video_servers_to_create)
+                        except IntegrityError as e:
+                            # Maneja la excepción de integridad, que ocurre cuando ya existe un episodio con la misma clave única
+                            error_msg = f"\nEl episodio con anime ID {id_anime}-{episode.id} ya existía:\n{str(e)}\n"
+                        
+                        finally:
+                            # Actualiza la barra de progreso global para indicar que se ha completado un episodio
+                            pbar.update(1)
+        else:  # El anime no es nuevo
+            episodes = info_anime.episodes
+
+            if episodes:
+                # El anime existe, pero puede tener nuevos episodios
+                existing_episode_numbers = set(Episodios.objects.filter(anime_id=anime_obj).values_list('numero_episodio', flat=True))
+                new_episodes = [episode for episode in episodes if episode.id not in existing_episode_numbers]
+                
+                if new_episodes:
+                    print(f"El anime con ID {id_anime} ya existe en la base de datos, se agregaron nuevos episodios.")
+                    
+                    # Crear una barra de progreso para todos los episodios nuevos
+                    with tqdm(total=len(new_episodes), desc=f"Procesando episodios para {info_anime.title}") as pbar_total:
+                        
+                        # Iterar a través de los episodios nuevos
+                        for episode in new_episodes:
+                            try:
+                                if episode.id not in existing_episode_numbers:
+                                    episodio = Episodios(
+                                        anime_id=anime_obj,
+                                        numero_episodio=episode.id,
+                                        imagen_url_episodio=episode.image_preview
+                                    )
+                                    episodio.save()
+
+                                    download_servers_to_create = []
+                                    video_servers_to_create = []
+
+                                    download_links = api.get_links(id_anime, episode.id)
+
+                                    if download_links:
+                                        for link in download_links:
+                                            download_server = Download_Server(
+                                                episodio_id=episodio,
+                                                download_server=link.server,
+                                                download_url=link.url
+                                            )
+                                            download_servers_to_create.append(download_server)
+
+                                    video_servers = api.get_video_servers(id_anime, episode.id)
+
+                                    if video_servers:
+                                        for server in video_servers[0]:
+                                            video_server = Video_server(
+                                                episodio_id=episodio,
+                                                server=server["server"],
+                                                title=server["title"],
+                                                ads=server["ads"],
+                                                url_episodios=server.get("url", ""),
+                                                allow_mobile=server["allow_mobile"],
+                                                code=server["code"]
+                                            )
+                                            video_servers_to_create.append(video_server)
+
+                                    # No actualices la barra de progreso para el episodio aquí
+                            except IntegrityError as e:
+                                    # Maneja la excepción de integridad, que ocurre cuando ya existe un episodio con la misma clave única
+                                    error_msg = f"\nEl episodio con anime ID {id_anime}-{episode.id} ya existía:\n{str(e)}\n"
+                            finally:
+                                # Actualiza la barra de progreso global para indicar que se ha completado un episodio
+                                pbar_total.update(1)
+                else:
+                    print(f"El anime con ID {id_anime} ya existe en la base de datos y no tiene nuevos episodios.")
+    else:
+        animes_404.append(id_anime)
+        print(f"El anime con ID {id_anime} no se encontró en AnimeFLV (404), se omitió.")
 
 class Command(BaseCommand):
-    help = 'Importa toda la informacion de los animes usando los ID de la lista'
-    
-    #Intentar hacerlo de la ultima pagina a la primera, para poder relacionar mas facil los nuevos capitulos
+    help = 'Importa toda la información de los animes usando los ID de la lista'
+
     def handle(self, *args, **kwargs):
+        global genre_lock, animes_404  # Definir genre_lock y animes_404 como variables globales
+
         logging.basicConfig(filename='animes_import.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
-        
+
         api = AnimeFLV()
-        animes_404 = []
-        
+
         with open('lista_id.json') as json_file:
             data = json.load(json_file)
-        
-        def process_anime(clave, anime): #Toma la clave y valor de el archivo json
-            
-            try:
-                id_anime = anime
-                
-                if int(clave) % 24 == 0:
-                    print(f"Pagina {1 + (int(clave)/24)}")
-                
-                response = requests.get(f"https://www3.animeflv.net/anime/{id_anime}")
-                
-                if response.status_code != 404:
-                    info_anime = api.get_anime_info(id_anime)
-                    
-                    # Check if the anime information is not empty
-                    if not info_anime:
-                        return  # Skip this anime if there's no information
-                    
-                    # Tabla Anime
-                    title = info_anime.title
-                    poster = info_anime.poster
-                    banner = info_anime.banner
-                    synopsis = info_anime.synopsis
-                    rating_anim = info_anime.rating
-                    debut = info_anime.debut
-                    type = info_anime.type
 
-                    # Verifica si el atributo "rating" es None y asigna "N/A" como valor predeterminado
-                    if rating_anim is None:
-                        rating_anim = "N/A"
+        # Define el rango de claves a procesar
+        clave_inicio = 101
+        clave_fin = 1000  # Cambia esto para controlar la cantidad de animes que deseas procesar en cada ejecución
 
-                    print(f"Insertando anime con título: {title}")
-                        
-                    nuevo_anime, _ = Anime.objects.update_or_create(
-                        id=id_anime,
-                        defaults={
-                            'titulo': title,
-                            'poster_url': poster,
-                            'banner_url': banner,
-                            'sinopsis': synopsis,
-                            'rating': rating_anim,
-                            'debut': debut,
-                            'tipo': type,
-                        }
-                    )
+        futures = []  # Lista para almacenar los objetos Future
 
-                    # Tabla Generos
-                    genres = info_anime.genres
-                    for genre in genres:
-                        #print(f"Insertando genero con nombre: {genre}")
-                        nuevo_genero, _ = Generos.objects.update_or_create(nombre_genero=genre)
-                        nuevo_anime.genero_id.add(nuevo_genero)
+        # Crea un ThreadPoolExecutor para procesar los animes de manera concurrente
+        with ThreadPoolExecutor(max_workers=4) as executor:  # Puedes ajustar max_workers según la cantidad de hilos que desees
+            for clave, anime in data.items():
+                clave_int = int(clave)
+                if clave_int >= clave_inicio and clave_int <= clave_fin:
+                    # Utiliza executor para procesar los animes en paralelo y almacena los objetos Future
+                    future = executor.submit(process_anime, api, clave, anime)
+                    futures.append(future)
 
-                    episodes = info_anime.episodes
+        # Espera a que todos los hilos terminen
+        wait(futures)
 
-                    # Tabla Episodios
-                    for episode in episodes:
-                        episodio_anime = nuevo_anime
-                        episode_number = episode.id
-                        episode_preview = episode.image_preview
-                        
-                        if id_anime == "one-piece-tv" or id_anime == "naruto" or id_anime == "naruto-shippuden-hd":
-                            print(f"Insertando episodio de {title} con numero: {episode.id}")
-                        
-                        # Verificar si el episodio ya existe
-                        if Episodios.objects.filter(anime_id=episodio_anime, numero_episodio=episode_number).exists():
-                            continue  # Saltar la inserción si ya existe
-                        
-                        nuevo_episodio= Episodios.objects.create(
-                                anime_id = episodio_anime,
-                                numero_episodio = episode_number,
-                                imagen_url_episodio = episode_preview
-                        )
+        # Cerrar la conexión con la API después de usarla
+        api.close()
 
-                        # Tabla DownloadServer
-                        download_links = api.get_links(f"{id_anime}", f"{episode_number}")
-                        for link in download_links:
-                            download_server = link.server
-                            download_url = link.url
+        # Cerrar el archivo de registro al final de la función handle
+        logging.shutdown()
 
-                            nuevo_download, _ = Download_Server.objects.update_or_create(
-                                episodio_id=nuevo_episodio,
-                                download_server=download_server,
-                                download_url=download_url
-                            )
-
-                        # Tabla Video_server
-                        video_servers = api.get_video_servers(f"{id_anime}", f"{episode_number}")
-                        if video_servers:
-                            for server in video_servers[0]:
-                                video_server = server["server"]
-                                video_title = server["title"]
-                                video_ads = server["ads"]
-                                video_url = server.get("url", "")
-                                video_allow_mobile = server["allow_mobile"]
-                                video_code = server["code"]
-
-                                nuevo_video, _ = Video_server.objects.update_or_create(
-                                    episodio_id=nuevo_episodio,
-                                    server=video_server,
-                                    title=video_title,
-                                    ads=video_ads,
-                                    url_episodios=video_url,
-                                    allow_mobile=video_allow_mobile,
-                                    code=video_code
-                                )
-                else:
-                    animes_404.append(id_anime)
-
-            except Exception as e:
-                error_msg = f"\nError procesando el anime con ID {id_anime}:\n{str(e)}\n"
-                logging.error(error_msg, exc_info=True)
-                return None
-        
-        # Use ThreadPoolExecutor to run the import_anime_data function in parallel
-        with ThreadPoolExecutor() as executor:
-            futures = [executor.submit(process_anime, clave, anime) for clave, anime in data.items()]
-            wait(futures)
-            
-        print(animes_404)
-        
         print("Bucle terminado")
-    
-if __name__ == '__main__':
-    Command().handle()

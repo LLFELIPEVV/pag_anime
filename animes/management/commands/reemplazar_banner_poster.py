@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from animes.models import Anime  # Reemplaza 'tu_app' con el nombre de tu aplicación
 
 class Command(BaseCommand):
-    help = 'Actualiza el campo banner_url de los animes en base a un archivo JSON'
+    help = 'Actualiza el campo banner_url de los animes en base a un archivo JSON que el banner esta en negro, los cambia por los poster'
 
     def handle(self, *args, **options):
         # Nombre del archivo JSON que contiene los títulos de los animes a actualizar

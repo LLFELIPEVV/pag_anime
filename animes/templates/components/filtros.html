@@ -44,6 +44,10 @@
             <label>Orden:</label>
             <div class="custom-checkbox-list">
                 <div class="form-check">
+                    <input class="form-check-input" type="radio" name="orden" value="default" {% if request.GET.orden == 'default' %}checked{% endif %}>
+                    <label class="form-check-label" for="orden-defecto">Por Defecto</label>
+                </div>
+                <div class="form-check">
                     <input class="form-check-input" type="radio" name="orden" value="titulo" {% if request.GET.orden == 'titulo' %}checked{% endif %}>
                     <label class="form-check-label" for="orden-alfabetico">Orden alfabético</label>
                 </div>

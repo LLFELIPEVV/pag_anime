@@ -51,11 +51,13 @@ def listado(request, page=1):
         anime_queryset = anime_queryset.filter(debut__in=estados)
 
     # Obtener el valor del parámetro 'orden' y establecer un valor predeterminado si no está presente
-    orden = request.GET.get('orden')
+    orden = request.GET.get('orden', '-orden')  # Si 'orden' no está presente, usa 'orden' como valor predeterminado
     if orden == 'titulo':
         anime_queryset = anime_queryset.order_by('titulo')
     elif orden == 'rating':
         anime_queryset = anime_queryset.order_by('-rating')  # El '-' indica orden descendente
+    elif orden == 'default':
+        anime_queryset = anime_queryset.order_by('-orden')
 
     # Procesar la consulta paginada como antes
     last_dict = []
@@ -75,9 +77,6 @@ def listado(request, page=1):
     debut = "&debut=" + "&debut=".join(estados) if estados else ""
 
     return render(request, 'listado/listado.html', {'page_obj': page_obj, 'orden': orden, 'tipo': tipo, 'debut': debut})
-
-
-
 
 def index(request):
     with open('lista_episodes.json') as json_file:
@@ -181,21 +180,25 @@ def anime(request, anime_id):
     return render(request, 'detalle_anime/anime.html', {'datos': datos})
 
 def episodio(request, anime_id, episodio):
-    id = Anime.objects.get(id=anime_id).id
-    anime = Anime.objects.get(id=anime_id)
-    titulo = anime.titulo
-    numero = episodio
-    id_episodio = Episodios.objects.get(anime_id_id=anime_id, numero_episodio=numero).id
-    servidores = Video_server.objects.filter(episodio_id=id_episodio)
-    episodios = Episodios.objects.filter(anime_id=anime_id)
-    enlace = Download_Server.objects.filter(episodio_id_id=id_episodio)
+    try:
+        # Convierte 'episodio' a un valor decimal (float) si es necesario
+        episodio = float(episodio)
+
+        # Obtiene el ID del anime y otros datos necesarios
+        id = Anime.objects.get(id=anime_id).id
+        anime = Anime.objects.get(id=anime_id)
+        titulo = anime.titulo
+        id_episodio = Episodios.objects.get(anime_id_id=anime_id, numero_episodio=episodio).id
+        servidores = Video_server.objects.filter(episodio_id=id_episodio)
+        episodios = Episodios.objects.filter(anime_id=anime_id)
+        enlace = Download_Server.objects.filter(episodio_id_id=id_episodio)
+
+        # Si 'episodio' es un número entero, conviértelo a entero y elimina los ceros decimales
+        if episodio.is_integer():
+            episodio = int(episodio)
+
+        datos = [{'id': id, 'titulo': titulo, 'episodio': episodio, 'servidores': servidores, 'episodios': episodios, 'enlace': enlace}]
     
-    for link in enlace:
-        print(link.download_server)
-        print(link.download_url)
-        print(link.episodio_id)
-    
-    datos = []
-    datos.append({'id': id ,'titulo': titulo, 'episodio': numero, 'servidores': servidores, 'episodios': episodios, 'enlace': enlace})
-    
-    return render(request, 'episodios/episodio.html', {'datos': datos})
+        return render(request, 'episodios/episodio.html', {'datos': datos})
+    except ValueError:
+        pass

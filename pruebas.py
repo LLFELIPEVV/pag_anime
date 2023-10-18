@@ -1,7 +1,16 @@
 from animeflv import AnimeFLV
 
 api = AnimeFLV()
+#print(f"info_anime: {api.get_anime_info('under-ninja')}")
+#print(f"episodes: {api.get_anime_info('under-ninja').episodes}")
+#print(f"genres: {api.get_anime_info('tate-no-yuusha-no-nariagari-season-3').genres}")
+#print(f"download_links {api.get_links('under-ninja', 1)}")
+print(f"video_servers {api.get_video_servers('the-humanoid', 1)}")
 
+""" print(api.get_video_servers('kodomo-no-omocha', 1))
+print(api.get_video_servers('After War Gundam X', 1)) """
+
+#print(f"episodes: {api.get_anime_info('nanatsu-no-taizai').episodes[382]}")
 #print(api.list(49))
 #anime_list = api.get_latest_animes()
 #print(anime_list[0])
@@ -38,7 +47,7 @@ api = AnimeFLV()
 #code 4
 
 
-import requests
+""" import requests
 
 url = "https://animeflv.net//uploads/animes/banners/962.jpg"
 url1 = "https://animeflv.net//uploads/animes/banners/2638.jpg"
@@ -53,4 +62,4 @@ try:
     else:
         print(f"La imagen en {final_url} no está disponible (estado {status_code}).")
 except requests.ConnectionError:
-    print(f"No se pudo conectar a {url1}. Verifique la URL o su conexión a internet.")
+    print(f"No se pudo conectar a {url1}. Verifique la URL o su conexión a internet.") """

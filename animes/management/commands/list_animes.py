@@ -41,11 +41,14 @@ class Command(BaseCommand):
             id_anime = anime.id
             # Si el id_anime no está en el diccionario, agregarlo con el número adecuado
             if id_anime not in anime_dict.values():
+                print(f"Nuevo anime agregado: {id_anime}")
                 max_number += 1
                 anime_dict[str(max_number)] = id_anime  # Convertir a cadena antes de usar como clave
         
         # Guardar el diccionario actualizado en el archivo JSON
         with open('lista_id.json', 'w') as archivo_json:
             json.dump(anime_dict, archivo_json, indent=4)
+        
+        print("Lista actualizada")
 
                 

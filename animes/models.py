@@ -45,6 +45,7 @@ class Anime(models.Model):
     ]
     
     id = models.CharField(max_length=255, primary_key=True)
+    orden = models.IntegerField(null=True, unique=True)
     genero_id = models.ManyToManyField(Generos)
     estudio_id = models.ForeignKey(Estudios_animacion, on_delete=models.CASCADE, null=True)
     titulo = models.CharField(max_length=255, null=True, db_collation='utf8mb4_unicode_ci')
@@ -65,7 +66,7 @@ class Anime(models.Model):
 
 class Episodios(models.Model):
     anime_id = models.ForeignKey(Anime, on_delete=models.CASCADE)
-    numero_episodio = models.PositiveIntegerField(null=True)
+    numero_episodio = models.FloatField(null=True)
     titulo_episodio = models.CharField(max_length=100, null=True)
     duracion = models.IntegerField(null=True)
     fecha_lanzamiento = models.DateField(null=True)
@@ -74,6 +75,10 @@ class Episodios(models.Model):
     
     def __str__(self):
         return f"{self.anime_id.titulo} - Episodio {self.numero_episodio}"
+    
+    class Meta:
+        # Especifica la combinación de campos que debe ser única
+        unique_together = ('anime_id', 'numero_episodio')
 
 class Atributos(models.Model):
     anime_id = models.ForeignKey(Anime, on_delete=models.CASCADE)

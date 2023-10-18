@@ -6,7 +6,7 @@ from animes.models import Anime, Episodios, Generos, Download_Server, Video_serv
 from concurrent.futures import ThreadPoolExecutor, wait #Procesos multihilo
 
 class Command(BaseCommand):
-    help = 'Import anime data from AnimeFLV API'
+    help = 'Import anime data from AnimeFLV API, no se usa por que hay varias paginas de id que no se pueden tomar de esta manera, aun asi es la forma en la que se hace sin hacer una json con los id'
     
     #Intentar hacerlo de la ultima pagina a la primera, para poder relacionar mas facil los nuevos capitulos
     def handle(self, *args, **kwargs):
