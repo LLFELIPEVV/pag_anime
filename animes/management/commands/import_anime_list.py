@@ -20,7 +20,7 @@ def process_anime(api, clave, anime_id):
     clave_int = int(clave)
 
     if clave_int % 24 == 0:
-        print(f"Pagina {1 + (clave_int / 24)}")
+        print(f"\nPagina {1 + (clave_int / 24)}\n")
 
     response = requests.get(f"https://www3.animeflv.net/anime/{id_anime}")
 
@@ -73,7 +73,7 @@ def process_anime(api, clave, anime_id):
             if episodes:
                 # Iniciar barra de progreso
                 
-                with tqdm(total=len(episodes), desc=f"Procesando episodios para {info_anime.title}") as pbar:
+                with tqdm(total=len(episodes), desc=f"Procesando episodios para {info_anime.title} #{clave_int}") as pbar:
                     existing_episode_numbers = set(Episodios.objects.filter(anime_id=anime_obj).values_list('numero_episodio', flat=True))
                     
                     for episode in episodes:
@@ -139,10 +139,10 @@ def process_anime(api, clave, anime_id):
                 new_episodes = [episode for episode in episodes if episode.id not in existing_episode_numbers]
                 
                 if new_episodes:
-                    print(f"El anime con ID {id_anime} ya existe en la base de datos, se agregaron nuevos episodios.")
+                    print(f"\nEl anime con ID {id_anime} ya existe en la base de datos, se agregaron nuevos episodios.\n")
                     
                     # Crear una barra de progreso para todos los episodios nuevos
-                    with tqdm(total=len(new_episodes), desc=f"Procesando episodios para {info_anime.title}") as pbar_total:
+                    with tqdm(total=len(new_episodes), desc=f"Procesando episodios para {info_anime.title} #{clave_int}") as pbar_total:
                         
                         # Iterar a través de los episodios nuevos
                         for episode in new_episodes:
@@ -192,10 +192,10 @@ def process_anime(api, clave, anime_id):
                                 # Actualiza la barra de progreso global para indicar que se ha completado un episodio
                                 pbar_total.update(1)
                 else:
-                    print(f"El anime con ID {id_anime} ya existe en la base de datos y no tiene nuevos episodios.")
+                    print(f"\nEl anime con ID {id_anime} ya existe en la base de datos y no tiene nuevos episodios.\n")
     else:
         animes_404.append(id_anime)
-        print(f"El anime con ID {id_anime} no se encontró en AnimeFLV (404), se omitió.")
+        print(f"\nEl anime con ID {id_anime} no se encontró en AnimeFLV (404), se omitió.\n")
 
 class Command(BaseCommand):
     help = 'Importa toda la información de los animes usando los ID de la lista'
@@ -211,8 +211,8 @@ class Command(BaseCommand):
             data = json.load(json_file)
 
         # Define el rango de claves a procesar
-        clave_inicio = 101
-        clave_fin = 1000  # Cambia esto para controlar la cantidad de animes que deseas procesar en cada ejecución
+        clave_inicio = 901
+        clave_fin = 1100  # Cambia esto para controlar la cantidad de animes que deseas procesar en cada ejecución
 
         futures = []  # Lista para almacenar los objetos Future
 
@@ -233,5 +233,7 @@ class Command(BaseCommand):
 
         # Cerrar el archivo de registro al final de la función handle
         logging.shutdown()
+        
+        print(animes_404)
 
         print("Bucle terminado")
