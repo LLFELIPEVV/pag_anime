@@ -4,7 +4,7 @@
         <!-- Loop to generate AnimeCard components -->
         {% for anime in page_obj %}
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
-                <a href="{% url 'detalle_anime' anime.id %}" class="link_detalle_anime">
+                <a href="{% url 'animes:detalle_anime' anime.id %}" class="link_detalle_anime">
                     <div class="card">
                         <img src="{{ anime.poster }}" class="card-img-top" alt="Anime Image">
                         <div class="card-body">

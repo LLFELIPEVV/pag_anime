@@ -13,12 +13,12 @@
                     <a class="nav-link" href="{% url 'index' %}">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'listado' %}">Listado Anime</a>
+                    <a class="nav-link" href="{% url 'animes:listado' %}">Listado Anime</a>
                 </li>
             </ul>
         </div>
         <div class="d-flex align-items-center navbar-search">
-            <form class="d-flex" action="{% url 'buscar_animes' %}" method="get">
+            <form class="d-flex" action="{% url 'animes:buscar_animes' %}" method="get">
                 <input class="form-control me-2 busqueda" id="inputBusqueda" type="search" name="q" placeholder="Buscar anime..." aria-label="Search">
                 <button class="btn btn-success busqueda" id="busqueda" type="submit">Buscar</button>
                 <button class="busqueda-menor btn btn-success" id="botonBusquedaMenor" type="menu"><span class="fa-solid fa-magnifying-glass busqueda-menor"></span></button>

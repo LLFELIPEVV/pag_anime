@@ -1,5 +1,5 @@
 <div class="col-md-3 mb-4">
-    <a href="{% url 'episodio' anime_id=anime.id episodio=anime.numero %}">
+    <a href="{% url 'animes:episodio' anime_id=anime.id episodio=anime.numero %}">
         <div class="card anime-card">
             <img src="{{ anime.poster }}" alt="{{ anime.titulo }}" class="anime-image">
             <div class="overlay">

@@ -6,10 +6,10 @@
                 <div class="loading-spinner"></div>
             </div>
             <div class="anime-info column">
-                <a href="{% url 'episodio' anime_id=datos.0.id episodio=episodio.numero_episodio %}">
+                <a href="{% url 'animes:episodio' anime_id=datos.0.id episodio=episodio.numero_episodio %}">
                     <h3 class="anime-title">{{ episodio.anime_id.titulo }}</h3>
                 </a>
-                <a href="{% url 'episodio' anime_id=datos.0.id episodio=episodio.numero_episodio %}" class="link_detalle_anime">
+                <a href="{% url 'animes:episodio' anime_id=datos.0.id episodio=episodio.numero_episodio %}" class="link_detalle_anime">
                     <p class="anime-episode">Episodio {{ episodio.numero_episodio }}</p>
                 </a>
             </div>

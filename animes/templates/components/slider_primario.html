@@ -8,14 +8,12 @@
     <div class="carousel-inner">
         {% for anime in random %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <a href="{% url 'detalle_anime' anime.id %}">
+                <a href="{% url 'animes:detalle_anime' anime.id %}">
                     <img src="{{ anime.banner_url }}" class="d-block w-100" alt="{{ anime.titulo }}">
                 </a>
                 <div class="carousel-caption">
-                    {% if anime.banner_url %}
                         <h5>{{ anime.titulo }}</h5>
                         <h6>{{ anime.sinopsis }}</h6>
-                    {% endif %}
                 </div>
             </div>
         {% endfor %}

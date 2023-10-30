@@ -211,8 +211,8 @@ class Command(BaseCommand):
             data = json.load(json_file)
 
         # Define el rango de claves a procesar
-        clave_inicio = 901
-        clave_fin = 1100  # Cambia esto para controlar la cantidad de animes que deseas procesar en cada ejecución
+        clave_inicio = 1
+        clave_fin = 3839  # Cambia esto para controlar la cantidad de animes que deseas procesar en cada ejecución
 
         futures = []  # Lista para almacenar los objetos Future
 

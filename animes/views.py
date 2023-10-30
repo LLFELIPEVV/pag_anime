@@ -111,7 +111,11 @@ def index(request):
         tipo_emision = Anime.objects.get(id=anime.id).tipo
         emis_dict.append({'title': titulo_emision, 'type': tipo_emision, 'id': id})
 
-    random_animes = random.sample(list(Anime.objects.all()), 6)
+    random_animes = []
+    for anime in random.sample(list(Anime.objects.all()), 6):
+        if anime.banner_url and anime.banner_url != '404':
+            random_animes.append(anime)
+
     
     context = {'episodes': episodes_dict, 'last': last_dict, 'emision': emis_dict, 'random': random_animes}  # Combine both dictionaries
     

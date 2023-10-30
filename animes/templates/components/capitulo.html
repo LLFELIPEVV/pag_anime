@@ -26,7 +26,7 @@
         </div>   
 
         <!-- Agrega las clases "icon" a los botones para incluir iconos -->
-        <button class="back-button icon"><a class="link_detalle_anime" href="{% url 'detalle_anime' datos.0.id %}"><i class="fas fa-list-check"></i> Lista de Episodios</a></button>
+        <button class="back-button icon"><a class="link_detalle_anime" href="{% url 'animes:detalle_anime' datos.0.id %}"><i class="fas fa-list-check"></i> Lista de Episodios</a></button>
 
         <button class="mark-as-watched-button icon"><i class="far fa-eye"></i> Marcar como Visto</button>
 
