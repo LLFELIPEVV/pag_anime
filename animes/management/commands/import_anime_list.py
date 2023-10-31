@@ -54,18 +54,13 @@ def process_anime(api, clave, anime_id):
 
             for genre_name in genres_from_source:
                 # Verifica si el género ya existe en la base de datos
-                with genre_lock:
-                    if not Generos.objects.filter(nombre_genero=genre_name).exists():
-                        genre_obj = Generos(nombre_genero=genre_name)
-                        genre_obj.save()
-                    else:
-                        continue
-
+                genre_obj, _ = Generos.objects.get_or_create(nombre_genero=genre_name)
+                
                 # Agrega el objeto de género a la lista de géneros a asignar
                 genres_to_assign.append(genre_obj)
 
-            # Asigna los géneros al anime
-            anime_obj.genero_id.set(genres_to_assign)
+            # Asigna los géneros al anime, incluso si ya existen en la base de datos
+            anime_obj.genero_id.add(*genres_to_assign)
 
             # Tabla Episodios
             episodes = info_anime.episodes
@@ -131,6 +126,24 @@ def process_anime(api, clave, anime_id):
                             # Actualiza la barra de progreso global para indicar que se ha completado un episodio
                             pbar.update(1)
         else:  # El anime no es nuevo
+            # Tabla Generos
+
+            # Obtén la lista de nombres de géneros desde la fuente externa
+            genres_from_source = info_anime.genres
+
+            # Crea una lista para almacenar los objetos Generos a asignar
+            genres_to_assign = []
+
+            for genre_name in genres_from_source:
+                # Verifica si el género ya existe en la base de datos
+                genre_obj, _ = Generos.objects.get_or_create(nombre_genero=genre_name)
+                
+                # Agrega el objeto de género a la lista de géneros a asignar
+                genres_to_assign.append(genre_obj)
+
+            # Asigna los géneros al anime, incluso si ya existen en la base de datos
+            anime_obj.genero_id.add(*genres_to_assign)
+            
             episodes = info_anime.episodes
 
             if episodes:

@@ -21,6 +21,7 @@ from animes.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('anime/', include('animes.urls')),
+    path('usuarios/', include('usuarios.urls')),
     path('', index, name='index'),
 ]
 

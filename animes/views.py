@@ -4,6 +4,7 @@ import random
 
 from animeflv import AnimeFLV
 from django.shortcuts import render
+from usuarios.forms import LoginForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Anime, Episodios, Video_server, Download_Server
 
@@ -75,8 +76,10 @@ def listado(request, page=1):
     # Obtener los filtros seleccionados
     tipo = "&tipo=" + "&tipo=".join(tipos) if tipos else ""
     debut = "&debut=" + "&debut=".join(estados) if estados else ""
+    
+    form = LoginForm()
 
-    return render(request, 'listado/listado.html', {'page_obj': page_obj, 'orden': orden, 'tipo': tipo, 'debut': debut})
+    return render(request, 'listado/listado.html', {'page_obj': page_obj, 'orden': orden, 'tipo': tipo, 'debut': debut, 'form': form})
 
 def index(request):
     with open('lista_episodes.json') as json_file:
@@ -113,11 +116,13 @@ def index(request):
 
     random_animes = []
     for anime in random.sample(list(Anime.objects.all()), 6):
-        if anime.banner_url and anime.banner_url != '404':
+        if requests.get(anime.banner_url) != '404':
             random_animes.append(anime)
 
+    form = LoginForm()
     
-    context = {'episodes': episodes_dict, 'last': last_dict, 'emision': emis_dict, 'random': random_animes}  # Combine both dictionaries
+    context = {'episodes': episodes_dict, 'last': last_dict, 'emision': emis_dict, 'random': random_animes, 'form': form}  # Combine both dictionaries
+    
     
     return render(request, 'inicio/index.html', context)
 
@@ -162,8 +167,10 @@ def buscar_animes(request):
     except EmptyPage:
         # Si la página está vacía, muestra la última página
         busqueda_obj = paginator.page(paginator.num_pages)
+        
+    form = LoginForm()
 
-    return render(request, 'listado/busqueda.html', {'resultados': busqueda_obj, 'query': query, 'page': page_actual})
+    return render(request, 'listado/busqueda.html', {'resultados': busqueda_obj, 'query': query, 'page': page_actual, 'form': form})
 
 def anime(request, anime_id):
     anime = Anime.objects.get(id=anime_id)
@@ -178,10 +185,12 @@ def anime(request, anime_id):
     rating = anime.rating
     episodios = Episodios.objects.filter(anime_id=anime_id)
     
+    form = LoginForm()
+    
     datos = []
     datos.append({'id': id, 'titulo': titulo, 'tipo':tipo, 'poster': poster, 'banner': banner, 'debut': debut, 'sinopsis': sinopsis, 'generos': generos, 'rating': rating, 'episodios': episodios})
     
-    return render(request, 'detalle_anime/anime.html', {'datos': datos})
+    return render(request, 'detalle_anime/anime.html', {'datos': datos, 'form': form})
 
 def episodio(request, anime_id, episodio):
     try:
@@ -201,8 +210,10 @@ def episodio(request, anime_id, episodio):
         if episodio.is_integer():
             episodio = int(episodio)
 
+        form = LoginForm()
+        
         datos = [{'id': id, 'titulo': titulo, 'episodio': episodio, 'servidores': servidores, 'episodios': episodios, 'enlace': enlace}]
     
-        return render(request, 'episodios/episodio.html', {'datos': datos})
+        return render(request, 'episodios/episodio.html', {'datos': datos, 'form':form})
     except ValueError:
         pass

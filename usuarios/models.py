@@ -3,6 +3,7 @@ from django.utils import timezone
 from animes.models import length_url
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+
 class UsuariosManager(BaseUserManager):
     def create_user(self, username, email, password):
         if not email:
@@ -18,6 +19,7 @@ class UsuariosManager(BaseUserManager):
         user.is_staff = True
         user.save(using=self._db)
         return user
+
 
 class Usuarios(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True)
