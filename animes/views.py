@@ -1,7 +1,11 @@
+import io
 import json
-import requests
 import random
+import requests
+import threading
 
+from PIL import Image, UnidentifiedImageError
+from usuarios.views import login_view
 from animeflv import AnimeFLV
 from django.shortcuts import render
 from usuarios.forms import LoginForm
@@ -38,6 +42,22 @@ def all_animes(request):
     return render(request, 'all_animes.html', {'animes': all_animes_info})
 
 def listado(request, page=1):
+    response_data = {'success': False}  # Define response_data con un valor predeterminado
+    form = LoginForm()
+    error_message = None
+
+    if request.method == 'POST':
+        print(request.POST)
+        response_data = login_view(request)  # Llama a la vista de usuarios
+        print(response_data.content)
+        if not response_data.get('success', False):
+            response_data_json = json.loads(response_data.content)
+            error_message = response_data_json.get('error_message', 'Error desconocido')
+        else:
+            error_message = response_data.get('error_message', None)
+            
+    print(error_message)
+    
     # Obtén todos los animes de la base de datos
     anime_queryset = Anime.objects.all()
 
@@ -79,9 +99,38 @@ def listado(request, page=1):
     
     form = LoginForm()
 
-    return render(request, 'listado/listado.html', {'page_obj': page_obj, 'orden': orden, 'tipo': tipo, 'debut': debut, 'form': form})
+    return render(request, 'listado/listado.html', {'page_obj': page_obj, 'orden': orden, 'tipo': tipo, 'debut': debut, 'form': form, 'error': error_message})
+
+# Definir una función que maneje una solicitud HTTP
+def fetch_image(anime, result):
+    response = requests.get(anime.banner_url)
+    if response.status_code == 200:
+        try:
+            # Intenta abrir la respuesta como una imagen
+            img = Image.open(io.BytesIO(response.content))
+            # Si no hay excepciones, consideramos que es una imagen válida
+            result.append(anime)
+        except (IOError, UnidentifiedImageError) as e:
+            # Si se lanza una excepción al abrir la imagen, la respuesta no contiene una imagen válida
+            print(f"Error al abrir la imagen para el anime {anime.titulo}: {e}")
 
 def index(request):
+    response_data = {'success': False}  # Define response_data con un valor predeterminado
+    form = LoginForm()
+    error_message = None
+
+    if request.method == 'POST':
+        print(request.POST)
+        response_data = login_view(request)  # Llama a la vista de usuarios
+        print(response_data.content)
+        if not response_data.get('success', False):
+            response_data_json = json.loads(response_data.content)
+            error_message = response_data_json.get('error_message', 'Error desconocido')
+        else:
+            error_message = response_data.get('error_message', None)
+            
+        print(error_message)
+    
     with open('lista_episodes.json') as json_file:
         episodes_data = json.load(json_file)
 
@@ -115,18 +164,44 @@ def index(request):
         emis_dict.append({'title': titulo_emision, 'type': tipo_emision, 'id': id})
 
     random_animes = []
-    for anime in random.sample(list(Anime.objects.all()), 6):
-        if requests.get(anime.banner_url) != '404':
-            random_animes.append(anime)
+    selected_animes = random.sample(list(Anime.objects.all()), 6)
+    
+    result = []  # Lista para almacenar los resultados de las solicitudes HTTP
+    
+    # Crear hilos para manejar las solicitudes HTTP
+    threads = [threading.Thread(target=fetch_image, args=(anime, result)) for anime in selected_animes]
+    
+    # Iniciar los hilos
+    for thread in threads:
+        thread.start()
+    
+    # Esperar a que todos los hilos terminen
+    for thread in threads:
+        thread.join()
 
-    form = LoginForm()
-    
-    context = {'episodes': episodes_dict, 'last': last_dict, 'emision': emis_dict, 'random': random_animes, 'form': form}  # Combine both dictionaries
-    
+    random_animes = result  # Utiliza los resultados obtenidos en los hilos
+        
+    context = {'episodes': episodes_dict, 'last': last_dict, 'emision': emis_dict, 'random': random_animes, 'form': form, 'error': error_message}  # Combine both dictionaries
     
     return render(request, 'inicio/index.html', context)
 
 def buscar_animes(request):
+    response_data = {'success': False}  # Define response_data con un valor predeterminado
+    form = LoginForm()
+    error_message = None
+
+    if request.method == 'POST':
+        print(request.POST)
+        response_data = login_view(request)  # Llama a la vista de usuarios
+        print(response_data.content)
+        if not response_data.get('success', False):
+            response_data_json = json.loads(response_data.content)
+            error_message = response_data_json.get('error_message', 'Error desconocido')
+        else:
+            error_message = response_data.get('error_message', None)
+            
+    print(error_message)
+    
     query = request.GET.get('q')
     resultados = []  # Inicializa resultados como una lista vacía
     busqueda = []  # Inicializa busqueda como una lista vacía
@@ -170,9 +245,25 @@ def buscar_animes(request):
         
     form = LoginForm()
 
-    return render(request, 'listado/busqueda.html', {'resultados': busqueda_obj, 'query': query, 'page': page_actual, 'form': form})
+    return render(request, 'listado/busqueda.html', {'resultados': busqueda_obj, 'query': query, 'page': page_actual, 'form': form, 'error': error_message})
 
 def anime(request, anime_id):
+    response_data = {'success': False}  # Define response_data con un valor predeterminado
+    form = LoginForm()
+    error_message = None
+
+    if request.method == 'POST':
+        print(request.POST)
+        response_data = login_view(request)  # Llama a la vista de usuarios
+        print(response_data.content)
+        if not response_data.get('success', False):
+            response_data_json = json.loads(response_data.content)
+            error_message = response_data_json.get('error_message', 'Error desconocido')
+        else:
+            error_message = response_data.get('error_message', None)
+            
+    print(error_message)
+    
     anime = Anime.objects.get(id=anime_id)
     id = anime.id
     titulo = anime.titulo
@@ -190,9 +281,25 @@ def anime(request, anime_id):
     datos = []
     datos.append({'id': id, 'titulo': titulo, 'tipo':tipo, 'poster': poster, 'banner': banner, 'debut': debut, 'sinopsis': sinopsis, 'generos': generos, 'rating': rating, 'episodios': episodios})
     
-    return render(request, 'detalle_anime/anime.html', {'datos': datos, 'form': form})
+    return render(request, 'detalle_anime/anime.html', {'datos': datos, 'form': form, 'error': error_message})
 
 def episodio(request, anime_id, episodio):
+    response_data = {'success': False}  # Define response_data con un valor predeterminado
+    form = LoginForm()
+    error_message = None
+
+    if request.method == 'POST':
+        print(request.POST)
+        response_data = login_view(request)  # Llama a la vista de usuarios
+        print(response_data.content)
+        if not response_data.get('success', False):
+            response_data_json = json.loads(response_data.content)
+            error_message = response_data_json.get('error_message', 'Error desconocido')
+        else:
+            error_message = response_data.get('error_message', None)
+            
+    print(error_message)
+    
     try:
         # Convierte 'episodio' a un valor decimal (float) si es necesario
         episodio = float(episodio)
@@ -214,6 +321,6 @@ def episodio(request, anime_id, episodio):
         
         datos = [{'id': id, 'titulo': titulo, 'episodio': episodio, 'servidores': servidores, 'episodios': episodios, 'enlace': enlace}]
     
-        return render(request, 'episodios/episodio.html', {'datos': datos, 'form':form})
+        return render(request, 'episodios/episodio.html', {'datos': datos, 'form':form, 'error': error_message})
     except ValueError:
         pass

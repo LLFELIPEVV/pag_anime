@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'animes',
-    'relaciones',
     'usuarios',
+    'relaciones',
 ]
 
 MIDDLEWARE = [
@@ -58,10 +58,7 @@ ROOT_URLCONF = 'pagina_anime.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            #Indicar la ruta para la carpeta template
-            os.path.join(BASE_DIR, 'animes', 'templates'),
-            ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

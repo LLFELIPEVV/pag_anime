@@ -1,0 +1,41 @@
+body {
+    background-color: #f2f2f2; /* Fondo gris claro */
+}
+
+main {
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 20px; /* Espacio interno para separar el contenido del borde */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    margin: 20px auto; /* Centrar el contenido verticalmente */
+    max-width: 600px; /* Ancho máximo del contenido */
+}
+
+.text-center {
+    padding-bottom: 5%;
+    text-align: center;
+}
+
+.align-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.form-group {
+    margin-bottom: 1px; /* Espacio entre los campos */
+}
+
+.form-control {
+    width: 100%; /* Input al 100% del ancho */
+}
+
+.btn-form {
+    margin-top: 1%;
+}
+
+.enlaces {
+    text-decoration: none;
+}

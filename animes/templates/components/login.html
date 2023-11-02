@@ -5,8 +5,13 @@
                 <div class="card-header">
                     Iniciar Sesión
                 </div>
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endif %}               
                 <div class="card-body">
-                    <form method="post" action="{% url 'usuarios:login' %}">
+                    <form id="login-form" method="post">
                         {% csrf_token %}
                         {{ form.username.label_tag }}
                         {{ form.username }}
@@ -16,7 +21,7 @@
                     </form>
                 </div>
                 <div class="card-footer">
-                    <p class="mb-0">¿No tienes una cuenta? <a href="#" class="text-primary">Regístrate aquí</a></p>
+                    <p class="mb-0">¿No tienes una cuenta? <a href="{% url 'usuarios:register' %}" class="text-primary">Regístrate aquí</a></p>
                     <p class="mb-0"><a href="#" class="text-primary">¿Olvidaste tu contraseña?</a></p>
                 </div>
             </div>
