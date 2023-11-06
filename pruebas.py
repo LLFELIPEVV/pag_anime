@@ -63,3 +63,16 @@ try:
         print(f"La imagen en {final_url} no está disponible (estado {status_code}).")
 except requests.ConnectionError:
     print(f"No se pudo conectar a {url1}. Verifique la URL o su conexión a internet.") """
+
+from django.contrib.auth.models import User
+
+# Comprobar si existe un usuario con un nombre de usuario específico
+username = 'LFELIPEV'
+user_exists = User.objects.filter(username=username).exists()
+
+if user_exists:
+    # El usuario existe
+    print("El usuario existe en la base de datos.")
+else:
+    # El usuario no existe
+    print("El usuario no existe en la base de datos.")

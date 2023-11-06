@@ -11,14 +11,25 @@
                 </div>
                 {% endif %}               
                 <div class="card-body">
-                    <form id="login-form" method="post">
-                        {% csrf_token %}
-                        {{ form.username.label_tag }}
-                        {{ form.username }}
-                        {{ form.password.label_tag }}
-                        {{ form.password }}
-                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-                    </form>
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'usuarios:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">Cerrar Sesión</button>
+                      </form>
+                    {% else %}
+                        <form id="login-form" method="post">
+                            {% csrf_token %}
+                            {{ form.username.label_tag }}
+                            {{ form.username }}
+                            {{ form.password.label_tag }}
+                            {{ form.password }}
+                            <div class="d-flex align-items-center">
+                                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                                <label style="padding-left: 10px; padding-right: 4px;" class="form-check-label my-3" for="{{ form.remember_me.id_for_label }}">{{ form.remember_me.label_tag }}</label>
+                                <input type="checkbox" class="form-check-input my-3" id="{{ form.remember_me.id_for_label }}" name="{{ form.remember_me.name }}">
+                            </div>             
+                        </form>
+                    {% endif %}
                 </div>
                 <div class="card-footer">
                     <p class="mb-0">¿No tienes una cuenta? <a href="{% url 'usuarios:register' %}" class="text-primary">Regístrate aquí</a></p>

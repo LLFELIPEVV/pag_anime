@@ -1,7 +1,10 @@
 import re
 
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm, ReadOnlyPasswordHashField
 from django import forms
-from .models import Usuarios
+
+User = get_user_model()
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -13,6 +16,11 @@ class LoginForm(forms.Form):
         label="Contraseña",
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
     )
+    remember_me = forms.BooleanField(
+        label="Recuérdame",
+        required=False,  # Esto hace que no sea un campo obligatorio
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+    )
 
 class RegistroForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -23,8 +31,11 @@ class RegistroForm(forms.ModelForm):
             if isinstance(field.widget, (forms.TextInput, forms.PasswordInput, forms.EmailInput, forms.URLInput)):
                 field.widget.attrs.update({'class': 'form-control'})
     
+    avatar_url = forms.URLField(required=False)
+    descripcion_personal = forms.CharField(required=False)
+    
     class Meta:
-        model = Usuarios
+        model = User
         fields = ['username', 'email', 'password', 'pais', 'avatar_url', 'descripcion_personal']
     
     def clean(self):

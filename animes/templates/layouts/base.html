@@ -28,6 +28,15 @@
     <div class="body-wrapper">
         {% include 'components/header.html' %}
 
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'registro' in message.tags %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+
         <main class="content">
             {% include 'components/menu_lateral.html' %}
             {% include 'components/login.html' %}

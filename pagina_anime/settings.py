@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -111,6 +110,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# settings.py
+SESSION_COOKIE_AGE = 2592000  # 30 días en segundos (sesión "recordada")
+SESSION_SAVE_EVERY_REQUEST = False  # Guardar la sesión en cada solicitud
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
