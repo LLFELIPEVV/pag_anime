@@ -13,6 +13,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Anime, Episodios, Video_server, Download_Server
 
 # Create your views here.
+
+
 def anime_search(request, query):
     # Crea una instancia de la API de AnimeFLV
     api = AnimeFLV()
@@ -51,9 +53,9 @@ def listado(request, page=1):
     if request.method == 'POST':
         response_data = login_view(request)  # Llama a la vista de usuarios
         response_data_json = json.loads(response_data.content)
-        
+
         print(response_data_json['error_message'])
-        
+
         if response_data_json['success'] == True:
             error_message = "Inicio de sesión realizado con éxito"
         else:
@@ -132,7 +134,7 @@ def index(request):
         # Esto podría ser un usuario anónimo o una sesión no autenticada
     else:
         print("No hay una sesión abierta en absoluto")
-    
+
     # Define response_data con un valor predeterminado
     response_data = {'success': False}
     form = LoginForm()
@@ -141,9 +143,9 @@ def index(request):
     if request.method == 'POST':
         response_data = login_view(request)  # Llama a la vista de usuarios
         response_data_json = json.loads(response_data.content)
-        
+
         print(response_data_json['error_message'])
-        
+
         if response_data_json['success'] == True:
             error_message = "Inicio de sesión realizado con éxito"
         else:
@@ -205,7 +207,7 @@ def index(request):
 
     context = {'episodes': episodes_dict, 'last': last_dict, 'emision': emis_dict,
                'random': random_animes, 'form': form, 'error': error_message}  # Combine both dictionaries
-    
+
     return render(request, 'inicio/index.html', context)
 
 
@@ -218,9 +220,9 @@ def buscar_animes(request):
     if request.method == 'POST':
         response_data = login_view(request)  # Llama a la vista de usuarios
         response_data_json = json.loads(response_data.content)
-        
+
         print(response_data_json['error_message'])
-        
+
         if response_data_json['success'] == True:
             error_message = "Inicio de sesión realizado con éxito"
         else:
@@ -282,9 +284,9 @@ def anime(request, anime_id):
     if request.method == 'POST':
         response_data = login_view(request)  # Llama a la vista de usuarios
         response_data_json = json.loads(response_data.content)
-        
+
         print(response_data_json['error_message'])
-        
+
         if response_data_json['success'] == True:
             error_message = "Inicio de sesión realizado con éxito"
         else:
@@ -320,9 +322,9 @@ def episodio(request, anime_id, episodio):
     if request.method == 'POST':
         response_data = login_view(request)  # Llama a la vista de usuarios
         response_data_json = json.loads(response_data.content)
-        
+
         print(response_data_json['error_message'])
-        
+
         if response_data_json['success'] == True:
             error_message = "Inicio de sesión realizado con éxito"
         else:

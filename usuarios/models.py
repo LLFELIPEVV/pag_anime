@@ -20,6 +20,7 @@ class UsuariosManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class Usuarios(AbstractUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
@@ -27,7 +28,7 @@ class Usuarios(AbstractUser):
     pais = models.CharField(max_length=40, null=True)
     avatar_url = models.URLField(max_length=length_url, null=True)
     descripcion_personal = models.CharField(max_length=555, null=True)
-    
+
     # Lista de campos requeridos
     REQUIRED_FIELDS = ['email']
 
