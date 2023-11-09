@@ -10,6 +10,11 @@
     z-index: 10000;
 }
 
+.user-info-container {
+    overflow-y: hidden !important; /* Evitará el desbordamiento de contenido */
+    overflow-x: hidden !important;
+}
+
 /* Estilos para dispositivos móviles */
 @media (max-width: 767px) {
     #loginCard {

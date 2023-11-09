@@ -1,21 +1,50 @@
+{% load static %}
 <div class="container mt-5 container-login">
     <div class="row justify-content-center">
         <div class="col-md-6 offset-md-6">
             <div class="card" id="loginCard">
                 <div class="card-header">
-                    Iniciar Sesión
+                    {% if user.is_authenticated %}
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                {% if user.avatar_url %}
+                                    <img src="{{ user.avatar_url.url }}" alt="Avatar" class="img-thumbnail rounded-circle" style="width: 65px; height: 65px;">
+                                {% else %}
+                                    <img src="{% static 'images/default.jpg' %}" alt="Avatar" class="img-thumbnail rounded-circle" style="width: 65px; height: 65px;">
+                                {% endif %}
+                            </div>
+                            <div>
+                                <h2 class="mb-0 user-info-container">{{ user.username }} <i class="fas fa-user"></i></h2>
+                                <p class="mb-0">{{ user.email }}</p>
+                                {% if user.pais %}
+                                    <p class="mb-0">
+                                        {{ user.pais }}
+                                    </p>
+                                {% endif %}
+                            </div>                            
+                        </div>
+                    {% else %}
+                        <h2>Iniciar Sesión</h2>
+                    {% endif %}
                 </div>
                 {% if error %}
-                <div class="alert alert-danger">
-                    {{ error }}
-                </div>
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
                 {% endif %}               
                 <div class="card-body">
                     {% if user.is_authenticated %}
-                        <form method="post" action="{% url 'usuarios:logout' %}">
-                            {% csrf_token %}
-                            <button type="submit">Cerrar Sesión</button>
-                      </form>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'usuarios:perfil' %}" class="btn btn-primary">
+                                <i class="fas fa-user"></i> Ver Perfil
+                            </a>
+                            <form method="post" action="{% url 'usuarios:logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger" style="width: 100%;">
+                                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                                </button>
+                            </form>
+                        </div>
                     {% else %}
                         <form id="login-form" method="post">
                             {% csrf_token %}
@@ -25,15 +54,19 @@
                             {{ form.password }}
                             <div class="d-flex align-items-center">
                                 <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-                                <label style="padding-left: 10px; padding-right: 4px;" class="form-check-label my-3" for="{{ form.remember_me.id_for_label }}">{{ form.remember_me.label_tag }}</label>
-                                <input type="checkbox" class="form-check-input my-3" id="{{ form.remember_me.id_for_label }}" name="{{ form.remember_me.name }}">
+                                <div class="ms-3">
+                                    <label class="form-check-label" for="{{ form.remember_me.id_for_label }}">Recuérdame</label>
+                                    <input type="checkbox" class="form-check-input" id="{{ form.remember_me.id_for_label }}" name="{{ form.remember_me.name }}">
+                                </div>
                             </div>             
                         </form>
                     {% endif %}
                 </div>
                 <div class="card-footer">
-                    <p class="mb-0">¿No tienes una cuenta? <a href="{% url 'usuarios:register' %}" class="text-primary">Regístrate aquí</a></p>
-                    <p class="mb-0"><a href="#" class="text-primary">¿Olvidaste tu contraseña?</a></p>
+                    {% if not user.is_authenticated %}
+                        <p class="mb-0">¿No tienes una cuenta? <a href="{% url 'usuarios:register' %}" class="text-primary">Regístrate aquí</a></p>
+                        <p class="mb-0"><a href="#" class="text-primary">¿Olvidaste tu contraseña?</a></p>
+                    {% endif %}
                 </div>
             </div>
         </div>

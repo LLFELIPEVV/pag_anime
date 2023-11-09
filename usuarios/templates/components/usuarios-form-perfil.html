@@ -1,0 +1,40 @@
+<form method="POST" enctype="multipart/form-data" class="mt-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="email">Correo:</label>
+        <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+        <div class="invalid-feedback">
+            Este campo es obligatorio.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="new_password">Nueva Contraseña:</label>
+        <input type="password" class="form-control" id="new_password" name="new_password">
+    </div>
+    <div class="mb-3">
+        <label for="confirm_new_password">Confirmar Nueva Contraseña:</label>
+        <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password">
+    </div>    
+    <div class="mb-3">
+        <label for="pais">Pais:</label>
+        <input type="text" class="form-control" id="pais" name="pais" value="{{ user.pais }}">
+    </div>
+    <div class="mb-3">
+        <label for="descripcion_personal">Descripcion personal:</label>
+        <textarea class="form-control" id="descripcion_personal" name="descripcion_personal">{{ user.descripcion_personal }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="avatar_url" class="form-label">Para modificar el avatar:</label>
+        <div class="d-flex align-items-center">
+            <div class="me-2"> <!-- Contenedor para el input -->
+                <input type="file" class="form-control" id="avatar_url" name="avatar_url">
+            </div>
+            {% if user.avatar_url %}
+                <img src="{{ user.avatar_url.url }}" alt="Avatar" class="img-thumbnail" style="width: 130px; height: 130px;">
+            {% else %}
+                <p class="m-0">No hay avatar disponible.</p>
+            {% endif %}
+        </div>
+    </div>         
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>

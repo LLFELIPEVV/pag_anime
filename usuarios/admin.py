@@ -13,6 +13,6 @@ class UsuariosAdmin(admin.ModelAdmin):
     
     search_fields = ('username', 'email', 'pais')
     
-    readonly_fields = ('avatar_url', 'descripcion_personal', 'pais')
+    readonly_fields = ('descripcion_personal', 'pais')
 
 admin.site.register(Usuarios, UsuariosAdmin)
