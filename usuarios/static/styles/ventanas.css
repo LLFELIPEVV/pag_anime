@@ -1,0 +1,7 @@
+.content-ventanas {
+    display: none;
+}
+
+.content-ventanas.active {
+    display: block;
+}

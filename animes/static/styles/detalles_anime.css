@@ -64,7 +64,8 @@
     font-size: 15px;
 }
 
-.anime-component {
+.anime-component {  
+    background-color: #ffffff;
     margin-top: 10vh;
     width: 20%;
     float: left;
@@ -78,12 +79,15 @@
     width: 100%;
     height: auto;
     object-fit: cover;
-    border: 5px #d6d6d6 solid;
-    border-radius: 8%;
+    border: 6px #f0ebf4 solid;
+    border-radius: 15px;
 }
 
 .anime-status {
     margin-top: 10px;
+    background-color: #f0ebf4;
+    border: 6px #f0ebf4 solid;
+    border-radius: 15px; /* Ajusta el valor según tus preferencias */
 }
 
 .status-box {
@@ -108,14 +112,8 @@
     background-color: #E74C3C; /* Rojo */
 }
 
-.anime-buttons {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-around;
-}
-
 .favorite-button {
-    width: 49%;
+    width: 100%;
     padding: 5px 0px;
     background-color: #ff4d4d; /* Rosa */
     color: white;
@@ -138,19 +136,64 @@
     font-size: 19px;
 }
 
-.plan-to-watch-button {
-    width: 100%;
+.plan-to-watch-buttons {
+    background-color: #f0ebf4;
+    border: 6px #f0ebf4 solid;
+    border-radius: 15px;
     margin-top: 10px;
 }
 
-.plan-to-watch-button button {
+.plan-to-watch-buttons h4 {
+    overflow-y: hidden;
+    text-align: center;
+}
+
+.button-pair {
+    display: flex;
+}
+
+.single-button {
     width: 100%;
-    padding: 5px 10px;
-    background-color: #FFD700; /* Amarillo brillante */
-    color: black;
-    border: none;
+}
+
+.btn-poster {
+    width: 50%; /* Ajusta el ancho según tu preferencia */
+    padding: 10px;
+    border: 1px #000000 solid;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
 }
+
+.planeados-button {
+    background-color: #3498db; /* Azul */
+    color: white;
+}
+
+.en-proceso-button {
+    background-color: #2ecc71; /* Verde */
+    color: white;
+}
+
+.abandonados-button {
+    background-color: #e74c3c; /* Rojo */
+    color: white;
+}
+
+.completados-button {
+    background-color: #1abc9c; /* Turquesa */
+    color: white;
+}
+
+.en-espera-button {
+    width: 100%;
+    background-color: #f39c12; /* Amarillo */
+    color: white;
+}
+
+
+
+
 
 

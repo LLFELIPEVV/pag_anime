@@ -12,14 +12,22 @@
         {% else %}
             <div class="status-box finished"><i class="fas fa-check"></i> Finalizado</div>
         {% endif %}
-    </div>
-    <div class="anime-buttons">
         <button class="favorite-button"><i class="fas fa-heart"></i> Agregar a Favoritos</button>
-        <button class="follow-button"><i class="fas fa-eye"></i> Seguir Anime</button>
     </div>
-    <div class="plan-to-watch-button">
-        <button><i class="fas fa-plus"></i> Poner en Planeados</button>
-    </div>
+    <div class="plan-to-watch-buttons">
+        <h4>AGREGAR ANIME A:</h4>
+        <div class="button-pair">
+            <button class="btn-poster planeados-button"><i class="fas fa-plus"></i> Planeados</button>
+            <button class="btn-poster en-proceso-button"><i class="fas fa-plus"></i> En Proceso</button>
+        </div>
+        <div class="button-pair">
+            <button class="btn-poster abandonados-button"><i class="fas fa-plus"></i> Abandonados</button>
+            <button class="btn-poster completados-button"><i class="fas fa-plus"></i> Completados</button>
+        </div>
+        <div class="single-button">
+            <button class="btn-poster en-espera-button"><i class="fas fa-plus"></i> En espera</button>
+        </div>
+    </div>    
 </div>
 
 

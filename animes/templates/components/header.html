@@ -23,9 +23,17 @@
                 <button class="btn btn-success busqueda" id="busqueda" type="submit">Buscar</button>
                 <button class="busqueda-menor btn btn-success" id="botonBusquedaMenor" type="menu"><span class="fa-solid fa-magnifying-glass busqueda-menor"></span></button>
                 <input type="hidden" name="page" value="{{ page.number }}">
-            </form>            
-            <button class="btn btn-primary ms-3 btn-login" id="showLoginBtn">Iniciar Sesión</button>
-            <button class="btn btn-primary ms-3 btn-login-2" id="showLoginBtn2"><span class="fa-solid fa-circle-user"></span></button>
+            </form>
+            {% if user.is_authenticated %}
+                {% if user.avatar_url %}
+                    <img src="{{ user.avatar_url.url }}" alt="Avatar" class="rounded-circle avatar" style="width: 40px; height: 40px; margin-left: 20px" data-target="loginCard">
+                {% else %}
+                    <img src="{% static 'images/default.jpg' %}" alt="Avatar" class="rounded-circle avatar" style="width: 40px; height: 40px; margin-left: 20px" data-target="loginCard">
+                {% endif %}
+            {% else %}
+                <button class="btn btn-primary ms-3 btn-login" id="showLoginBtn" data-target="loginCard">Iniciar Sesión</button>
+                <button class="btn btn-primary ms-3 btn-login-2" id="showLoginBtn2" data-target="loginCard"><span class="fa-solid fa-circle-user"></span></button>
+            {% endif %}
         </div>
     </div>
 </header>
