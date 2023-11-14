@@ -45,6 +45,9 @@ def register(request):
             password = form.cleaned_data['password']
             usuario.set_password(password)
             usuario.save()
+            
+            print(usuario)
+            print(password)
 
             messages.success(
                 request, 'Usuario creado con éxito. Inicia sesión.', extra_tags='registro')
@@ -56,12 +59,11 @@ def register(request):
 
     return render(request, 'registro/register.html', {'form': form})
 
-
+@login_required
 def cerrar_sesion(request):
     logout(request)
     # Redirige a donde desees después de cerrar la sesión, por ejemplo, a la página de inicio.
-    return redirect(request.META.get('HTTP_REFERER', None))
-
+    return redirect(request.META.get('HTTP_REFERER') or 'index')
 
 @login_required
 def perfil(request):

@@ -11,6 +11,7 @@ from django.shortcuts import render
 from usuarios.forms import LoginForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Anime, Episodios, Video_server, Download_Server
+from relaciones.views import datos_usuario
 
 # Create your views here.
 
@@ -304,13 +305,22 @@ def anime(request, anime_id):
     rating = anime.rating
     episodios = Episodios.objects.filter(anime_id=anime_id)
 
+    #Formulario
     form = LoginForm()
+    
+    #Datos usuario
+    relacion = False
+    try:
+        usuario = request.user.id
+        relacion = datos_usuario(request, usuario, id)
+    except:
+        print("No existen los datos de este usuario")
 
     datos = []
     datos.append({'id': id, 'titulo': titulo, 'tipo': tipo, 'poster': poster, 'banner': banner,
                  'debut': debut, 'sinopsis': sinopsis, 'generos': generos, 'rating': rating, 'episodios': episodios})
 
-    return render(request, 'detalle_anime/anime.html', {'datos': datos, 'form': form, 'error': error_message})
+    return render(request, 'detalle_anime/anime.html', {'datos': datos, 'form': form, 'error': error_message, 'relacion': relacion})
 
 
 def episodio(request, anime_id, episodio):

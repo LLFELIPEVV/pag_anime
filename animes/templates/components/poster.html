@@ -12,22 +12,67 @@
         {% else %}
             <div class="status-box finished"><i class="fas fa-check"></i> Finalizado</div>
         {% endif %}
-        <button class="favorite-button"><i class="fas fa-heart"></i> Agregar a Favoritos</button>
+
+        {% if user.is_authenticated %}
+            {% if relacion.favorito %}
+                <form action="{% url 'relaciones:del-favoritos' datos.0.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="favorite-button"><i class="fas fa-trash"></i> Eliminar de Favoritos</button>
+                </form>
+            {% else %}
+                <form action="{% url 'relaciones:add-favoritos' datos.0.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="favorite-button"><i class="fas fa-heart"></i> Agregar a Favoritos</button>
+                </form>
+            {% endif %}
+        {% else %}
+            <button type="submit" class="favorite-button"><i class="fas fa-heart"></i> Agregar a Favoritos</button>
+        {% endif %}
     </div>
     <div class="plan-to-watch-buttons">
-        <h4>AGREGAR ANIME A:</h4>
-        <div class="button-pair">
-            <button class="btn-poster planeados-button"><i class="fas fa-plus"></i> Planeados</button>
-            <button class="btn-poster en-proceso-button"><i class="fas fa-plus"></i> En Proceso</button>
-        </div>
-        <div class="button-pair">
-            <button class="btn-poster abandonados-button"><i class="fas fa-plus"></i> Abandonados</button>
-            <button class="btn-poster completados-button"><i class="fas fa-plus"></i> Completados</button>
-        </div>
-        <div class="single-button">
-            <button class="btn-poster en-espera-button"><i class="fas fa-plus"></i> En espera</button>
-        </div>
+        {% if user.is_authenticated %}
+            {% if relacion.estado != None %}
+                <h4 style="font-size: 15px;">LO TIENES AGREGADO ACTUALMENTE A: </h4>
+                <div class="single-button">
+                    <button class="btn-poster estado-activo-button"><i class="fas fa-plus"></i> Animes: {{ relacion.estado }}</button>
+                </div>
+                <form action="{% url 'relaciones:del-estado' datos.0.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-poster eliminar-estado-button"><i class="fas fa-trash"></i> Eliminar Estado</button>
+                </form>
+            {% else %}
+                <h4>AGREGAR ANIME A:</h4>
+                <form action="{% url 'relaciones:add-estado' datos.0.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="button-pair">
+                        <button type="submit" name="estado" value="Planeados" class="btn-poster planeados-button"><i class="fas fa-plus"></i> Planeados</button>
+                        <button type="submit" name="estado" value="En Proceso" class="btn-poster en-proceso-button"><i class="fas fa-plus"></i> En Proceso</button>
+                    </div>
+                    <div class="button-pair">
+                        <button type="submit" name="estado" value="Abandonados" class="btn-poster abandonados-button"><i class="fas fa-plus"></i> Abandonados</button>
+                        <button type="submit" name="estado" value="Completados" class="btn-poster completados-button"><i class="fas fa-plus"></i> Completados</button>
+                    </div>
+                    <div class="single-button">
+                        <button type="submit" name="estado" value="En Espera" class="btn-poster en-espera-button"><i class="fas fa-plus"></i> En espera</button>
+                    </div>
+                </form>
+            {% endif %}
+        {% else %}
+            <h4>AGREGAR ANIME A:</h4>
+            <div class="button-pair">
+                <button class="btn-poster planeados-button"><i class="fas fa-plus"></i> Planeados</button>
+                <button class="btn-poster en-proceso-button"><i class="fas fa-plus"></i> En Proceso</button>
+            </div>
+            <div class="button-pair">
+                <button class="btn-poster abandonados-button"><i class="fas fa-plus"></i> Abandonados</button>
+                <button class="btn-poster completados-button"><i class="fas fa-plus"></i> Completados</button>
+            </div>
+            <div class="single-button">
+                <button class="btn-poster en-espera-button"><i class="fas fa-plus"></i> En espera</button>
+            </div>
+        {% endif %}
     </div>    
+    
 </div>
 
 
