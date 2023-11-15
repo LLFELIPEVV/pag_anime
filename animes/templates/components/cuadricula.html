@@ -4,15 +4,17 @@
         <!-- Loop to generate AnimeCard components -->
         {% for anime in page_obj %}
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
-                <a href="{% url 'animes:detalle_anime' anime.id %}" class="link_detalle_anime">
-                    <div class="card">
+                <div class="card">
+                    <a href="{% url 'animes:detalle_anime' anime.id %}" class="link_detalle_anime">
                         <img src="{{ anime.poster }}" class="card-img-top" alt="Anime Image">
+                        <!-- Mueve la casilla de verificación a la esquina superior derecha -->
+                        <input type="checkbox" class="anime-checkbox" id="anime_{{ anime.id }}" data-anime-id="{{ anime.id }}" style="position: absolute; top: 10px; right: 10px;">
                         <div class="card-body">
                             <p class="card-text">{{ anime.type }}</p>
                             <h5 class="card-title">{{ anime.title }}</h5>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
             {% if forloop.counter|divisibleby:24 %}
                 </div><div class="row">
@@ -20,6 +22,3 @@
         {% endfor %}
     </div>
 </div>
-
-
-

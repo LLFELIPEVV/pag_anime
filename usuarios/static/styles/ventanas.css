@@ -5,3 +5,64 @@
 .content-ventanas.active {
     display: block;
 }
+
+/* Estilos para la barra lateral */
+#sidebar {
+    background-color: #f8f9fa; /* Color de fondo */
+    border-right: 1px solid #dee2e6; /* Borde derecho */
+}
+
+#sidebar div ul.nav-perfil li a {
+    width: 100%;
+}
+
+.position-sticky {
+    top: 20px; /* Espacio desde la parte superior */
+}
+
+/* Estilos para los elementos de la barra lateral */
+.nav-link-usuarios {
+    padding: 10px; /* Espaciado interno */
+    color: #495057; /* Color del texto */
+    text-decoration: none; /* Sin subrayado en los enlaces */
+    transition: background-color 0.3s; /* Transición para el cambio de color de fondo */
+}
+
+.nav-link-usuarios:hover {
+    background-color: #e9ecef; /* Cambio de color de fondo al pasar el mouse */
+}
+
+/* Estilos para el ícono */
+.nav-link-usuarios i {
+    margin-right: 8px; /* Margen a la derecha del ícono */
+    color: #007bff; /* Color del ícono */
+}
+
+.nav-link-perfil i {
+    color: #ffffff;
+}
+
+/* Estilos para el elemento activo */
+.nav-link-usuarios.active {
+    background-color: #007bff; /* Color de fondo para el elemento activo */
+    color: #fff; /* Color del texto para el elemento activo */
+    border-radius: 15px;
+}
+
+h1.estados-title {
+    overflow-y: hidden;
+    /*padding: 0;*/
+    font-size: 2.5rem; /* Tamaño de la fuente */
+    color: #333; /* Color del texto */
+    background-color: #f8f8f8; /* Color de fondo */
+    padding: 15px 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    display: inline-block; /* Evitar que el fondo se extienda por toda la línea */
+    margin-bottom: 20px; /* Margen en la parte inferior para separarlo de otros elementos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: background-color 0.3s ease; /* Transición suave en el cambio de color de fondo */
+}
+
+h1.estados-title:hover {
+    background-color: #eaeaea; /* Cambio de color de fondo al pasar el mouse */
+}

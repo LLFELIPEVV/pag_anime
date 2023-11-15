@@ -1,6 +1,6 @@
 {% extends 'components/grid_animes_usuarios.html' %}
 {% block title %}
-<h1>FAVORITOS</h1>
+<h1 class="estados-title">FAVORITOS</h1>
 {% endblock %}
 
 {% block query %}
@@ -9,6 +9,8 @@
         <a href="{% url 'animes:detalle_anime' anime.id %}" class="link_detalle_anime">
             <div class="card">
                 <img src="{{ anime.poster }}" class="card-img-top" alt="Anime Image">
+                <!-- Mueve la casilla de verificación a la esquina superior derecha -->
+                <input type="checkbox" class="anime-checkbox" id="anime_{{ anime.id }}" data-anime-id="{{ anime.id }}" style="position: absolute; top: 10px; right: 10px;">
                 <div class="card-body">
                     <p class="card-text">{{ anime.type }}</p>
                     <h5 class="card-title">{{ anime.title }}</h5>

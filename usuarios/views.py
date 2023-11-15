@@ -78,6 +78,7 @@ def perfil(request):
     context_planeado = obtener_estado(request, 'Planeados')
     context_proceso = obtener_estado(request, 'En Proceso')
     
+    #Formulario
     if request.method == 'POST':
         # Actualizar los campos del usuario con los datos del formulario
         user.email = request.POST.get('email', user.email)
