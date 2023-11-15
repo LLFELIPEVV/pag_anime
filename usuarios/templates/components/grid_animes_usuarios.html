@@ -1,0 +1,16 @@
+{% load static %}
+{% block title %}
+{% endblock %}
+<div class="container mt-5 directorio">
+    <!-- Include the AnimeGrid component here -->
+    <div class="row">
+        <!-- Loop to generate AnimeCard components -->
+        {% block query %}
+        {% endblock %}
+    </div>
+    <!-- Pagination buttons -->
+    <div class="pagination mt-3">
+        {% block pagination %}
+        {% endblock %}
+    </div>
+</div>

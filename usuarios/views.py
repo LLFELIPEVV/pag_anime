@@ -9,7 +9,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import default_storage
-
+from relaciones.views import obtener_favoritos, obtener_estado
 
 def login_view(request):
     response_data = {'success': False, 'error_message': None}
@@ -69,6 +69,15 @@ def cerrar_sesion(request):
 def perfil(request):
     user = request.user
     
+    #Favoritos
+    context_favorito = obtener_favoritos(request)
+    #Estados
+    context_abandonado = obtener_estado(request, 'Abandonados')
+    context_completado = obtener_estado(request, 'Completados')
+    context_espera = obtener_estado(request, 'En Espera')
+    context_planeado = obtener_estado(request, 'Planeados')
+    context_proceso = obtener_estado(request, 'En Proceso')
+    
     if request.method == 'POST':
         # Actualizar los campos del usuario con los datos del formulario
         user.email = request.POST.get('email', user.email)
@@ -98,4 +107,4 @@ def perfil(request):
         # Redirigir a la página de perfil u otra página de confirmación
         return redirect('usuarios:perfil')
 
-    return render(request, 'perfil/perfil.html', {'user': user})
+    return render(request, 'perfil/perfil.html', {'user': user, 'context_favorito': context_favorito, 'context_abandonado': context_abandonado, 'context_completado': context_completado, 'context_espera': context_espera, 'context_planeado': context_planeado, 'context_proceso': context_proceso})

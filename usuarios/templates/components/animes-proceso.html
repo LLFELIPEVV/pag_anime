@@ -1,1 +1,43 @@
+{% extends 'components/grid_animes_usuarios.html' %}
+{% block title %}
 <h1>EN PROCESO</h1>
+{% endblock %}
+
+{% block query %}
+    {% for anime in context_proceso %}
+    <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
+        <a href="{% url 'animes:detalle_anime' anime.id %}" class="link_detalle_anime">
+            <div class="card">
+                <img src="{{ anime.poster }}" class="card-img-top" alt="Anime Image">
+                <div class="card-body">
+                    <p class="card-text">{{ anime.type }}</p>
+                    <h5 class="card-title">{{ anime.title }}</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+    {% if forloop.counter|divisibleby:24 %}
+        </div><div class="row">
+    {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block pagination %}
+    {% if context_planeado.has_previous or context_proceso.has_next %}
+        <span class="step-links">
+            {% if context_proceso.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ context_proceso.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ context_proceso.number }} de {{ context_proceso.paginator.num_pages }}.
+            </span>
+
+            {% if context_proceso.has_next %}
+                <a href="?page={{ context_proceso.next_page_number }}">next</a>
+                <a href="?page={{ context_proceso.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    {% endif %}
+{% endblock %}

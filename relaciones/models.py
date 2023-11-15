@@ -11,7 +11,7 @@ class usuarios_animes(models.Model):
     ('proceso', 'En Proceso'),
     ('completados', 'Completados'),
     ('abandonados', 'Abandonados'),
-    ('espera', 'En Espera')
+    ('espera', 'En Espera'),
     ]
     
     user_id = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
