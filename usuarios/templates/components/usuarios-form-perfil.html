@@ -1,6 +1,7 @@
 <h1 class="estados-title">PERFIL</h1>
-<form method="POST" enctype="multipart/form-data" class="mt-3">
+<form method="POST" id="form-datos-perfil" enctype="multipart/form-data" class="mt-3">
     {% csrf_token %}
+    <input type="hidden" name="form-datos-perfil" value="form-datos-perfil">
     <div class="mb-3">
         <label for="email">Correo:</label>
         <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>

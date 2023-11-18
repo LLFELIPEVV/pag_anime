@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
+# CRUD Favoritos
 @login_required
 def agregar_favoritos(request, anime_id):
     if request.method == 'POST':
@@ -57,10 +58,10 @@ def obtener_favoritos(request):
                         'poster': poster, 'id': id})
     return context
 
+# CRUD Estados
 @login_required
 def cambiar_estado(request, anime_id):
     if request.method == 'POST':
-        print(request.POST)
         user = request.user
         estado = request.POST.get('estado')
         anime = get_object_or_404(Anime, id=anime_id)
@@ -98,7 +99,7 @@ def obtener_estado(request, estado):
     
     for agregado in agregados_pagina:
         anime = Anime.objects.get(id=agregado)
-        id = agregados
+        id = agregado
         poster = anime.poster_url
         title = anime.titulo
         type = anime.tipo
@@ -106,6 +107,7 @@ def obtener_estado(request, estado):
                         'poster': poster, 'id': id})
     return context
 
+# Perfil
 @login_required
 def datos_usuario(request, usuario, anime):
     datos = usuarios_animes.objects.get(user_id=usuario, anime_id=anime)

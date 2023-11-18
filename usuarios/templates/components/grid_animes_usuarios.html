@@ -1,21 +1,23 @@
 {% load static %}
-<div class="d-flex justify-content-between align-items-center" style="overflow-x: unset;">
-    <div>
-        {% block title %}
-        {% endblock %}
-    </div>
-    {% include 'components/menu-desplegable-estado.html' %}
-</div>
 <div class="container mt-5 directorio">
+    <div class="d-flex justify-content-between align-items-center" style="overflow-x: unset;">
+        <div>
+            {% block title %}
+            {% endblock %}
+        </div>
+    </div>
+
     <!-- Include the AnimeGrid component here -->
     <div class="row">
         <!-- Loop to generate AnimeCard components -->
         {% block query %}
         {% endblock %}
     </div>
+
     <!-- Pagination buttons -->
     <div class="pagination mt-3">
         {% block pagination %}
         {% endblock %}
     </div>
 </div>
+
