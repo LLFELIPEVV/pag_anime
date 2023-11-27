@@ -1,4 +1,5 @@
 {% extends 'layouts/base2.html' %}
+{% load static %}
 {% block title %}Directorio{% endblock %}
 </head>
 <body>
@@ -32,6 +33,9 @@
         </div>
                    
         
+    {% endblock %}
+    {% block script %}
+        <script src="{% static 'js/estados.js' %}"></script>
     {% endblock %}
 </body>
 </html>

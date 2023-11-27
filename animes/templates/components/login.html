@@ -48,6 +48,7 @@
                     {% else %}
                         <form id="login-form" method="post">
                             {% csrf_token %}
+                            <input type="hidden" name="form-datos-login" value="form-datos-login">
                             {{ form.username.label_tag }}
                             {{ form.username }}
                             {{ form.password.label_tag }}
