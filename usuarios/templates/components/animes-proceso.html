@@ -35,21 +35,23 @@
 {% endblock %}
 
 {% block pagination %}
-    {% if context_planeado.has_previous or context_proceso.has_next %}
-        <span class="step-links">
-            {% if context_proceso.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ context_proceso.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Página {{ context_proceso.number }} de {{ context_proceso.paginator.num_pages }}.
+    {% if paginator_proceso.has_other_pages %}
+        <div class="pagination mt-3">
+            <span class="step-links">
+                {% if paginator_proceso.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ paginator_proceso.previous_page_number }}">previous</a>
+                {% endif %}
+            
+                <span class="current">
+                    Página {{ paginator_proceso.number }} de {{ paginator_proceso.paginator.num_pages }}
+                </span>
+            
+                {% if paginator_proceso.has_next %}
+                    <a href="?page={{ paginator_proceso.next_page_number }}">next</a>
+                    <a href="?page={{ paginator_proceso.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
             </span>
-
-            {% if context_proceso.has_next %}
-                <a href="?page={{ context_proceso.next_page_number }}">next</a>
-                <a href="?page={{ context_proceso.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
+        </div>
     {% endif %}
 {% endblock %}

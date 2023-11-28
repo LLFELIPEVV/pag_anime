@@ -35,21 +35,23 @@
 {% endblock %}
 
 {% block pagination %}
-    {% if context_planeado.has_previous or context_espera.has_next %}
-        <span class="step-links">
-            {% if context_espera.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ context_espera.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Página {{ context_espera.number }} de {{ context_espera.paginator.num_pages }}.
+    {% if paginator_espera.has_other_pages %}
+        <div class="pagination mt-3">
+            <span class="step-links">
+                {% if paginator_espera.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ paginator_espera.previous_page_number }}">previous</a>
+                {% endif %}
+            
+                <span class="current">
+                    Página {{ paginator_espera.number }} de {{ paginator_espera.paginator.num_pages }}
+                </span>
+            
+                {% if paginator_espera.has_next %}
+                    <a href="?page={{ paginator_espera.next_page_number }}">next</a>
+                    <a href="?page={{ paginator_espera.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
             </span>
-
-            {% if context_espera.has_next %}
-                <a href="?page={{ context_espera.next_page_number }}">next</a>
-                <a href="?page={{ context_espera.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
+        </div>
     {% endif %}
 {% endblock %}

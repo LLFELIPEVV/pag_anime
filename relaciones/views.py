@@ -56,7 +56,11 @@ def obtener_favoritos(request):
         type = anime.tipo
         context.append({'title': title, 'type': type,
                         'poster': poster, 'id': id})
-    return context
+
+    return {
+        'context_favorito': context,
+        'paginator_favorito': favoritos_pagina
+    }
 
 # CRUD Estados
 @login_required
@@ -105,7 +109,10 @@ def obtener_estado(request, estado):
         type = anime.tipo
         context.append({'title': title, 'type': type,
                         'poster': poster, 'id': id})
-    return context
+    return {
+        'context_estado': context,
+        'paginator_estado': agregados_pagina    
+    }
 
 # Perfil
 @login_required

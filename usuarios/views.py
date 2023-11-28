@@ -70,13 +70,25 @@ def perfil(request):
     user = request.user
     
     #Favoritos
-    context_favorito = obtener_favoritos(request)
+    favoritos_data = obtener_favoritos(request)
+    context_favorito = favoritos_data['context_favorito']
+    paginator_favorito = favoritos_data['paginator_favorito']
     #Estados
-    context_abandonado = obtener_estado(request, 'Abandonados')
-    context_completado = obtener_estado(request, 'Completados')
-    context_espera = obtener_estado(request, 'En Espera')
-    context_planeado = obtener_estado(request, 'Planeados')
-    context_proceso = obtener_estado(request, 'En Proceso')
+    abandonado_data = obtener_estado(request, 'Abandonados')
+    context_abandonado = abandonado_data['context_estado']
+    paginator_abandonado = abandonado_data['paginator_estado']
+    completado_data = obtener_estado(request, 'Completados')
+    context_completado = completado_data['context_estado']
+    paginator_completado = completado_data['paginator_estado']
+    espera_data = obtener_estado(request, 'En Espera')
+    context_espera = espera_data['context_estado']
+    paginator_espera = espera_data['paginator_estado']
+    planeado_data = obtener_estado(request, 'Planeados')
+    context_planeado = planeado_data['context_estado']
+    paginator_planeado = planeado_data['paginator_estado']
+    proceso_data = obtener_estado(request, 'En Proceso')
+    context_proceso = proceso_data['context_estado']
+    paginator_proceso = proceso_data['paginator_estado']
     
     #Formulario
     if request.method == 'POST':
@@ -132,4 +144,4 @@ def perfil(request):
                     print(f"El error al cambiar el estado '{estado}' fue: {e}")
             return redirect('usuarios:perfil')
 
-    return render(request, 'perfil/perfil.html', {'user': user, 'context_favorito': context_favorito, 'context_abandonado': context_abandonado, 'context_completado': context_completado, 'context_espera': context_espera, 'context_planeado': context_planeado, 'context_proceso': context_proceso})
+    return render(request, 'perfil/perfil.html', {'user': user, 'context_favorito': context_favorito, 'paginator_favorito': paginator_favorito, 'context_abandonado': context_abandonado, 'paginator_abandonado': paginator_abandonado, 'context_completado': context_completado, 'paginator_completado': paginator_completado, 'context_espera': context_espera, 'paginator_espera': paginator_espera, 'context_planeado': context_planeado, 'paginator_planeado': paginator_planeado, 'context_proceso': context_proceso, 'paginator_proceso': paginator_proceso})

@@ -66,3 +66,43 @@ h1.estados-title {
 h1.estados-title:hover {
     background-color: #eaeaea; /* Cambio de color de fondo al pasar el mouse */
 }
+
+/* Paginacion */
+/* Estilo para la paginación */
+.usuarios_pagination {
+    overflow-x: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Ajusta según sea necesario */
+}
+
+.usuarios_pagination * {
+    overflow-x: unset;
+}
+
+/* Estilo para los enlaces de la paginación */
+.usuarios_pagination a {
+    padding: 8px 16px;
+    margin: 0 4px;
+    text-decoration: none;
+    color: #007bff; /* Cambia al color que desees */
+    border: 1px solid #007bff; /* Cambia al color que desees */
+    border-radius: 4px;
+}
+
+/* Estilo para el enlace de la página actual */
+.usuarios_pagination .current {
+    padding: 8px 16px;
+    margin: 0 4px;
+    background-color: #007bff; /* Cambia al color que desees */
+    color: #fff; /* Cambia al color que desees */
+    border: 1px solid #007bff; /* Cambia al color que desees */
+    border-radius: 4px;
+}
+
+/* Estilo para el enlace deshabilitado */
+.usuarios_pagination .disabled {
+    color: #999;
+    pointer-events: none; /* Evita que se hagan clics en enlaces deshabilitados */
+}
