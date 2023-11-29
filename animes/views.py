@@ -9,7 +9,7 @@ from django.urls import reverse
 from urllib.parse import urlencode
 from usuarios.forms import LoginForm
 from usuarios.views import login_view
-from relaciones.views import datos_usuario
+from relaciones.views import datos_usuario, obtener_episodios_vistos
 from PIL import Image, UnidentifiedImageError
 from django.shortcuts import render, redirect
 from relaciones.views import agregar_favoritos, cambiar_estado
@@ -352,6 +352,7 @@ def anime(request, anime_id):
     generos = anime.genero_id.all()
     rating = anime.rating
     episodios = Episodios.objects.filter(anime_id=anime_id)
+    episodios_vistos = obtener_episodios_vistos(request, id)
 
     #Formulario
     form = LoginForm()
@@ -366,7 +367,7 @@ def anime(request, anime_id):
 
     datos = []
     datos.append({'id': id, 'titulo': titulo, 'tipo': tipo, 'poster': poster, 'banner': banner,
-                 'debut': debut, 'sinopsis': sinopsis, 'generos': generos, 'rating': rating, 'episodios': episodios})
+                 'debut': debut, 'sinopsis': sinopsis, 'generos': generos, 'rating': rating, 'episodios': episodios, 'episodios_vistos': episodios_vistos})
 
     return render(request, 'detalle_anime/anime.html', {'datos': datos, 'form': form, 'error': error_message, 'relacion': relacion})
 

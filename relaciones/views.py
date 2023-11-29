@@ -1,5 +1,6 @@
-from animes.models import Anime
-from .models import usuarios_animes
+from animes.models import Anime, Episodios
+from .models import usuarios_animes, vizualicion_episodios_usuario
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -119,3 +120,28 @@ def obtener_estado(request, estado):
 def datos_usuario(request, usuario, anime):
     datos = usuarios_animes.objects.get(user_id=usuario, anime_id=anime)
     return datos
+
+# CRUD episodios vistos
+@login_required
+def obtener_episodios_vistos(request, anime_id):
+    user = request.user
+    anime = get_object_or_404(Anime, id=anime_id)
+    
+    episodios_vistos = vizualicion_episodios_usuario.objects.filter(user_id=user, episodio_id__anime_id=anime, visto=True).values_list('episodio_id', flat=True)
+    
+    return episodios_vistos
+
+@login_required
+def cambiar_visto(request, episodio_id):
+    if request.method == 'POST':
+        user = request.user
+        episodio = get_object_or_404(Episodios, id=episodio_id)
+        
+        registro, creado = vizualicion_episodios_usuario.objects.get_or_create(user_id=user, episodio_id=episodio)
+        registro = registro if not creado else registro
+        
+        registro.visto = not registro.visto
+        registro.save()
+    
+    return HttpResponse(status=204)
+    

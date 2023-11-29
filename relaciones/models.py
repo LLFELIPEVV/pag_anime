@@ -7,11 +7,11 @@ from django.utils import timezone
 
 class usuarios_animes(models.Model):
     opciones_estado = [
-    ('planeados', 'Planeados'),
-    ('proceso', 'En Proceso'),
-    ('completados', 'Completados'),
-    ('abandonados', 'Abandonados'),
-    ('espera', 'En Espera'),
+        ('planeados', 'Planeados'),
+        ('proceso', 'En Proceso'),
+        ('completados', 'Completados'),
+        ('abandonados', 'Abandonados'),
+        ('espera', 'En Espera'),
     ]
     
     user_id = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
@@ -25,4 +25,5 @@ class usuarios_animes(models.Model):
 class vizualicion_episodios_usuario(models.Model):
     user_id = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
     episodio_id = models.ForeignKey(Episodios, on_delete=models.CASCADE)
+    fecha_agregado = models.DateField(default=timezone.now)
     visto = models.BooleanField(default=False)
