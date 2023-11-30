@@ -99,7 +99,7 @@ i.fas, i.far {
 /* Estilos para el icono en el botón "Lista de Episodios" */
 .back-button i.fas {
     color: var(--color-primary); /* Color primario */
-    margin-right: 10px; /* Espacio a la derecha del icono */
+    margin-right: 0px; /* Espacio a la derecha del icono */
     font-size: 20px; /* Tamaño del icono */
 }
 
@@ -147,6 +147,31 @@ i.fas, i.far {
 
 .episode-filter label {
     font-size: 12px !important;
+}
+
+.episode-navigation-button {
+    align-items: center;
+    justify-content: center;
+    background-color: #673AB7; /* Morado */
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.episode-navigation-button:hover {
+    background-color: #512DA8; /* Morado más oscuro al pasar el mouse */
+}
+
+.fa-chevron-right {
+    margin-right: 0 !important;
+    margin-left: 10px !important;
+}
+
+.btn-navigation {
+    margin-top: 0;
 }
 
 /* Estilo para el contenedor de enlaces y centrado horizontal */

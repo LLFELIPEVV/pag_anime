@@ -26,7 +26,15 @@
         </div>   
 
         <!-- Agrega las clases "icon" a los botones para incluir iconos -->
-        <button class="back-button icon"><a class="link_detalle_anime" href="{% url 'animes:detalle_anime' datos.0.id %}"><i class="fas fa-list-check"></i> Lista de Episodios</a></button>
+        {% if datos.0.episodio > datos.0.min_episodio %}
+            <button class="episode-navigation-button" id="previous-episode-button"><a class="link_detalle_anime" href="{% url 'animes:episodio' anime_id=datos.0.id episodio=datos.0.episodio|add:'-1' %}"><i class="fas fa-chevron-left btn-navigation"></i>Anterior</a></button>
+        {% endif %}
+
+        <button class="back-button icon"><a class="link_detalle_anime" href="{% url 'animes:detalle_anime' datos.0.id %}"><i class="fas fa-list-check"></i></a></button>
+
+        {% if datos.0.episodio < datos.0.max_episodio %}
+            <button class="episode-navigation-button" id="next-episode-button"><a class="link_detalle_anime" href="{% url 'animes:episodio' anime_id=datos.0.id episodio=datos.0.episodio|add:'+1' %}">Siguiente<i class="fas fa-chevron-right btn-navigation"></i></a></button>
+        {% endif %}
 
         <button class="mark-as-watched-button icon"><i class="far fa-eye"></i> Marcar como Visto</button>
 

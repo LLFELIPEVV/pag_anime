@@ -401,8 +401,11 @@ def episodio(request, anime_id, episodio):
             anime_id_id=anime_id, numero_episodio=episodio).id
         servidores = Video_server.objects.filter(episodio_id=id_episodio)
         episodios = Episodios.objects.filter(anime_id=anime_id)
+        min_episodio = episodios.order_by('numero_episodio').first().numero_episodio
+        max_episodio = episodios.order_by('-numero_episodio').first().numero_episodio
+        episodios_vistos = obtener_episodios_vistos(request, id)
         enlace = Download_Server.objects.filter(episodio_id_id=id_episodio)
-
+        
         # Si 'episodio' es un número entero, conviértelo a entero y elimina los ceros decimales
         if episodio.is_integer():
             episodio = int(episodio)
@@ -410,7 +413,7 @@ def episodio(request, anime_id, episodio):
         form = LoginForm()
 
         datos = [{'id': id, 'titulo': titulo, 'episodio': episodio,
-                  'servidores': servidores, 'episodios': episodios, 'enlace': enlace}]
+                  'servidores': servidores, 'episodios': episodios, 'episodios_vistos': episodios_vistos, 'enlace': enlace, 'min_episodio': min_episodio, 'max_episodio': max_episodio}]
 
         return render(request, 'episodios/episodio.html', {'datos': datos, 'form': form, 'error': error_message})
     except ValueError:
