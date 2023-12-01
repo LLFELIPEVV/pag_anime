@@ -36,7 +36,19 @@
             <button class="episode-navigation-button" id="next-episode-button"><a class="link_detalle_anime" href="{% url 'animes:episodio' anime_id=datos.0.id episodio=datos.0.episodio|add:'+1' %}">Siguiente<i class="fas fa-chevron-right btn-navigation"></i></a></button>
         {% endif %}
 
-        <button class="mark-as-watched-button icon"><i class="far fa-eye"></i> Marcar como Visto</button>
+        {% if datos.0.id_episodio in datos.0.episodios_vistos %}
+            <form method="post" action="{% url 'relaciones:change-visto' episodio_id=datos.0.id_episodio %}" id="form-{{ episodio.numero_episodio }}" style="all: unset;">
+                {% csrf_token %}
+                <input type="hidden" value="{{ episodio.id }}" id="anime-slider-{{ episodio.numero_episodio }}">
+                <button class="unmark-as-watched-button icon" type="submit"><i class="fas fa-eye-slash"></i> Desmarcar como Visto</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'relaciones:change-visto' episodio_id=datos.0.id_episodio %}" id="form-{{ episodio.numero_episodio }}" style="all: unset;">
+                {% csrf_token %}
+                <input type="hidden" value="{{ episodio.id }}" id="anime-slider-{{ episodio.numero_episodio }}">
+                <button class="mark-as-watched-button icon" type="submit"><i class="far fa-eye"></i> Marcar como Visto</button>
+            </form>
+        {% endif %}
 
         <button id="download-button" class="download-button icon"><i class="fas fa-download"></i> Descargar Episodio</button>
 

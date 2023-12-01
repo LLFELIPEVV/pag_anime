@@ -412,7 +412,7 @@ def episodio(request, anime_id, episodio):
 
         form = LoginForm()
 
-        datos = [{'id': id, 'titulo': titulo, 'episodio': episodio,
+        datos = [{'id': id, 'titulo': titulo, 'episodio': episodio, 'id_episodio': id_episodio,
                   'servidores': servidores, 'episodios': episodios, 'episodios_vistos': episodios_vistos, 'enlace': enlace, 'min_episodio': min_episodio, 'max_episodio': max_episodio}]
 
         return render(request, 'episodios/episodio.html', {'datos': datos, 'form': form, 'error': error_message})

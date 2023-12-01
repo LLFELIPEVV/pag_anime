@@ -114,6 +114,16 @@ i.fas, i.far {
     margin-top: 10px;
 }
 
+.unmark-as-watched-button {
+    background-color: #ff0000; /* Cambia el color de fondo según tus preferencias */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
 /* Estilos para el botón "Descargar Episodio" */
 .download-button {
     background-color: #007bff;
