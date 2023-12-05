@@ -1,9 +1,11 @@
+import json
+
 from animes.models import Anime, Episodios
-from .models import usuarios_animes, vizualicion_episodios_usuario
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
+from .models import usuarios_animes, vizualicion_episodios_usuario
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
@@ -144,4 +146,58 @@ def cambiar_visto(request, episodio_id):
         registro.save()
     
     return HttpResponse(status=204)
+    
+@login_required
+def exportar_listado(request):
+    user = request.user
+    listado = usuarios_animes.objects.filter(user_id=user)
+    listado_json = {}
+    
+    for anime in listado:
+        anime_id = str(anime.anime_id.id)
+        listado_json[anime_id] = {
+            "estado": anime.estado,
+            "favorito": anime.favorito,
+        }
+    
+    json_data = json.dumps(listado_json, ensure_ascii=False, indent=2)
+    
+    response = HttpResponse(json_data, content_type='application/json')
+    response['Content-Disposition'] = 'attachment; filename="listado_anime.json"'
+    
+    return response
+
+@login_required
+def importar_listado(request):
+    if request.method == 'POST' and 'importar' in request.POST:
+        try:
+            archivo_json = request.FILES['importar']
+        
+            try:
+                with archivo_json.open() as file:
+                    contenido_json = file.read().decode('utf-8')
+                    listado_importado = json.loads(contenido_json)
+                    
+                    user = request.user
+                    
+                    for anime_id, datos_anime in listado_importado.items():
+                        anime = get_object_or_404(Anime, id=anime_id)
+                        
+                        relacion, created = usuarios_animes.objects.get_or_create(user_id=user, anime_id=anime)
+                        
+                        # Actualiza los campos de la relación
+                        relacion.favorito = datos_anime.get('favorito', None)
+                        relacion.estado = datos_anime.get('estado', None)
+                        relacion.save()
+
+                    return JsonResponse({'mensaje': 'Listado importado exitosamente.'}, status=204)
+            except json.JSONDecodeError:
+                print('El archivo no es un JSON válido.')
+                return HttpResponse(status=204)
+            except Exception as e:
+                print(f'Error al procesar el archivo: {str(e)} Por favor use un anime_id correcto')
+                return HttpResponse(status=204)
+        except:
+            print("No se proporcionó un archivo para importar.")
+            return HttpResponse(status=204)
     

@@ -106,3 +106,66 @@ h1.estados-title:hover {
     color: #999;
     pointer-events: none; /* Evita que se hagan clics en enlaces deshabilitados */
 }
+
+/* Estilos de la gestion de listados */
+.gestion-listados {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.gestion-titulo {
+    overflow-x: visible;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.gestion-instrucciones {
+    margin-bottom: 15px;
+}
+
+.gestion-formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+.gestion-input {
+    margin-bottom: 15px;
+}
+
+.gestion-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #495057;
+}
+
+.gestion-input input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+}
+
+.gestion-botones {
+    display: flex;
+    gap: 10px;
+}
+
+.gestion-boton {
+    flex: 1;
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.gestion-boton.exportar {
+    background-color: #007bff;
+    text-decoration: none;  /* Elimina el subrayado del enlace */
+    text-align: center;
+}

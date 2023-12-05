@@ -9,4 +9,6 @@ urlpatterns = [
     path('add-estados/<str:anime_id>/', views.cambiar_estado, name='add-estado'),
     path('del-estados/<str:anime_id>/', views.eliminar_estado, name='del-estado'),
     path('change-visto/<int:episodio_id>/', views.cambiar_visto, name='change-visto' ),
+    path('export-list/', views.exportar_listado, name='export-list'),
+    path('import-list/', views.importar_listado, name='import-list'),
 ]
