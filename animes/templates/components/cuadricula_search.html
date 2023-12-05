@@ -1,22 +1,31 @@
 <div class="container mt-5 directorio">
     <!-- Include the AnimeGrid component here -->
-    <div class="row">
-        <!-- Loop to generate AnimeCard components -->
-        {% for anime in resultados %}
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
-                <a href="{% url 'animes:detalle_anime' anime.id %}" class="link_detalle_anime">
-                    <div class="card">
-                        <img src="{{ anime.poster }}" class="card-img-top" alt="Anime Image">
-                        <div class="card-body">
-                            <p class="card-text">{{ anime.type }}</p>
-                            <h5 class="card-title">{{ anime.title }}</h5>
-                        </div>
+    <form name="form-estados" method="post" id="form-listado" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'components/menu-desplegable-estado.html' %}
+        <input type="hidden" name="form-estados">
+        <div class="container">
+            <div class="row">
+                <!-- Loop to generate AnimeCard components -->
+                {% for anime in resultados %}
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
+                        <a href="{% url 'animes:detalle_anime' anime.id %}" class="link_detalle_anime">
+                            <div class="card">
+                                <img src="{{ anime.poster }}" class="card-img-top" alt="Anime Image">
+                                <!-- Mueve la casilla de verificación a la esquina superior derecha -->
+                                <input type="checkbox" class="anime-checkbox" name="selected_animes" value="{{ anime.id }}" style="position: absolute; top: 10px; right: 10px;">
+                                <div class="card-body">
+                                    <p class="card-text">{{ anime.type }}</p>
+                                    <h5 class="card-title">{{ anime.title }}</h5>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                    {% if forloop.counter|divisibleby:24 %}
+                        </div><div class="row">
+                    {% endif %}
+                {% endfor %}
             </div>
-            {% if forloop.counter|divisibleby:24 %}
-                </div><div class="row">
-            {% endif %}
-        {% endfor %}
-    </div>
+        </div>
+    </form>
 </div>

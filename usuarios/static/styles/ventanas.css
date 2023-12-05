@@ -5,3 +5,167 @@
 .content-ventanas.active {
     display: block;
 }
+
+/* Estilos para la barra lateral */
+#sidebar {
+    background-color: #f8f9fa; /* Color de fondo */
+    border-right: 1px solid #dee2e6; /* Borde derecho */
+}
+
+#sidebar div ul.nav-perfil li a {
+    width: 100%;
+}
+
+.position-sticky {
+    top: 20px; /* Espacio desde la parte superior */
+}
+
+/* Estilos para los elementos de la barra lateral */
+.nav-link-usuarios {
+    padding: 10px; /* Espaciado interno */
+    color: #495057; /* Color del texto */
+    text-decoration: none; /* Sin subrayado en los enlaces */
+    transition: background-color 0.3s; /* Transición para el cambio de color de fondo */
+}
+
+.nav-link-usuarios:hover {
+    background-color: #e9ecef; /* Cambio de color de fondo al pasar el mouse */
+}
+
+/* Estilos para el ícono */
+.nav-link-usuarios i {
+    margin-right: 8px; /* Margen a la derecha del ícono */
+    color: #007bff; /* Color del ícono */
+}
+
+.nav-link-perfil i {
+    color: #ffffff;
+}
+
+/* Estilos para el elemento activo */
+.nav-link-usuarios.active {
+    background-color: #007bff; /* Color de fondo para el elemento activo */
+    color: #fff; /* Color del texto para el elemento activo */
+    border-radius: 15px;
+}
+
+h1.estados-title {
+    overflow-y: hidden;
+    /*padding: 0;*/
+    font-size: 2.5rem; /* Tamaño de la fuente */
+    color: #333; /* Color del texto */
+    background-color: #f8f8f8; /* Color de fondo */
+    padding: 15px 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    display: inline-block; /* Evitar que el fondo se extienda por toda la línea */
+    margin-bottom: 20px; /* Margen en la parte inferior para separarlo de otros elementos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: background-color 0.3s ease; /* Transición suave en el cambio de color de fondo */
+}
+
+h1.estados-title:hover {
+    background-color: #eaeaea; /* Cambio de color de fondo al pasar el mouse */
+}
+
+/* Paginacion */
+/* Estilo para la paginación */
+.usuarios_pagination {
+    overflow-x: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Ajusta según sea necesario */
+}
+
+.usuarios_pagination * {
+    overflow-x: unset;
+}
+
+/* Estilo para los enlaces de la paginación */
+.usuarios_pagination a {
+    padding: 8px 16px;
+    margin: 0 4px;
+    text-decoration: none;
+    color: #007bff; /* Cambia al color que desees */
+    border: 1px solid #007bff; /* Cambia al color que desees */
+    border-radius: 4px;
+}
+
+/* Estilo para el enlace de la página actual */
+.usuarios_pagination .current {
+    padding: 8px 16px;
+    margin: 0 4px;
+    background-color: #007bff; /* Cambia al color que desees */
+    color: #fff; /* Cambia al color que desees */
+    border: 1px solid #007bff; /* Cambia al color que desees */
+    border-radius: 4px;
+}
+
+/* Estilo para el enlace deshabilitado */
+.usuarios_pagination .disabled {
+    color: #999;
+    pointer-events: none; /* Evita que se hagan clics en enlaces deshabilitados */
+}
+
+/* Estilos de la gestion de listados */
+.gestion-listados {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.gestion-titulo {
+    overflow-x: visible;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.gestion-instrucciones {
+    margin-bottom: 15px;
+}
+
+.gestion-formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+.gestion-input {
+    margin-bottom: 15px;
+}
+
+.gestion-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #495057;
+}
+
+.gestion-input input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+}
+
+.gestion-botones {
+    display: flex;
+    gap: 10px;
+}
+
+.gestion-boton {
+    flex: 1;
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.gestion-boton.exportar {
+    background-color: #007bff;
+    text-decoration: none;  /* Elimina el subrayado del enlace */
+    text-align: center;
+}

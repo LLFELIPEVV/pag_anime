@@ -2,9 +2,10 @@
     <!-- Otros filtros aquí -->
 
     <div class="form-row row">
-        <input type="hidden" name="orden" value="{{ request.GET.orden }}">
+
+        <!-- Tipo -->
         <div class="filtro-item col-md-2">
-            <label>Tipo:</label>
+            <label for="tipo">Tipo:</label>
             <div class="custom-checkbox-list">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" id="tipo-anime" name="tipo" value="Anime" {% if "Anime" == request.GET.tipo %}checked{% endif %}>
@@ -21,8 +22,9 @@
             </div>
         </div>
 
+        <!-- Estado -->
         <div class="filtro-item col-md-2">
-            <label>Estado:</label>
+            <label for="estado">Estado:</label>
             <div class="custom-checkbox-list">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" id="estado-emision" name="debut" value="En emisión" {% if "En emisión" == request.GET.debut %}checked{% endif %}>
@@ -38,28 +40,28 @@
                 </div>
             </div>
         </div>
-        
 
+        <!-- Orden -->
         <div class="filtro-item col-md-2">
-            <label>Orden:</label>
+            <label for="orden">Orden:</label>
             <div class="custom-checkbox-list">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="orden" value="default" {% if request.GET.orden == 'default' %}checked{% endif %}>
-                    <label class="form-check-label" for="orden-defecto">Por Defecto</label>
+                    <input class="form-check-input" type="radio" id="orden-default" name="orden" value="default" {% if request.GET.orden == 'default' %}checked{% endif %}>
+                    <label class="form-check-label" for="orden-default">Por Defecto</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="orden" value="titulo" {% if request.GET.orden == 'titulo' %}checked{% endif %}>
-                    <label class="form-check-label" for="orden-alfabetico">Orden alfabético</label>
+                    <input class="form-check-input" type="radio" id="orden-titulo" name="orden" value="titulo" {% if request.GET.orden == 'titulo' %}checked{% endif %}>
+                    <label class="form-check-label" for="orden-titulo">Orden alfabético</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="orden" value="rating" {% if request.GET.orden == 'rating' %}checked{% endif %}>
+                    <input class="form-check-input" type="radio" id="orden-rating" name="orden" value="rating" {% if request.GET.orden == 'rating' %}checked{% endif %}>
                     <label class="form-check-label" for="orden-rating">Orden por rating</label>
                 </div>
             </div>
-        </div>        
+        </div>
 
+        <!-- Botón de aplicar filtros -->
         <div class="filtro-item col-md-2 apply-filter">
-            <label>&nbsp;</label>
             <button type="submit" class="btn btn-primary btn-block">Aplicar Filtros</button>
         </div>
     </div>

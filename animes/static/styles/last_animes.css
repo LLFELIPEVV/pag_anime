@@ -9,6 +9,10 @@ div.lastest-animes div.container {
     margin-right: 0vw !important;
 }
 
+div.lastest-animes div.container div.row h3 {
+    overflow-x: visible;
+}
+
 div.lastest-animes div.card {
     padding: 0 !important;
 }

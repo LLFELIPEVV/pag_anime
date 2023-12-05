@@ -25,17 +25,43 @@ main {
 }
 
 .form-group {
-    margin-bottom: 1px; /* Espacio entre los campos */
+    margin-bottom: 20px; /* Espacio entre los campos */
 }
 
 .form-control {
-    width: 100%; /* Input al 100% del ancho */
+    margin-bottom: 10px; /* Espaciado inferior para los campos */
 }
 
 .btn-form {
-    margin-top: 1%;
+    margin-top: 20px; /* Espacio superior para el botón */
 }
 
 .enlaces {
     text-decoration: none;
+}
+
+.input-avatar {
+    width: 100%;
+    margin-bottom: 10px; /* Espaciado inferior para el input de avatar */
+    display: flex; /* Alinea el input y la imagen horizontalmente */
+    align-items: center; /* Alinea verticalmente al centro */
+}
+
+.input-avatar input {
+    flex: 1; /* Hace que el input ocupe todo el espacio restante */
+    margin-right: 10px; /* Espacio derecho entre el input y la imagen */
+}
+
+.img-thumbnail {
+    width: 130px;
+    height: 130px;
+    object-fit: cover; /* Mantiene la relación de aspecto y cubre el espacio */
+    border-radius: 50%; /* Borde redondeado para una apariencia más agradable */
+}
+
+/* Estilos para el formulario de mensajes de error */
+.invalid-feedback {
+    color: #dc3545; /* Color de texto para mensajes de error */
+    display: block;
+    margin-top: 5px; /* Espacio superior para los mensajes de error */
 }

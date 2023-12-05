@@ -1,9 +1,10 @@
 {% extends 'layouts/base2.html' %}
+{% load static %}
 {% block title %}Directorio{% endblock %}
 </head>
 <body>
     {% block content %}
-        <h1>Directorio de Animes</h1>   
+        <h1 style="overflow-x: visible;">Directorio de Animes</h1>   
 
         {% include 'components/filtros.html' %}
 
@@ -32,6 +33,9 @@
         </div>
                    
         
+    {% endblock %}
+    {% block script %}
+        <script src="{% static 'js/estados.js' %}"></script>
     {% endblock %}
 </body>
 </html>

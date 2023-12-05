@@ -4,13 +4,17 @@ import random
 import requests
 import threading
 
-from PIL import Image, UnidentifiedImageError
-from usuarios.views import login_view
 from animeflv import AnimeFLV
-from django.shortcuts import render
+from django.urls import reverse
+from urllib.parse import urlencode
 from usuarios.forms import LoginForm
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from usuarios.views import login_view
+from relaciones.views import datos_usuario, obtener_episodios_vistos
+from PIL import Image, UnidentifiedImageError
+from django.shortcuts import render, redirect
+from relaciones.views import agregar_favoritos, cambiar_estado
 from .models import Anime, Episodios, Video_server, Download_Server
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -43,23 +47,47 @@ def all_animes(request):
     # Renderizar el template y pasar la información de los animes como contexto
     return render(request, 'all_animes.html', {'animes': all_animes_info})
 
+"""
+   <<< Vistas Oficiales >>>
+"""
+
 
 def listado(request, page=1):
+    # Define si se permite o no la eliminacion
+    permitir_eliminar = False
+    
     # Define response_data con un valor predeterminado
     response_data = {'success': False}
     form = LoginForm()
     error_message = None
 
     if request.method == 'POST':
-        response_data = login_view(request)  # Llama a la vista de usuarios
-        response_data_json = json.loads(response_data.content)
+        print(request.POST)
+        if 'form-datos-login' in request.POST:
+            response_data = login_view(request)  # Llama a la vista de usuarios
+            response_data_json = json.loads(response_data.content)
 
-        print(response_data_json['error_message'])
+            print(response_data_json['error_message'])
 
-        if response_data_json['success'] == True:
-            error_message = "Inicio de sesión realizado con éxito"
-        else:
-            error_message = response_data_json['error_message']
+            if response_data_json['success']:
+                error_message = "Inicio de sesión realizado con éxito"
+            else:
+                error_message = response_data_json['error_message']
+
+        elif 'form-estados' in request.POST:
+            estado = request.POST.get('estado')
+            animes_id = request.POST.getlist('selected_animes')
+            
+            if estado == 'Favoritos':
+                for id in animes_id:
+                    agregar_favoritos(request, id)
+            else:
+                try:
+                    for id in animes_id:
+                        cambiar_estado(request, id)
+                except Exception as e:
+                    print(f"El error al cambiar el estado '{estado}' fue: {e}")
+            return redirect('animes:listado')
 
     # Obtén todos los animes de la base de datos
     anime_queryset = Anime.objects.all()
@@ -105,7 +133,7 @@ def listado(request, page=1):
 
     form = LoginForm()
 
-    return render(request, 'listado/listado.html', {'page_obj': page_obj, 'orden': orden, 'tipo': tipo, 'debut': debut, 'form': form, 'error': error_message})
+    return render(request, 'listado/listado.html', {'page_obj': page_obj, 'orden': orden, 'tipo': tipo, 'debut': debut, 'form': form, 'error': error_message, 'permitir_eliminar': permitir_eliminar})
 
 # Definir una función que maneje una solicitud HTTP
 
@@ -216,21 +244,42 @@ def buscar_animes(request):
     response_data = {'success': False}
     form = LoginForm()
     error_message = None
-
-    if request.method == 'POST':
-        response_data = login_view(request)  # Llama a la vista de usuarios
-        response_data_json = json.loads(response_data.content)
-
-        print(response_data_json['error_message'])
-
-        if response_data_json['success'] == True:
-            error_message = "Inicio de sesión realizado con éxito"
-        else:
-            error_message = response_data_json['error_message']
-
+    
     query = request.GET.get('q')
     resultados = []  # Inicializa resultados como una lista vacía
     busqueda = []  # Inicializa busqueda como una lista vacía
+    
+    if request.method == 'POST':
+        print(request.POST)
+        if 'form-datos-login' in request.POST:
+            response_data = login_view(request)  # Llama a la vista de usuarios
+            response_data_json = json.loads(response_data.content)
+
+            print(response_data_json['error_message'])
+
+            if response_data_json['success']:
+                error_message = "Inicio de sesión realizado con éxito"
+            else:
+                error_message = response_data_json['error_message']
+
+        elif 'form-estados' in request.POST:
+            estado = request.POST.get('estado')
+            animes_id = request.POST.getlist('selected_animes')
+            
+            if estado == 'Favoritos':
+                for id in animes_id:
+                    agregar_favoritos(request, id)
+            else:
+                try:
+                    for id in animes_id:
+                        cambiar_estado(request, id)
+                except Exception as e:
+                    print(f"El error al cambiar el estado '{estado}' fue: {e}")
+            url = reverse('animes:buscar_animes')
+            if query:
+                url += '?' + urlencode({'q': query})
+            return redirect(url)
+
 
     # Comprueba si 'query' tiene un valor antes de realizar la consulta en la base de datos
     if query is not None:
@@ -303,14 +352,24 @@ def anime(request, anime_id):
     generos = anime.genero_id.all()
     rating = anime.rating
     episodios = Episodios.objects.filter(anime_id=anime_id)
+    episodios_vistos = obtener_episodios_vistos(request, id)
 
+    #Formulario
     form = LoginForm()
+    
+    #Datos usuario
+    relacion = False
+    try:
+        usuario = request.user.id
+        relacion = datos_usuario(request, usuario, id)
+    except:
+        print("No existen los datos de este usuario")
 
     datos = []
     datos.append({'id': id, 'titulo': titulo, 'tipo': tipo, 'poster': poster, 'banner': banner,
-                 'debut': debut, 'sinopsis': sinopsis, 'generos': generos, 'rating': rating, 'episodios': episodios})
+                 'debut': debut, 'sinopsis': sinopsis, 'generos': generos, 'rating': rating, 'episodios': episodios, 'episodios_vistos': episodios_vistos})
 
-    return render(request, 'detalle_anime/anime.html', {'datos': datos, 'form': form, 'error': error_message})
+    return render(request, 'detalle_anime/anime.html', {'datos': datos, 'form': form, 'error': error_message, 'relacion': relacion})
 
 
 def episodio(request, anime_id, episodio):
@@ -342,16 +401,19 @@ def episodio(request, anime_id, episodio):
             anime_id_id=anime_id, numero_episodio=episodio).id
         servidores = Video_server.objects.filter(episodio_id=id_episodio)
         episodios = Episodios.objects.filter(anime_id=anime_id)
+        min_episodio = episodios.order_by('numero_episodio').first().numero_episodio
+        max_episodio = episodios.order_by('-numero_episodio').first().numero_episodio
+        episodios_vistos = obtener_episodios_vistos(request, id)
         enlace = Download_Server.objects.filter(episodio_id_id=id_episodio)
-
+        
         # Si 'episodio' es un número entero, conviértelo a entero y elimina los ceros decimales
         if episodio.is_integer():
             episodio = int(episodio)
 
         form = LoginForm()
 
-        datos = [{'id': id, 'titulo': titulo, 'episodio': episodio,
-                  'servidores': servidores, 'episodios': episodios, 'enlace': enlace}]
+        datos = [{'id': id, 'titulo': titulo, 'episodio': episodio, 'id_episodio': id_episodio,
+                  'servidores': servidores, 'episodios': episodios, 'episodios_vistos': episodios_vistos, 'enlace': enlace, 'min_episodio': min_episodio, 'max_episodio': max_episodio}]
 
         return render(request, 'episodios/episodio.html', {'datos': datos, 'form': form, 'error': error_message})
     except ValueError:

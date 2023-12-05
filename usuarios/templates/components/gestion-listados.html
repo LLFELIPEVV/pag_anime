@@ -1,0 +1,47 @@
+<div class="gestion-listados">
+    <h2 class="gestion-titulo">Gestión de Listados</h2>
+    <p class="gestion-instrucciones">
+        Importa y exporta tu lista de anime en formato JSON. Puedes agregar manualmente un anime utilizando el ID que se encuentra en la URL de la página del anime.
+        <br><strong>Ejemplo:</strong> Si la URL es <em>/anime/detalle_anime/5toubun-no-hanayome-movie</em>, el ID es <em>5toubun-no-hanayome-movie</em>.
+        <br>La estructura JSON es la siguiente:
+        <pre>
+{
+    "anime_id_1": {
+        "estado": "Abandonados",
+        "favorito": True
+    }
+    "anime_id_2": {
+        "estado": "Completados",
+        "favorito": False
+    }
+    ...
+    "anime_id_10032": {
+        "estado": "En Proceso",
+        "favorito": False
+    }
+}
+        </pre>
+        <strong>Notas:</strong>
+        <br> - Utiliza el ID del anime como "anime_id".
+        <br> - Para "estado", puedes utilizar "Planeado", "En Proceso", "Completado", "Abandonado" o "Espera".
+        <br> - Para "favorito", utiliza "True" si es favorito, o "False" si no lo es.
+        <br><br>
+        <strong>Importante:</strong>
+        <br> - Al importar, cada anime en el listado se agregará a tu apartado personal.
+        <br> - Al exportar, obtendrás el listado de los animes que ya has agregado.
+    </p>
+    <form class="gestion-formulario" action="{% url 'relaciones:import-list' %}" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="importar" value="importar">
+        <div class="gestion-input">
+            <label for="importar" class="gestion-label">Importar Listado:</label>
+            <input type="file" id="importar" name="importar" accept=".json">
+        </div>
+        <div class="gestion-botones">
+            <button type="submit" class="gestion-boton">Importar Listado</button>
+            <a href="{% url 'relaciones:export-list' %}" class="gestion-boton exportar">
+                Exportar Listado
+            </a>
+        </div>
+    </form>
+</div>

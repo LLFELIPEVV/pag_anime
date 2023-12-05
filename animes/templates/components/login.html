@@ -8,9 +8,9 @@
                         <div class="d-flex align-items-center">
                             <div class="me-3">
                                 {% if user.avatar_url %}
-                                    <img src="{{ user.avatar_url.url }}" alt="Avatar" class="img-thumbnail rounded-circle" style="width: 65px; height: 65px;">
+                                    <img src="{{ user.avatar_url.url }}" alt="Avatar" class="img-thumbnail rounded-circle avatar" style="width: 65px; height: 65px;">
                                 {% else %}
-                                    <img src="{% static 'images/default.jpg' %}" alt="Avatar" class="img-thumbnail rounded-circle" style="width: 65px; height: 65px;">
+                                    <img src="{% static 'images/default.jpg' %}" alt="Avatar" class="img-thumbnail rounded-circle avatar" style="width: 65px; height: 65px;">
                                 {% endif %}
                             </div>
                             <div>
@@ -48,6 +48,7 @@
                     {% else %}
                         <form id="login-form" method="post">
                             {% csrf_token %}
+                            <input type="hidden" name="form-datos-login" value="form-datos-login">
                             {{ form.username.label_tag }}
                             {{ form.username }}
                             {{ form.password.label_tag }}

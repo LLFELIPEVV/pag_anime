@@ -192,7 +192,18 @@
     color: white;
 }
 
+.estado-activo-button {
+    width: 100%;
+    color: white;
+    background-color: #3498db;
+    cursor: auto !important;
+}
 
+.eliminar-estado-button {
+    width: 100%;
+    color: white;
+    background-color: red;
+}
 
 
 

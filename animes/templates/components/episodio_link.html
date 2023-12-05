@@ -14,8 +14,12 @@
                 </a>
             </div>
         <div class="anime-slider">
-            <input type="checkbox" id="anime-slider-{{ episodio.numero_episodio }}">
-            <label for="anime-slider-{{ episodio.numero_episodio }}"></label>
+            <form method="post" action="{% url 'relaciones:change-visto' episodio_id=episodio.id %}" id="form-{{ episodio.numero_episodio }}">
+                {% csrf_token %}
+                <input type="checkbox" value="{{ episodio.id }}" id="anime-slider-{{ episodio.numero_episodio }}" {% if episodio.id in datos.0.episodios_vistos %}checked{% endif %} onclick="enviarFormVisto('{{ episodio.numero_episodio }}')">
+                <label for="anime-slider-{{ episodio.numero_episodio }}"></label>
+                <button type="submit" style="display: none;"></button>
+            </form>
         </div>
     </li>
     {% endfor %}

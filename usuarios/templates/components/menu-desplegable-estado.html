@@ -1,0 +1,23 @@
+<!-- Menú desplegable para seleccionar el estado del anime -->
+<div class="dropdown" name="menu-desplegable" style="overflow-x: unset !important; text-align: right; margin-bottom: 2vh;">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        Seleccionar Estado
+    </button>
+    <input type="hidden" name="estado" value="Inicial">
+    <button id="submit-button" name="enviar" class="btn btn-success" type="submit">Guardar</button>
+    <ul class="dropdown-menu" style="overflow-x: unset;">
+        <li><a class="dropdown-item" data-estado="Favoritos" onclick="actualizarEstado(event)" href="#">Favoritos</a></li>
+        <li><a class="dropdown-item" data-estado="Planeados" onclick="actualizarEstado(event)" href="#">Planeados</a></li>
+        <li><a class="dropdown-item" data-estado="En Proceso" onclick="actualizarEstado(event)" href="#">En Proceso</a></li>
+        <li><a class="dropdown-item" data-estado="Abandonados" onclick="actualizarEstado(event)" href="#">Abandonados</a></li>
+        <li><a class="dropdown-item" data-estado="Completados" onclick="actualizarEstado(event)" href="#">Completados</a></li>
+        <li><a class="dropdown-item" data-estado="En Espera" onclick="actualizarEstado(event)" href="#">En Espera</a></li>
+        <li><hr class="dropdown-divider"></li>
+        {% if permitir_eliminar == False %}  <!-- Solo cambia aquí -->
+            <li style="display: none;"><a class="dropdown-item" data-estado="Eliminar" onclick="actualizarEstado(event)" href="#">Eliminar</a></li>
+        {% else %}
+            <li><a class="dropdown-item" data-estado="Eliminar" onclick="actualizarEstado(event)" href="#">Eliminar</a></li>
+        {% endif %}
+    </ul>
+</div>
+

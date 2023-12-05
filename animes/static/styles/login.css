@@ -15,6 +15,16 @@
     overflow-x: hidden !important;
 }
 
+.avatar {
+    cursor: pointer;
+    border: 2px #ffffff solid;
+}
+
+.avatar:hover {
+    border: 2px #000000 solid;
+    filter: brightness(0.7);
+}
+
 /* Estilos para dispositivos móviles */
 @media (max-width: 767px) {
     #loginCard {
