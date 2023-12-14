@@ -1,0 +1,28 @@
+{
+    "mononoke-hime": {
+        "Anime": {
+            "titulo": "",
+            "sinopsis": "",
+            "tipo": "",
+            "debut": "",
+            "poster_url": "",
+            "banner_url": "",
+            "rating": ""
+        },
+        "Generos": [],
+        "Episodios": {}
+    },
+    "agent-aika": {
+        "Anime": {
+            "titulo": "",
+            "sinopsis": "",
+            "tipo": "",
+            "debut": "",
+            "poster_url": "",
+            "banner_url": "",
+            "rating": ""
+        },
+        "Generos": [],
+        "Episodios": {}
+    }
+}

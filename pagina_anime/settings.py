@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+import dj_database_url
 
 from pathlib import Path
 
@@ -21,15 +22,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%g0w3ky6+pv_t)9)00cxx=v*czp!%j7z%e#)-#j(^lqnr7tn@#'
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
+#'django-insecure-%g0w3ky6+pv_t)9)00cxx=v*czp!%j7z%e#)-#j(^lqnr7tn@#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
 #Local
 ALLOWED_HOSTS = []
 #CLOUDFLARED
 #ALLOWED_HOSTS = ['liberal-chemical-norman-hire.trycloudflare.com']
+#RENDER
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
@@ -47,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,21 +85,30 @@ WSGI_APPLICATION = 'pagina_anime.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pag_anime',
-        'USER': 'root',
-        'PASSWORD': 'b@tR6C2^7wY!fTz',
-        'HOST': 'localhost',
-        'PORT': '',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'use_unicode': True,
-        },
+if RENDER_EXTERNAL_HOSTNAME:
+    # Configuración para Render.com con PostgreSQL
+    DATABASES = {
+        'default': dj_database_url.config(
+            default='postgresql://postgres:postgres@localhost/postgres',
+            conn_max_age=600
+        )
     }
-}
+else:
+    # Configuración para desarrollo con MySQL local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'pag_anime',
+            'USER': 'root',
+            'PASSWORD': 'b@tR6C2^7wY!fTz',
+            'HOST': 'localhost',
+            'PORT': '',
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+                'use_unicode': True,
+            },
+        }
+    }
 
 
 # Password validation
@@ -139,6 +155,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_STORAGE= 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

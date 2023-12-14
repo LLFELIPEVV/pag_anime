@@ -2,7 +2,7 @@
 {% load static %}
 {% block meta %}
 <meta http-equiv="Permissions-Policy" content="accelerometer=(self 'unsafe-inline')">{% endblock %}
-{% block title %}{% endblock %}
+{% block title %}KANKI | {{ datos.0.titulo }}: {{ datos.0.episodio }}{% endblock %}
 {% block styles %}
 <link rel="stylesheet" href="{% static 'styles/capitulos.css' %}">
 <link rel="stylesheet" href="{% static 'styles/listado_episodios.css' %}">
