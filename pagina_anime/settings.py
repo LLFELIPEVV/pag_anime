@@ -27,11 +27,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
+#DEBUG = True
 
 #Local
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 #CLOUDFLARED
-#ALLOWED_HOSTS = ['liberal-chemical-norman-hire.trycloudflare.com']
+ALLOWED_HOSTS = ['earlier-vb-athens-dump.trycloudflare.com', '127.0.0.1']
 #RENDER
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -89,7 +90,7 @@ if RENDER_EXTERNAL_HOSTNAME:
     # Configuración para Render.com con PostgreSQL
     DATABASES = {
         'default': dj_database_url.config(
-            default='postgresql://postgres:postgres@localhost/postgres',
+            default='postgres://pag_anime_user:4PMDZiuArMkRvnIyKfWuFw5HwS1Vsb2J@dpg-cltn9b5a73kc73f40080-a/pag_anime',
             conn_max_age=600
         )
     }
@@ -102,6 +103,7 @@ else:
             'USER': 'root',
             'PASSWORD': 'b@tR6C2^7wY!fTz',
             'HOST': 'localhost',
+            #'HOST': '192.168.56.1',
             'PORT': '',
             'OPTIONS': {
                 'charset': 'utf8mb4',
