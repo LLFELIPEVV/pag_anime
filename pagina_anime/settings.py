@@ -30,9 +30,9 @@ DEBUG = 'RENDER' not in os.environ
 #DEBUG = True
 
 #Local
-#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 #CLOUDFLARED
-ALLOWED_HOSTS = ['earlier-vb-athens-dump.trycloudflare.com', '127.0.0.1']
+#ALLOWED_HOSTS = ['earlier-vb-athens-dump.trycloudflare.com', '127.0.0.1']
 #RENDER
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -90,7 +90,7 @@ if RENDER_EXTERNAL_HOSTNAME:
     # Configuración para Render.com con PostgreSQL
     DATABASES = {
         'default': dj_database_url.config(
-            default='postgres://pag_anime_user:4PMDZiuArMkRvnIyKfWuFw5HwS1Vsb2J@dpg-cltn9b5a73kc73f40080-a/pag_anime',
+            default='postgres://pag_anime_d05d_user:oAMzmRfBBbpKhg99ogixrtknkduZjedM@dpg-cmrebm7109ks73fhmf9g-a/pag_anime_d05d',
             conn_max_age=600
         )
     }
@@ -157,6 +157,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATIC_STORAGE= 'whitenoise.storage.CompressedManifestStaticFilesStorage'
