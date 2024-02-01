@@ -90,7 +90,7 @@ if RENDER_EXTERNAL_HOSTNAME:
     # Configuración para Render.com con PostgreSQL
     DATABASES = {
         'default': dj_database_url.config(
-            default='postgres://pag_anime_d05d_user:oAMzmRfBBbpKhg99ogixrtknkduZjedM@dpg-cmrebm7109ks73fhmf9g-a/pag_anime_d05d',
+            default='postgresql://postgres:postgres@localhost:5432/mysite',
             conn_max_age=600
         )
     }
@@ -111,14 +111,6 @@ else:
             },
         }
     }
-    
-#Coneccion externa
-""" DATABASES = {
-    'default': dj_database_url.config(
-        default= 'postgres://pag_anime_d05d_user:oAMzmRfBBbpKhg99ogixrtknkduZjedM@dpg-cmrebm7109ks73fhmf9g-a.oregon-postgres.render.com/pag_anime_d05d',
-        conn_max_age=600
-    )
-} """
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -163,15 +155,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     STATIC_STORAGE= 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

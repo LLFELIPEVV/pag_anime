@@ -5,6 +5,7 @@ import requests
 import threading
 
 from animeflv import AnimeFLV
+from unidecode import unidecode
 from django.urls import reverse
 from urllib.parse import urlencode
 from usuarios.forms import LoginForm
@@ -15,6 +16,7 @@ from django.shortcuts import render, redirect
 from relaciones.views import agregar_favoritos, cambiar_estado
 from .models import Anime, Episodios, Video_server, Download_Server
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from pagina_anime.settings import RENDER_EXTERNAL_HOSTNAME
 
 # Create your views here.
 
@@ -98,9 +100,16 @@ def listado(request, page=1):
         anime_queryset = anime_queryset.filter(tipo__in=tipos)
 
     # Filtrar por estado (En emisión, Finalizado, Próximamente)
-    estados = request.GET.getlist('debut')
-    if estados:
-        anime_queryset = anime_queryset.filter(debut__in=estados)
+    if RENDER_EXTERNAL_HOSTNAME:
+        estados = request.GET.getlist('debut')
+        if estados:
+            # Hacer la consulta insensible a mayúsculas y minúsculas
+            estados_sin_tildes = [unidecode(estado.lower()) for estado in estados]
+            anime_queryset = anime_queryset.filter(debut__in=estados_sin_tildes)
+    else:   
+        estados = request.GET.getlist('debut')
+        if estados:
+            anime_queryset = anime_queryset.filter(debut__in=estados)
 
     # Obtener el valor del parámetro 'orden' y establecer un valor predeterminado si no está presente
     # Si 'orden' no está presente, usa 'orden' como valor predeterminado
@@ -206,13 +215,16 @@ def index(request):
             last_dict.append({'title': title, 'type': type,
                              'poster': poster, 'id': id})
 
-    emis_dict = []
-    for anime in Anime.objects.filter(debut="En emision"):
-        id = Anime.objects.get(id=anime.id).id
-        titulo_emision = Anime.objects.get(id=anime.id).titulo
-        tipo_emision = Anime.objects.get(id=anime.id).tipo
-        emis_dict.append(
-            {'title': titulo_emision, 'type': tipo_emision, 'id': id})
+    if RENDER_EXTERNAL_HOSTNAME:
+        emis_dict = [{'title': anime.titulo, 'type': anime.tipo, 'id': anime.id} for anime in Anime.objects.filter(debut="en emision")]
+    else:
+        emis_dict = []
+        for anime in Anime.objects.filter(debut="En emision"):
+            id = Anime.objects.get(id=anime.id).id
+            titulo_emision = Anime.objects.get(id=anime.id).titulo
+            tipo_emision = Anime.objects.get(id=anime.id).tipo
+            emis_dict.append(
+                {'title': titulo_emision, 'type': tipo_emision, 'id': id})
 
     random_animes = []
     selected_animes = random.sample(list(Anime.objects.all()), 6)
