@@ -1,4 +1,5 @@
 import io
+import os
 import json
 import random
 import requests
@@ -162,6 +163,23 @@ def fetch_image(anime, result):
 
 
 def index(request):
+    # Obtener la ruta del directorio actual
+    ruta_actual = os.getcwd()
+
+    # Obtener la ruta del script actual
+    ruta_script = os.path.realpath(__file__)
+    
+    # Obtener la ruta del directorio una carpeta atrás
+    ruta_carpeta_atras = os.path.abspath(os.path.join(ruta_actual, ".."))
+
+    # Obtener la lista de archivos en la carpeta
+    archivos_en_carpeta_atras = os.listdir(ruta_carpeta_atras)
+
+    print(f'Ruta del directorio actual: {ruta_actual}')
+    print(f'Ruta del script actual: {ruta_script}')
+    print(f'Ruta de la carpeta una carpeta atrás: {ruta_carpeta_atras}')
+    print(f'Archivos en la carpeta una carpeta atrás: {archivos_en_carpeta_atras}')
+    
     if hasattr(request, 'user') and request.user.is_authenticated:
         # Una sesión está abierta y el usuario está autenticado
         usuario_actual = request.user
