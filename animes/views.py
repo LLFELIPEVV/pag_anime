@@ -195,6 +195,24 @@ def index(request):
         print(f"Descripción Personal: {usuario.descripcion_personal}")
         print("--------------------------------------------------")
     
+    def buscar_archivo(nombre_archivo, directorio='.'):
+        for ruta_actual, directorios, archivos in os.walk(directorio):
+            if nombre_archivo in archivos:
+                return os.path.join(ruta_actual, nombre_archivo)
+
+        return None
+    
+    # Ejemplo de uso
+    nombre_archivo_a_buscar = '_1e68225d-5bc0-4434-87f4-8d4281f2f838.jpg'  # Reemplaza con el nombre de tu archivo
+    directorio_inicial = '/opt/'  # Reemplaza con el directorio donde quieres buscar
+
+    ruta_encontrada = buscar_archivo(nombre_archivo_a_buscar, directorio_inicial)
+
+    if ruta_encontrada:
+        print(f"El archivo '{nombre_archivo_a_buscar}' se encontró en la siguiente ruta: {ruta_encontrada}")
+    else:
+        print(f"No se encontró el archivo '{nombre_archivo_a_buscar}'.")
+    
     #///////////////////////////////////////////////////////////////////
     
     if hasattr(request, 'user') and request.user.is_authenticated:
