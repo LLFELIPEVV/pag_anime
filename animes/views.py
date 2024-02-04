@@ -174,11 +174,14 @@ def index(request):
 
     # Obtener la lista de archivos en la carpeta
     archivos_en_carpeta_atras = os.listdir(ruta_carpeta_atras)
+    
+    archivos_en_carpeta_media = os.listdir('/opt/render/project/src/media/')
 
     print(f'Ruta del directorio actual: {ruta_actual}')
     print(f'Ruta del script actual: {ruta_script}')
     print(f'Ruta de la carpeta una carpeta atrás: {ruta_carpeta_atras}')
     print(f'Archivos en la carpeta una carpeta atrás: {archivos_en_carpeta_atras}')
+    print(f'Archivos en la carpeta media: {archivos_en_carpeta_media}')
     
     if hasattr(request, 'user') and request.user.is_authenticated:
         # Una sesión está abierta y el usuario está autenticado
