@@ -170,7 +170,7 @@ def index(request):
     ruta_script = os.path.realpath(__file__)
     
     # Obtener la ruta del directorio una carpeta atrás
-    ruta_carpeta_atras = os.path.abspath(os.path.join(ruta_actual, ".."))
+    ruta_carpeta_atras = os.path.abspath(os.path.join(ruta_script, ".."))
 
     # Obtener la lista de archivos en la carpeta
     archivos_en_carpeta_atras = os.listdir(ruta_carpeta_atras)
