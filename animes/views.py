@@ -16,6 +16,7 @@ from PIL import Image, UnidentifiedImageError
 from django.shortcuts import render, redirect
 from relaciones.views import agregar_favoritos, cambiar_estado
 from .models import Anime, Episodios, Video_server, Download_Server
+from usuarios.models import Usuarios
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from pagina_anime.settings import RENDER_EXTERNAL_HOSTNAME
 
@@ -175,13 +176,26 @@ def index(request):
     # Obtener la lista de archivos en la carpeta
     archivos_en_carpeta_atras = os.listdir(ruta_carpeta_atras)
     
-    archivos_en_carpeta_media = os.listdir('/opt/render/project/src/media/')
+    archivos_en_carpeta_usuarios = os.listdir('/opt/render/project/src/media/usuarios/avatar/')
 
     print(f'Ruta del directorio actual: {ruta_actual}')
     print(f'Ruta del script actual: {ruta_script}')
     print(f'Ruta de la carpeta una carpeta atrás: {ruta_carpeta_atras}')
     print(f'Archivos en la carpeta una carpeta atrás: {archivos_en_carpeta_atras}')
-    print(f'Archivos en la carpeta media: {archivos_en_carpeta_media}')
+    print(f'Archivos en la carpeta usuarios: {archivos_en_carpeta_usuarios}')
+    
+    usuarios = Usuarios.objects.all()
+    
+    for usuario in usuarios:
+        print(f"Username: {usuario.username}")
+        print(f"Email: {usuario.email}")
+        print(f"Fecha de Registro: {usuario.fecha_registro}")
+        print(f"Pais: {usuario.pais}")
+        print(f"Avatar URL: {usuario.avatar_url.url if usuario.avatar_url else 'No hay avatar'}")
+        print(f"Descripción Personal: {usuario.descripcion_personal}")
+        print("--------------------------------------------------")
+    
+    #///////////////////////////////////////////////////////////////////
     
     if hasattr(request, 'user') and request.user.is_authenticated:
         # Una sesión está abierta y el usuario está autenticado
